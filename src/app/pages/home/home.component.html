@@ -1,14 +1,54 @@
 <section class="home">
     <div class="row justify-content-end align-items-center h-100 w-100">
-        <div class="col-md-6">
-            <div class="card p-3">
+        <div class="col-md-5">
+            <div class="card p-3 border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title">Your Life Partner</h4>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Just few click away</h6>
-                    
-                    
+                    <h6 class="card-subtitle mb-2">Just few click away</h6>
+                    <div class="mb-3">
+                        <h6 class="mb-1">Looking For :</h6>
+                        <mat-radio-group>
+                            <mat-radio-button class="" value="bride">Bride</mat-radio-button>
+                            <mat-radio-button class="" value="groom">Groom</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="mb-2">
+                        <h6 class="mb-3">Age For Partner :</h6>
+                        <mat-form-field class="me-3">
+                            <mat-label>From(YYYY)</mat-label>
+                            <mat-select [(ngModel)]="selectedValue" name="food">
+                                @for (a of age; track a) {
+                                <mat-option [value]="a">{{a}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>From(YYYY)</mat-label>
+                            <mat-select [(ngModel)]="selectedValue" name="food">
+                                @for (a of age; track a) {
+                                <mat-option [value]="a">{{a}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <button class="px-5" mat-flat-button>Search</button>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="what-you-get">
+    <div class="row w-100">
+        <h4>What You Get</h4>
+        <div class="col-md">
+            <div class="image-container">
+                image
+            </div>
+            <h5>Personally Verified</h5>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora ab sint dolore quaerat dolores, odit
+                consectetur odio quisquam non harum error illo vitae libero tenetur pariatur obcaecati asperiores minima
+                quibusdam.</p>
         </div>
     </div>
 </section>
