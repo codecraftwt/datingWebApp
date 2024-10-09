@@ -1,0 +1,18 @@
+.logo-container {
+    height: 70px;
+    width: 70px;
+    // background-color: #9D0000;
+    background-color: lightgray;
+    border-radius: 50%;
+
+    img {
+        object-fit: cover;
+    }
+}
+
+.navbar {
+    background-color: #d7e3ff !important;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
