@@ -18,7 +18,7 @@ import { SharedModule } from './components/shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     provideAnimationsAsync()

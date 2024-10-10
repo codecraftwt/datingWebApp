@@ -4,6 +4,8 @@
 @import 'bootstrap/scss/bootstrap';
 @import '@angular/material/prebuilt-themes/azure-blue.css';
 
+@import './styles/theme.scss';
+
 
 html,
 body {
@@ -13,6 +15,7 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $light-grey-color;
 }
 
 ::-webkit-scrollbar {
@@ -35,4 +38,11 @@ body {
 
 .text-light-blue {
     color: #d7e3ff;
+}
+
+// theme classes
+.btn-purple {
+    background: $light-grey-color !important;
+    color: $primary-color !important;
+    font-weight: 600 !important;
 }
