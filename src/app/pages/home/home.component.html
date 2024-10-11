@@ -1,13 +1,157 @@
 <section class="home">
     <div class="row justify-content-end align-items-center h-100 w-100">
-        <div class="col-md-6">
-            <div class="card p-3">
+        <div class="col-md-5">
+            <div class="card p-3 border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title">Your Life Partner</h4>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Just few click away</h6>
-                    
-                    
+                    <h6 class="card-subtitle mb-2">Just few click away</h6>
+                    <div class="mb-3">
+                        <h6 class="mb-1">Looking For :</h6>
+                        <mat-radio-group>
+                            <mat-radio-button class="" value="bride">Bride</mat-radio-button>
+                            <mat-radio-button class="" value="groom">Groom</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="mb-2">
+                        <h6 class="mb-3">Age For Partner :</h6>
+                        <mat-form-field class="me-3">
+                            <mat-label>From(YYYY)</mat-label>
+                            <mat-select [(ngModel)]="selectedValue" name="food">
+                                @for (a of age; track a) {
+                                <mat-option [value]="a">{{a}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>From(YYYY)</mat-label>
+                            <mat-select [(ngModel)]="selectedValue" name="food">
+                                @for (a of age; track a) {
+                                <mat-option [value]="a">{{a}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <button class="px-5" mat-flat-button>Search</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="what-you-get py-5">
+    <div class="row w-100 justify-content-center">
+        <h3 class="fw-bold text-center mb-5">What you get</h3>
+        <div class="col-md-9 mt-4">
+            <div class="row">
+                <div *ngFor="let data of whatYouGet" class="col-4 text-center">
+                    <div class="card shadow border-0 p-3 h-100">
+                        <div class="card-body">
+                            <div class="image-container mb-3 mx-auto">
+                                <mat-icon>{{data.image}}</mat-icon>
+                            </div>
+                            <h5>{{data.title}}</h5>
+                            <p>{{data.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="marriage-stories py-5">
+    <div class="row w-100 justify-content-center">
+        <h3 class="fw-bold text-center mb-5">Marriage Stories That Inspires</h3>
+        <div class="col-md-9 mt-4">
+            <div class="row justify-content-center">
+                @for (story of marriageStories; track story; let i = $index) {
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="profile-container shadow mb-3">
+                        <img class="h-100 w-100 shadow" [src]="story.image" alt="">
+                    </div>
+                    <h5 class="text-center">{{story.brideName}} - {{story.groomName}}</h5>
+                </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-us py-5">
+    <div class="row w-100 justify-content-center pb-5">
+        <h3 class="fw-bold text-center mb-5">About Us</h3>
+        <div class="col-md-11 mt-4">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="about-us-image mx-auto">
+                        <img src="about-us.jpg" class="h-100 w-100" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        About us is a wedding planning company that helps couples plan their dream wedding. We have a
+                        team of experienced wedding planners who will work with you to create a customized wedding plan
+                        that suits your style and budget. Our team will take care of all the details, from venue
+                        selection to catering and decorations, so you can focus on enjoying your special day.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit harum veritatis sit expedita
+                        nesciunt recusandae ipsa ipsam repellendus a labore qui nam reiciendis quia aliquid
+                        consequuntur, nemo, consequatur, ratione soluta.Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit. Velit harum veritatis sit expedita
+                        nesciunt recusandae ipsa ipsam repellendus a labore qui nam reiciendis quia aliquid
+                        consequuntur, nemo, consequatur, ratione soluta.
+                    </p>
+                    <ul>
+                        @for (about of aboutUs; track about;){
+                        <li class="d-flex align-items-center mb-2">
+                            <mat-icon class="me-2">label_important</mat-icon>
+                            {{about}}
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="register-now py-5">
+    <div class="row w-100 justify-content-center py-3">
+        <div class="col-md-9">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-8">
+                    <h2 class="fw-semibold">It is perfect time for perfect match</h2>
+                    <h5>Join largest matrimony platform today!</h5>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="shadow px-5" mat-flat-button>Register Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="browse-your-choice py-5">
+    <div class="row w-100 justify-content-center pb-5">
+        <h3 class="fw-bold text-center mb-5">Browse your Choice</h3>
+        <div class="col-md-11">
+            <div class="row justify-content-center align-items-center">
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Browse your choice"
+                    (selectionChange)="onSelectionChange($event)">
+                    <!-- @for (category of choicesCatecories; track category) {
+                    <mat-chip-option class="me-2 w-auto" [value]="category.name">{{category.name}}</mat-chip-option>
+                    } -->
+                    <ng-container *ngFor="let category of choicesCatecories; trackBy: trackCategory">
+                        <mat-chip-option class="me-2 w-auto" [value]="category">{{category.name}}</mat-chip-option>
+                    </ng-container>
+                </mat-chip-listbox>
+                <!-- <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Browse your choice">
+                    @for (choice of category.choices; track choice) {
+                    <mat-chip-option class="me-2 w-auto">{{choice}}</mat-chip-option>
+                    }
+                </mat-chip-listbox> -->
             </div>
         </div>
     </div>
