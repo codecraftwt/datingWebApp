@@ -1,1 +1,83 @@
-<p>signin works!</p>
+<section class="register-section">
+    <div class="container-fluid px-0 h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-md-7 h-100 px-0">
+            </div>
+            <div class="col-md-5 px-0 h-100">
+                <mat-card class="card p-3 h-100 align-items-center justify-content-center" appearance="outlined">
+                    <mat-card-header class="w-100">
+                        <h3>Register Yourself..</h3>
+                    </mat-card-header>
+                    <mat-card-content class="w-100">
+                        <div>
+                            <!-- <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+                                <div>
+                                    <mat-label>Email </mat-label><br />
+                                    <mat-form-field appearance="outline">
+                                        <input matInput placeholder="Enter your email" formControlName="email">
+                                        <mat-icon matSuffix> email</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-label>Password</mat-label><br />
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <input matInput placeholder="Enter your password"
+                                            [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                                        <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="me-3 text-decoration-none" href="#">Forgot Password</a>
+                                    <button type="submit" mat-flat-button>Login..</button>
+                                </div>
+                            </form> -->
+
+                            <mat-stepper class="w-100 bg-transparent" orientation="vertical" [linear]="false" #stepper>
+                                <mat-step [stepControl]="firstFormGroup">
+                                    <form [formGroup]="firstFormGroup">
+                                        <ng-template matStepLabel>Fill out your name</ng-template>
+                                        <mat-form-field>
+                                            <mat-label>Name</mat-label>
+                                            <input matInput placeholder="Last name, First name"
+                                                formControlName="firstCtrl" required>
+                                        </mat-form-field>
+                                        <div>
+                                            <button mat-button matStepperNext>Next</button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+                                <mat-step [stepControl]="secondFormGroup">
+                                    <form [formGroup]="secondFormGroup">
+                                        <ng-template matStepLabel>Fill out your address</ng-template>
+                                        <mat-form-field>
+                                            <mat-label>Address</mat-label>
+                                            <input matInput formControlName="secondCtrl"
+                                                placeholder="Ex. 1 Main St, New York, NY" required>
+                                        </mat-form-field>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button matStepperNext>Next</button>
+                                        </div>
+                                    </form>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>Done</ng-template>
+                                    <p>You are now done.</p>
+                                    <div>
+                                        <button mat-button matStepperPrevious>Back</button>
+                                        <button mat-button (click)="stepper.reset()">Reset</button>
+                                    </div>
+                                </mat-step>
+                            </mat-stepper>
+
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</section>
