@@ -37,3 +37,13 @@
         }
     }
 }
+
+:host::ng-deep .mat-horizontal-stepper-header-container {
+    display: none !important;
+
+}
+
+:host::ng-deep .mat-horizontal-content-container {
+    padding-left: 0px;
+    padding-right: 0px;
+}

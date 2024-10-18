@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,9 @@ export class LoginComponent implements OnInit {
     event.stopPropagation();
   }
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -26,6 +29,8 @@ export class LoginComponent implements OnInit {
 
   handleSubmit() {
     console.warn(this.loginForm.value);
+    localStorage.setItem('isLogin', 'true')
+    this.router.navigate(['/dashoard'])
 
   }
 
