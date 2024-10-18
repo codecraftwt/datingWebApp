@@ -50,3 +50,17 @@ body {
     color: $primary-color !important;
     font-weight: 600 !important;
 }
+
+.btn-gradient {
+    background: $gradient-background-right !important;
+    padding: 10px 26px !important;
+    font-size: 15px !important;
+    height: 45px !important;
+}
+
+.text-gradient {
+    background: $gradient-background-top;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
