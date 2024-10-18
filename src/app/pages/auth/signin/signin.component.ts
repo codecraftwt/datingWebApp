@@ -8,18 +8,32 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class SigninComponent {
   hide = signal(true);
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
-
+  accFor = ['Myself', 'My Son', 'My Daughter', 'My Sister', 'My Brother', 'My Relative', 'My Friend']
+  accForSelected: string = ''
+  gender: string = ''
   private _formBuilder = inject(FormBuilder);
+
+  religion: any[] = [
+    { id: 1, name: 'Hindu' },
+    { id: 2, name: 'Christian' },
+    { id: 3, name: 'Islam' },
+    { id: 4, name: 'Buddhist' },
+    { id: 5, name: 'Jewish' },
+  ];
+  community: any[] = ['Marathi', 'Tamil', 'Hindi', 'English', 'Kannada', 'Urdu', 'Malyalam', 'Telugu', 'French', 'Japanese']
+  country: any[] = ['India', 'Austrelia', 'Canada', 'Kuwait', 'New Zealand', 'Pakistan', 'USA', 'UAE', 'UK']
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    dob: ['']
+  });
+  phoneFormGroup = this._formBuilder.group({
+    email: ['', Validators.required],
+    phone: ['', Validators.required],
   });
 
   clickEvent(event: MouseEvent) {
@@ -27,8 +41,13 @@ export class SigninComponent {
     event.stopPropagation();
   }
 
+  onSelectionChange(e: any) {
+    this.accForSelected = e
+    // this.gender
+  }
+
   handleSubmit() {
-    console.warn(this.loginForm.value);
+    // console.warn(this.loginForm.value);
 
   }
 }

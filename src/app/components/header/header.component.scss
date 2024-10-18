@@ -1,3 +1,5 @@
+@import '../../../styles/theme.scss';
+
 .logo-container {
     height: 70px;
     width: 70px;
@@ -15,4 +17,47 @@
     position: fixed;
     width: 100%;
     z-index: 999;
+
+    .nav-item {
+        font-weight: 500;
+        padding: 0 15px;
+        border-radius: 30px;
+
+        .nav-link {
+            color: $primary-color;
+        }
+
+        &:hover {
+            background-color: $primary-color;
+
+            .nav-link {
+                color: $accent-color;
+            }
+
+            animation: backgroundAnimation 2s forwards;
+        }
+    }
+
+    .avtar-container {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+    }
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background-color: $accent-color;
+    }
+
+    100% {
+        background-color: $primary-color;
+    }
 }

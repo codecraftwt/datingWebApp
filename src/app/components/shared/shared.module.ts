@@ -19,6 +19,7 @@ import { IconsModule } from '../../icons/icons.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSelectModule,
     MatChipsModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
   ],
   exports: [
     HeaderComponent,
@@ -62,7 +64,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSelectModule,
     MatChipsModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTooltipModule
   ]
 })
 export class SharedModule { }

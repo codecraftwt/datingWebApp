@@ -1,0 +1,45 @@
+@import './../../../styles/theme.scss';
+
+.welcome-section {
+    background: $gradient-background-top;
+
+    .image-container {
+        height: 150px;
+        width: 150px;
+
+        img {
+            object-fit: cover;
+            border: 4px solid $accent-color;
+        }
+    }
+
+    .icon-container {
+        // height: 60px;
+        // width: 60px;
+        height: 70px;
+        width: 70px;
+        border: 1px solid $accent-color;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .mat-icon {
+            height: 35px;
+            width: 35px;
+            font-size: 35px;
+        }
+    }
+
+    h6 {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+
+.posts-section {
+    .inner-card {
+        border: 7px solid $accent-color;
+    }
+}
