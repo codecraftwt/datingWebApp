@@ -9,7 +9,7 @@ const icons = {
   Github,
   Users,
   Lock,
-  User
+  User,
 };
 
 @NgModule({

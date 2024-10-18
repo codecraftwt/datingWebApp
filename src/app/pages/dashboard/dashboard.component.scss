@@ -14,8 +14,6 @@
     }
 
     .icon-container {
-        // height: 60px;
-        // width: 60px;
         height: 70px;
         width: 70px;
         border: 1px solid $accent-color;
@@ -41,5 +39,23 @@
 .posts-section {
     .inner-card {
         border: 7px solid $accent-color;
+    }
+
+    .new-likes {
+        color: $primary-color;
+        fill: $primary-color;
+        height: 20px;
+        width: 20px;
+    }
+
+    .big-heart {
+        color: $accent-color;
+        fill: $accent-color;
+        height: 70px;
+        width: 70px;
+    }
+
+    p {
+        font-size: 20px;
     }
 }
