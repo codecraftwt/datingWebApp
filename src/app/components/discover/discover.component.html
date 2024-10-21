@@ -1,0 +1,178 @@
+<section class="posts-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <mat-card appearance="raised" class="w-100 shadow p-3">
+                    <mat-card-header>
+                        <div class="d-flex w-100 justify-content-between mb-4">
+                            <h5 class="text-gradient">Discover</h5>
+                            <h5 class="mb-0 fw-normal text-preferences">Member preferences<i-feather name="activity"
+                                    class="ms-1"></i-feather></h5>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content class="text-center">
+                        <div class="row mb-5">
+                            <div class="col-sm-12 mb-3 mb-lg-0">
+                                <div class="row">
+                                    @for (profile of newForYou; track profile) {
+                                    <div class="col-lg-4 col-12 col-md-6 mb-4">
+                                        <div class="profile-container rounded-5 position-relative">
+                                            <img class="h-100 w-100 rounded-5 blur-image" [src]="profile.image" alt="">
+                                            <div class="top-overlay-content">
+                                                <i-feather name="heart" class="new-likes me-1"></i-feather>
+                                                <span>108</span>
+                                            </div>
+                                            <div class="overlay-content">
+                                                <div class="d-flex align-items-center">
+                                                    <h2 class="me-2 mb-0">{{profile.name}}</h2>
+                                                    <h1 class="mb-0 fw-light">{{profile.age}}</h1>
+                                                </div>
+                                                <h6 class="fw-normal mb-3">{{profile?.designation || ''}}</h6>
+                                                <i-feather name="bookmark" class="new-likes me-2"></i-feather>
+                                                <span>Your Text Here</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button class="btn-gradient" mat-flat-button>Discover more members</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-lg-6 mb-3 mb-lg-0">
+                                <mat-card appearance="outlined" class="w-100 inner-card p-3">
+                                    <mat-card-header>
+                                        <h5 class="mb-4 text-gradient  text-uppercase">
+                                            Member Preferences
+                                        </h5>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <mat-icon>cake</mat-icon>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">from 19 to 32 years old</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="currentColor" class="bi bi-person-standing"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0" />
+                                                </svg>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">from any to any</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <mat-icon> location_on</mat-icon>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">State: All other countries</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <mat-icon>smoke_free</mat-icon>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">Non-smoker, Occasional smoker,
+                                                    Smoker</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <mat-icon>child_care</mat-icon>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">Has children? I don’t mind</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <mat-icon>child_friendly</mat-icon>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">Do you want children? No preference</span>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center mb-2">
+                                            <div class="col-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-globe-central-south-asia"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M4.882 1.731a.48.48 0 0 0 .14.291.487.487 0 0 1-.126.78l-.291.146a.7.7 0 0 0-.188.135l-.48.48a1 1 0 0 1-1.023.242l-.02-.007a1 1 0 0 0-.462-.04 7 7 0 0 1 2.45-2.027m-3 9.674.86-.216a1 1 0 0 0 .758-.97v-.184a1 1 0 0 1 .445-.832l.04-.026a1 1 0 0 0 .152-1.54L3.121 6.621a.414.414 0 0 1 .542-.624l1.09.818a.5.5 0 0 0 .523.047.5.5 0 0 1 .724.447v.455a.8.8 0 0 0 .131.433l.795 1.192a1 1 0 0 1 .116.238l.73 2.19a1 1 0 0 0 .949.683h.058a1 1 0 0 0 .949-.684l.73-2.189a1 1 0 0 1 .116-.238l.791-1.187A.45.45 0 0 1 11.743 8c.16 0 .306.084.392.218.557.875 1.63 2.282 2.365 2.282l.04-.001a7.003 7.003 0 0 1-12.658.905Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="col-10 text-start">
+                                                <span class="text-preference">Ethnicity: Any</span>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                    <mat-card-footer class="mt-5 p-3">
+                                        <div class="text-center">
+                                            <button class="btn-gradient w-100" mat-flat-button>Change Member
+                                                Preferences</button>
+                                        </div>
+                                    </mat-card-footer>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <mat-card appearance="outlined" class="w-100 inner-card p-3">
+                                    <mat-card-header>
+                                        <h5 class="mb-4 text-gradient text-uppercase">
+                                            Filter Members According to Interests
+                                        </h5>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <div class="mb-2">
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-icon matPrefix>music_note</mat-icon>
+                                                <mat-select placeholder="No selection made">
+                                                    @for (m of music; track m) {
+                                                    <mat-option [value]="m">{{m}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="mb-2">
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <i-feather class="prefix-i-feather" name="dribbble"
+                                                    matPrefix></i-feather>
+                                                <mat-select placeholder="No selection made">
+                                                    @for (s of sports; track s) {
+                                                    <mat-option [value]="s">{{s}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="mb-2">
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-icon matPrefix>airplanemode_active</mat-icon>
+                                                <mat-select placeholder="No selection made">
+                                                    @for (t of trips; track t) {
+                                                    <mat-option [value]="t">{{t}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+
+            </div>
+        </div>
+    </div>
+</section>

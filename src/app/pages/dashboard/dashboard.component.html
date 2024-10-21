@@ -8,31 +8,31 @@
                 <h3 class="text-center text-light-blue fw-semibold font-monospace mb-4">Hello There!!</h3>
 
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-2">
+                    <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" matTooltip="New Messages">
                             <mat-icon class="text-light-blue">chat_bubble</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" matTooltip="New for you">
                             <mat-icon class="text-light-blue">group</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" matTooltip="New Visitors">
                             <mat-icon class="text-light-blue"> contact_phone</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" matTooltip="Profile">
                             <mat-icon class="text-light-blue">security</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">50%</h6>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto">
                             <mat-icon class="text-light-blue">star_half</mat-icon>
                         </div>
@@ -49,11 +49,11 @@
         <mat-card class="p-3 h-100 align-items-center justify-content-center shadow" appearance="outlined">
             <mat-card-content class="w-100">
                 <div class="row mb-4">
-                    <div class="col-8">
-                        <mat-card appearance="outlined" class="w-100 inner-card h-100 p-3">
+                    <div class="col-sm-12 col-lg-7 col-xl-8 mb-3 mb-lg-0">
+                        <mat-card appearance="outlined" class="w-100 inner-card p-3">
                             <mat-card-header>
-                                <h5 class="mb-4 text-gradient">
-                                    <i-feather name="heart" class="new-likes me-3"></i-feather>New For You
+                                <h5 class="mb-4 text-gradient text-uppercase">
+                                    <i-feather name="heart" class="new-likes me-3"></i-feather>New Likes | 0
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
@@ -71,64 +71,123 @@
                             </mat-card-footer>
                         </mat-card>
                     </div>
-                    <div class="col-4">
-                        <mat-card appearance="outlined" class="w-100 inner-card h-100  p-3">
-                            <mat-card-header>
-                                <h5 class="mb-4 text-gradient">
-                                    First steps
-                                </h5>
-                            </mat-card-header>
-                            <mat-card-content class="text-center">
-                                <div class="mb-4">
-                                    <img src="boost.svg" alt="">
-                                </div>
-                                <p class="text-gradient">
-                                    Congratulations, the journey for your next relationship begins now. Scroll through
-                                    our expert tips and dating advice to get started.
-                                </p>
-                            </mat-card-content>
+                    <div class="col-sm-12 col-lg-5 col-xl-4">
+                        <mat-card appearance="outlined" class="w-100 inner-card p-3">
+                            <p-carousel [value]="steps" [numVisible]="1" [numScroll]="1" [circular]="true"
+                                [responsiveOptions]="responsiveOptions" autoplayInterval="8000">
+                                <ng-template let-step pTemplate="item">
+                                    <mat-card-header>
+                                        <h5 class="mb-4 text-gradient text-uppercase">
+                                            {{step.title}}
+                                        </h5>
+                                    </mat-card-header>
+                                    <mat-card-content class="text-center">
+                                        <div class="border-1 surface-border border-roun d m-2 p-3">
+                                            <div class="mb-4">
+                                                <img [src]="step.image" alt="">
+                                            </div>
+                                            <p class="text-gradient">
+                                                {{step.description}}
+                                            </p>
+                                        </div>
+                                    </mat-card-content>
+                                    <mat-card-footer>
+                                        <div class="text-center">
+                                            <a class="text-gradient link-text" href="#">Go to my profile
+                                                <mat-icon>keyboard_arrow_right</mat-icon></a>
+                                        </div>
+                                    </mat-card-footer>
+                                </ng-template>
+                            </p-carousel>
                         </mat-card>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <mat-card appearance="outlined" class="w-100 inner-card h-100 p-3">
+                    <div class="col-sm-12 col-lg-7 col-xl-8 mb-3">
+                        <mat-card appearance="outlined" class="w-100 inner-card p-3">
                             <mat-card-header>
-                                <h5 class="mb-4 text-gradient">
-                                    <i-feather name="heart" class="new-likes me-3"></i-feather>New likes
+                                <h5 class="mb-4 text-gradient text-uppercase">
+                                    <i-feather name="bookmark" class="new-likes me-3"></i-feather>New For You
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
-                                <div class="mb-4">
-                                    <i-feather name="heart" class="big-heart"></i-feather>
+                                <div class="row">
+                                    @for (profile of newForYou; track profile) {
+                                    <div class="col-md-6 mb-4">
+                                        <div class="profile-container rounded-5 position-relative">
+                                            <img class="h-100 w-100 rounded-5 blur-image" [src]="profile.image" alt="">
+                                            <div class="top-overlay-content">
+                                                <i-feather name="heart" class="new-likes me-1"></i-feather>
+                                                <span>108</span>
+                                            </div>
+                                            <div class="overlay-content">
+                                                <div class="d-flex align-items-center">
+                                                    <h2 class="me-2 mb-0">{{profile.name}}</h2>
+                                                    <h1 class="mb-0 fw-light">{{profile.age}}</h1>
+                                                </div>
+                                                <h6 class="fw-normal mb-3">{{profile?.designation || ''}}</h6>
+                                                <i-feather name="bookmark" class="new-likes me-2"></i-feather>
+                                                <span>Your Text Here</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
                                 </div>
-                                <p class="text-gradient">Here you'll see members who have contacted or liked you first.
-                                    Nothing new today?
-                                    Instead, take the first step and message someone now.</p>
                             </mat-card-content>
-                            <mat-card-footer class="mt-5 p-3">
-                                <div class="text-end">
-                                    <button class="btn-gradient" mat-flat-button>Reach Out</button>
+                            <mat-card-footer class="mt-2 p-3">
+                                <div class="text-md-end text-center">
+                                    <button class="btn-gradient" mat-flat-button>Show All</button>
                                 </div>
                             </mat-card-footer>
                         </mat-card>
                     </div>
-                    <div class="col-4">
-                        <mat-card appearance="outlined" class="w-100 inner-card h-100  p-3">
+                    <div class="col-sm-12 col-lg-5 col-xl-4">
+                        <mat-card appearance="outlined" class="w-100 inner-card p-3">
+                            <p-carousel [value]="steps" [numVisible]="1" [numScroll]="1" [circular]="true"
+                                [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+                                <ng-template let-step pTemplate="item">
+                                    <mat-card-header>
+                                        <h5 class="mb-4 text-gradient text-uppercase">
+                                            {{step.title}}
+                                        </h5>
+                                    </mat-card-header>
+                                    <mat-card-content class="text-center">
+                                        <div class="border-1 surface-border border-roun d m-2 p-3">
+                                            <div class="mb-4">
+                                                <img [src]="step.image" alt="">
+                                            </div>
+                                            <p class="text-gradient">
+                                                {{step.description}}
+                                            </p>
+                                        </div>
+                                    </mat-card-content>
+                                </ng-template>
+                            </p-carousel>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12 col-lg-7 col-xl-8 mb-3 mb-lg-0">
+                        <mat-card appearance="outlined" class="w-100 inner-card p-3">
                             <mat-card-header>
-                                <h5 class="mb-4 text-gradient">
-                                    First steps
+                                <h5 class="mb-4 text-gradient text-uppercase">
+                                    <i-feather name="users" class="new-likes me-3"></i-feather>Recent Visitors
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
                                 <div class="mb-4">
-                                    <img src="boost.svg" alt="">
+                                    <i-feather name="image" style="fill: none;" class="big-heart"></i-feather>
                                 </div>
                                 <p class="text-gradient">
-                                    Congratulations, the journey for your next relationship begins now. Scroll through
-                                    our expert tips and dating advice to get started.
+                                    If you have had no visitors to your profile, consider adding
+                                    some more photos.
                                 </p>
                             </mat-card-content>
+                            <mat-card-footer class="mt-5 p-3">
+                                <div class="text-md-end text-center">
+                                    <button class="btn-gradient" mat-flat-button>Upload Photos</button>
+                                </div>
+                            </mat-card-footer>
                         </mat-card>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
       name: 'Home'
     },
     {
-      route: '/dashboard',
+      route: '/discover',
       name: 'Discover'
     },
     {
