@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './components/shared/shared.module';
+import { DiscoverComponent } from './components/discover/discover.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DiscoverComponent,
 
   ],
   imports: [

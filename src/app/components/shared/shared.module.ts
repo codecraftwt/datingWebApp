@@ -21,6 +21,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -33,6 +36,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     IconsModule,
     NgbCarouselModule,
     RouterModule,
+
+    CarouselModule,
+    ButtonModule,
 
     MatButtonModule,
     MatListModule,
@@ -54,6 +60,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     IconsModule,
     NgbCarouselModule,
     RouterModule,
+
+    CarouselModule,
+    ButtonModule,
 
     MatButtonModule,
     MatListModule,
