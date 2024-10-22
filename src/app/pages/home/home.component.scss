@@ -148,6 +148,14 @@
     }
 }
 
+@media (max-width: 426px) {
+    .about-us-image {
+        height: 400px !important;
+        width: 295px !important;
+    }
+}
+
+
 .about-us {
     background: $gradient-background;
 

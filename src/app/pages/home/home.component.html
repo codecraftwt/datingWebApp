@@ -1,6 +1,6 @@
 <section class="home">
-    <div class="row justify-content-end align-items-center h-100 w-100">
-        <div class="col-md-5">
+    <div class="row justify-content-end align-items-center h-100 mx-auto">
+        <div class="col-md-10 col-lg-7 col-xl-5">
             <div class="card p-3 border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title">Your Life Partner</h4>
@@ -39,11 +39,11 @@
 </section>
 
 <section class="what-you-get py-5">
-    <div class="row w-100 justify-content-center">
+    <div class="row mx-auto justify-content-center">
         <h3 class="fw-bold text-center mb-5">What you get</h3>
-        <div class="col-md-9 mt-4">
+        <div class="col-xl-9 mt-4">
             <div class="row">
-                <div *ngFor="let data of whatYouGet" class="col-4 text-center">
+                <div *ngFor="let data of whatYouGet" class="col-12 col-md-4 text-center mb-3 mb-lg-0">
                     <div class="card shadow border-0 p-3 h-100">
                         <div class="card-body">
                             <div class="image-container mb-3 mx-auto">
@@ -60,13 +60,13 @@
 </section>
 
 <section class="marriage-stories py-5">
-    <div class="row w-100 justify-content-center">
+    <div class="row  mx-auto justify-content-center">
         <h3 class="fw-bold text-center mb-5">Marriage Stories That Inspires</h3>
-        <div class="col-md-9 mt-4">
+        <div class="col-xl-9 mt-4">
             <div class="row justify-content-center">
                 @for (story of marriageStories; track story; let i = $index) {
-                <div class="col-12 col-md-4 col-lg-3">
-                    <div class="profile-container shadow mb-3">
+                <div class="col-8 col-md-4 col-lg-3 mb-4 mb-lg-0">
+                    <div class="profile-container shadow mb-2 mb-md-3">
                         <img class="h-100 w-100 shadow" [src]="story.image" alt="">
                     </div>
                     <h5 class="text-center">{{story.brideName}} - {{story.groomName}}</h5>
@@ -79,16 +79,16 @@
 </section>
 
 <section class="about-us py-5">
-    <div class="row w-100 justify-content-center pb-5">
+    <div class="row mx-auto justify-content-center pb-5">
         <h3 class="fw-bold text-center mb-5">About Us</h3>
         <div class="col-md-11 mt-4">
             <div class="row justify-content-center align-items-center">
-                <div class="col-md-6">
+                <div class="col-lg-6 mb-4 mb-lg-0">
                     <div class="about-us-image mx-auto">
                         <img src="about-us.jpg" class="h-100 w-100" alt="">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <p>
                         About us is a wedding planning company that helps couples plan their dream wedding. We have a
                         team of experienced wedding planners who will work with you to create a customized wedding plan
@@ -118,14 +118,14 @@
 </section>
 
 <section class="register-now py-5">
-    <div class="row w-100 justify-content-center py-3">
+    <div class="row mx-auto justify-content-center py-3">
         <div class="col-md-9">
             <div class="row justify-content-center align-items-center">
-                <div class="col-md-8">
+                <div class="col-lg-8 mb-4 mb-lg-0 text-center text-lg-start">
                     <h2 class="fw-semibold">It is perfect time for perfect match</h2>
                     <h5>Join largest matrimony platform today!</h5>
                 </div>
-                <div class="col-md-4 text-end">
+                <div class="col-lg-4 text-center text-lg-end">
                     <button class="shadow px-5" mat-flat-button>Register Now</button>
                 </div>
             </div>
@@ -134,15 +134,12 @@
 </section>
 
 <section class="browse-your-choice py-5">
-    <div class="row w-100 justify-content-center pb-5">
+    <div class="row mx-auto justify-content-center pb-5">
         <h3 class="fw-bold text-center mb-5">Browse your Choice</h3>
         <div class="col-md-11">
             <div class="row justify-content-center align-items-center">
                 <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Browse your choice"
                     (selectionChange)="onSelectionChange($event)">
-                    <!-- @for (category of choicesCatecories; track category) {
-                    <mat-chip-option class="me-2 w-auto" [value]="category.name">{{category.name}}</mat-chip-option>
-                    } -->
                     <ng-container *ngFor="let category of choicesCatecories; trackBy: trackCategory">
                         <mat-chip-option class="me-2 w-auto" [value]="category">{{category.name}}</mat-chip-option>
                     </ng-container>

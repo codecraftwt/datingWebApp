@@ -20,6 +20,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
@@ -50,7 +51,8 @@ import { ButtonModule } from 'primeng/button';
     MatChipsModule,
     MatCardModule,
     MatStepperModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule
   ],
   exports: [
     HeaderComponent,
@@ -74,7 +76,8 @@ import { ButtonModule } from 'primeng/button';
     MatChipsModule,
     MatCardModule,
     MatStepperModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule
   ]
 })
 export class SharedModule { }

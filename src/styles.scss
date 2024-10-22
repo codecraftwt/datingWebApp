@@ -66,3 +66,10 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.big-heart {
+    color: $accent-color !important;
+    fill: $accent-color !important;
+    height: 70px !important;
+    width: 70px !important;
+}

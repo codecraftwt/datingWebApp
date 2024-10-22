@@ -1,0 +1,11 @@
+@import '../../../styles/theme.scss';
+
+.link-text {
+    // text-decoration: none;
+    color: $dark-color;
+    font-weight: 600;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
