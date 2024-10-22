@@ -95,9 +95,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSelectionChange(event: any) {
-    console.log(event,'<===')
     const selectedChip = event.source.value;
-    console.log('Selected Chip:', selectedChip);
   }
 
   trackCategory(index: number, category: any) {

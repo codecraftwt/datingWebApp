@@ -48,13 +48,6 @@
         width: 20px;
     }
 
-    .big-heart {
-        color: $accent-color;
-        fill: $accent-color;
-        height: 70px;
-        width: 70px;
-    }
-
     p {
         font-size: 20px;
     }
@@ -70,45 +63,15 @@
         }
     }
 
-    .profile-container {
-        height: 500px;
-        overflow: hidden;
+    .list-links {
+        a {
+            display: flex;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
-    .blur-image {
-        filter: blur(8px);
-        transition: filter 0.3s ease;
-    }
-
-    // .profile-container:hover .blur-image {
-    //     filter: blur(0);
-    // }
-
-    .top-overlay-content {
-        position: absolute;
-        top: 3%;
-        left: 5%;
-        color: white;
-        text-align: center;
-        z-index: 1;
-        padding: 5px 15px;
-        border-radius: 20px;
-        background: rgba(0, 0, 0, 0.6);
-    }
-
-    .overlay-content {
-        position: absolute;
-        top: 87%;
-        left: 30%;
-        transform: translate(-50%, -50%);
-        color: white;
-        text-align: start;
-        z-index: 1;
-    }
-
-    .overlay-content i {
-        font-size: 24px;
-        display: block;
-        margin-bottom: 8px;
-    }
 }
