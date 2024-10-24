@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
+  private dataService = inject(DataService);
+  profiles: any[] = [];
   steps = [
     {
       id: "step1",
@@ -39,60 +42,12 @@ export class DashboardComponent implements OnInit {
     },
   ]
 
-  newForYou = [
-    {
-      id: "new1",
-      image: "about-us.jpg",
-      name: "Moona",
-      designation:"Makeup Artist",
-      location: "Mumbai",
-      age: 30
-    },
-    {
-      id: "new2",
-      image: "about-us.jpg",
-      name: "Moona",
-      designation:"Makeup Artist",
-      location: "Mumbai",
-      age: 30
-    },
-    {
-      id: "new3",
-      image: "about-us.jpg",
-      name: "Moona",
-      location: "Mumbai",
-      age: 30
-    },
-    {
-      id: "new4",
-      image: "about-us.jpg",
-      name: "Moona",
-      designation:"Makeup Artist",
-      location: "Mumbai",
-      age: 30
-    },
-    {
-      id: "new5",
-      image: "about-us.jpg",
-      name: "Moona",
-      location: "Mumbai",
-      age: 30
-    },
-    {
-      id: "new5",
-      image: "about-us.jpg",
-      name: "Moona",
-      designation:"Makeup Artist",
-      location: "Mumbai",
-      age: 30
-    },
-  ]
-
   responsiveOptions: any[] | undefined;
 
   constructor() { }
 
   ngOnInit() {
+    this.getProfiles()
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -115,5 +70,9 @@ export class DashboardComponent implements OnInit {
         numScroll: 1
       }
     ];
+  }
+
+  getProfiles() {
+    this.profiles = this.dataService.getProfiles()
   }
 }

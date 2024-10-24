@@ -13,6 +13,8 @@ import { FavoritesComponent } from '../components/favorites/favorites.component'
 import { VisitorsComponent } from '../components/visitors/visitors.component';
 import { VisitedProfilesComponent } from '../components/visited-profiles/visited-profiles.component';
 import { DiscoverComponent } from '../components/discover/discover.component';
+import { LikesComponent } from './likes/likes.component';
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { DiscoverComponent } from '../components/discover/discover.component';
     VisitorsComponent,
     DiscoverComponent,
     VisitedProfilesComponent,
+    LikesComponent,
+    ProfileInfoComponent,
   ],
   imports: [
     CommonModule,

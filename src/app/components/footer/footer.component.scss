@@ -1,9 +1,11 @@
+@import '../../../styles/theme.scss';
+
 .footer-content {
     list-style: none;
     padding-left: 0px;
 
     li {
-        color: #005cbb;
+        color: $primary-color;
         font-weight: 500;
         // margin-bottom: 0.4rem;
         padding: 5px 15px;
@@ -14,8 +16,8 @@
 
         &:hover {
             padding: 5px 15px;
-            background-color: #005cbb;
-            color: #d7e3ff;
+            background-color: $primary-color;
+            color: $accent-color;
             transform: scale(1.1);
         }
     }
@@ -25,12 +27,12 @@
     .icon-container {
         height: 40px;
         width: 40px;
-        background-color: #005cbb;
+        background-color: $primary-color;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 35%;
-        color: #d7e3ff;
+        color: $accent-color;
         cursor: pointer;
 
         transition: background-color 0.3s ease;
