@@ -1,0 +1,77 @@
+@import './../../../styles/theme.scss';
+
+.profile-info {
+    position: relative;
+    min-height: 500px;
+    height: 600px;
+    overflow: hidden;
+    height: 550px;
+
+    &::before {
+        content: '';
+        background-image: url('./../../../../public/about-us.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        filter: blur(30px);
+        z-index: 0;
+    }
+
+    &>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    .image-container {
+        height: 400px;
+
+        img {
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    }
+
+    .dark-background {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 5px 15px;
+        border-radius: 20px;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .last-login {
+        p {
+            font-size: 12px;
+
+            i-feather {
+                height: 15px;
+                width: 15px;
+            }
+        }
+    }
+
+    .profile-section-card {
+        z-index: 99999;
+
+    }
+
+}
+
+.profile-container {
+    height: 175px;
+    width: 155px;
+
+    img{
+        border-radius: 10px;
+    }
+}
+
+.bg-dark {
+    background-color: $accent-color !important;
+}

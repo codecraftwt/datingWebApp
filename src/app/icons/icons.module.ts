@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeatherModule } from 'angular-feather';
-import { Camera, Heart, Github, Users, Lock, User, Bookmark, Image, Activity, Dribbble, Star } from 'angular-feather/icons';
+import { Camera, Heart, Github, Users, Lock, User, Bookmark, Image, Activity, Dribbble, Star, AlertCircle, MoreVertical } from 'angular-feather/icons';
 
 const icons = {
   Camera,
@@ -14,7 +14,9 @@ const icons = {
   Image,
   Activity,
   Dribbble,
-  Star
+  Star,
+  AlertCircle,
+  MoreVertical
 };
 
 @NgModule({
