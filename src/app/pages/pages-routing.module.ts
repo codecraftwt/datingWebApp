@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DiscoverComponent } from '../components/discover/discover.component';
 import { LikesComponent } from './likes/likes.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'discover', component: DiscoverComponent },
       { path: 'likes', component: LikesComponent },
       { path: 'profile/:id', component: ProfileInfoComponent },
+      { path: 'messages', component: MessagesComponent },
     ]
   }
 ];

@@ -1,0 +1,26 @@
+@import './../../../styles/theme.scss';
+
+.messages-section {
+    .text-preferences {
+        & i-feather {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    i-feather {
+        height: 30px;
+        width: 30px;
+    }
+
+    .svg-comtainer {
+        height: 180px;
+        width: 180px;
+    }
+
+    .text-preferences:hover {
+        color: $grey;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
