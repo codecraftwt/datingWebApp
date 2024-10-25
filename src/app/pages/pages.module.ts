@@ -15,6 +15,7 @@ import { VisitedProfilesComponent } from '../components/visited-profiles/visited
 import { DiscoverComponent } from '../components/discover/discover.component';
 import { LikesComponent } from './likes/likes.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     VisitedProfilesComponent,
     LikesComponent,
     ProfileInfoComponent,
+    MessagesComponent,
   ],
   imports: [
     CommonModule,

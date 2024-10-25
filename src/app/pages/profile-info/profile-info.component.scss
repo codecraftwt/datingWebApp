@@ -67,11 +67,28 @@
     height: 175px;
     width: 155px;
 
-    img{
+    img {
         border-radius: 10px;
     }
 }
 
 .bg-dark {
     background-color: $accent-color !important;
+}
+
+.big-heart {
+    fill: none !important;
+    color: $primary-color !important;
+    stroke-width: 1px;
+}
+
+.all-image-container {
+    height: 250px;
+    width: 100%;
+
+    img {
+        object-fit: cover;
+        border-radius: 15px;
+        border: 7px solid #d7e3ff !important;
+    }
 }
