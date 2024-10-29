@@ -6,17 +6,13 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './components/shared/shared.module';
-import { DiscoverComponent } from './components/discover/discover.component';
-import { ProfileCardComponent } from './components/common/profile-card/profile-card.component';
-import { FavoritesComponent } from './components/favorites/favorites.component';
-import { VisitorsComponent } from './components/visitors/visitors.component';
-import { VisitedProfilesComponent } from './components/visited-profiles/visited-profiles.component';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { jwtInterceptor } from './_helper/jwt.interceptor';
+import { errorInterceptor } from './_helper/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-
   ],
   imports: [
     BrowserModule,
@@ -25,7 +21,10 @@ import { VisitedProfilesComponent } from './components/visited-profiles/visited-
     SharedModule,
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    { provide: HTTP_INTERCEPTORS, useValue: jwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useValue: errorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
