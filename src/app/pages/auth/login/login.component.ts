@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,14 @@ export class LoginComponent implements OnInit {
   handleSubmit() {
     console.warn(this.loginForm.value);
     localStorage.setItem('isLogin', 'true')
-    this.router.navigate(['/dashoard'])
+    this.authService.login(this.loginForm.value)
+      .subscribe(response => {
+        console.log(response, 'response')
+        if (response.status == 200) {
+          this.router.navigate(['/dashoard'])
+        }
+      })
+
 
   }
 
