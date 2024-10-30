@@ -1,0 +1,68 @@
+@import '../../../styles/theme.scss';
+
+.main-content {
+    padding-top: 6rem;
+    min-height: 42%;
+}
+
+.offer-card {
+    background: $gradient-background;
+    color: $white;
+
+    .days-card {
+        background: $primary-color;
+        color: $white;
+    }
+}
+
+.most-popular {
+    border: 3px solid $primary-color;
+
+    mat-card-header {
+        padding: 40px 10px !important;
+    }
+}
+
+.most-popular-text {
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: 0;
+
+    span {
+        border: 3px solid #005cbb;
+        background: #fff;
+        padding: 3px 10px;
+        font-size: 11px;
+        border-radius: 15px;
+    }
+}
+
+.subscription-card {
+
+    mat-card-header {
+        background: $primary-color;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        color: $white;
+    }
+
+    .check-circle {
+        fill: $primary-color;
+        color: $primary-color;
+    }
+
+    sub {
+        font-size: 12px;
+    }
+
+    sup {
+        font-size: 20px;
+    }
+
+    button{
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: normal;
+    }
+}
