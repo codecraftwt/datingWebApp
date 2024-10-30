@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './subscriptions.component.scss'
 })
 export class SubscriptionsComponent {
-
+  planBenifits = [
+    "View unlimited photos",
+    "Unlimited messaging",
+    "See who's viewed you",
+    "Distance search",
+    "Detailed personality profile",
+  ]
 }
