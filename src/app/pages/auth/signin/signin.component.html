@@ -10,7 +10,7 @@
                     </mat-card-header>
                     <mat-card-content class="w-100">
                         <div>
-                            <mat-stepper class="bg-transparent" [linear]="false" #stepper>
+                            <mat-stepper class="bg-transparent" [linear]="true" #stepper>
                                 <mat-step [stepControl]="firstFormGroup">
                                     <form [formGroup]="firstFormGroup">
                                         <ng-template matStepLabel>Registering For</ng-template>
@@ -27,7 +27,7 @@
                                         <div class="mb-2" *ngIf="accForSelected == 'Myself' || 
                                             accForSelected == 'My Relative'|| 
                                             accForSelected == 'My Friend'">
-                                            <mat-radio-group aria-label="Select gender">
+                                            <mat-radio-group aria-label="Select gender" formControlName="gender">
                                                 <mat-radio-button value="Male">Male</mat-radio-button>
                                                 <mat-radio-button value="Female">Female</mat-radio-button>
                                             </mat-radio-group>
@@ -69,41 +69,43 @@
                                     </form>
                                 </mat-step>
                                 <mat-step>
-                                    <ng-template matStepLabel>Religion</ng-template>
-                                    <div>
-                                        <mat-label>Your Religion</mat-label><br />
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-select>
-                                                @for (rel of religion; track rel) {
-                                                <mat-option [value]="rel.name">{{rel.name}}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <mat-label>Community</mat-label><br />
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-select>
-                                                @for (com of community; track com) {
-                                                <mat-option [value]="com">{{com}}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <mat-label>Country</mat-label><br />
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-select>
-                                                @for (con of country; track con) {
-                                                <mat-option [value]="con">{{con}}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <button mat-button matStepperPrevious>Back</button>
-                                        <button mat-button matStepperNext>Next</button>
-                                    </div>
+                                    <form [formGroup]="religionFormGroup">
+                                        <ng-template matStepLabel>Religion</ng-template>
+                                        <div>
+                                            <mat-label>Your Religion</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-select formControlName="religion">
+                                                    @for (rel of religion; track rel) {
+                                                    <mat-option [value]="rel.name">{{rel.name}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Community</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-select formControlName="motherTongue">
+                                                    @for (com of community; track com) {
+                                                    <mat-option [value]="com">{{com}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Country</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-select formControlName="country">
+                                                    @for (con of country; track con) {
+                                                    <mat-option [value]="con">{{con}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button matStepperNext>Next</button>
+                                        </div>
+                                    </form>
                                 </mat-step>
                                 <mat-step>
                                     <ng-template matStepLabel>Phone</ng-template>
@@ -120,14 +122,22 @@
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <span matTextPrefix>+1 &nbsp;</span>
                                                 <input type="tel" matInput placeholder="555-555-1234"
-                                                    formControlName="phone">
+                                                    formControlName="mobile">
                                                 <mat-icon matSuffix> phone</mat-icon>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Password</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input type="text" matInput placeholder="password"
+                                                    formControlName="password">
+                                                <mat-icon matSuffix> eye</mat-icon>
                                             </mat-form-field>
                                         </div>
                                     </form>
                                     <div>
                                         <button mat-button matStepperPrevious>Back</button>
-                                        <button mat-button>Submit</button>
+                                        <button mat-button (click)="handleSubmit()">Submit</button>
                                     </div>
                                 </mat-step>
                             </mat-stepper>

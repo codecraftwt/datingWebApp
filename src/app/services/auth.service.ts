@@ -33,6 +33,10 @@ export class AuthService {
       }));
   }
 
+  register(data: any) {
+    return this.http.post<any>(`${environment.apiUrl}api/auth/signin`, data, { headers: { 'Content-Type': 'application/json' } })
+  }
+
   logout() {
     // remove user from local storage to log user out
     // localStorage.removeItem('user');
