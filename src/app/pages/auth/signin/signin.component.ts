@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -12,6 +14,8 @@ export class SigninComponent {
   accForSelected: string = ''
   gender: string = ''
   private _formBuilder = inject(FormBuilder);
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
 
   religion: any[] = [
     { id: 1, name: 'Hindu' },
@@ -24,16 +28,23 @@ export class SigninComponent {
   country: any[] = ['India', 'Austrelia', 'Canada', 'Kuwait', 'New Zealand', 'Pakistan', 'USA', 'UAE', 'UK']
 
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    profileFor: ['', Validators.required],
+    gender: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     dob: ['']
   });
+  religionFormGroup = this._formBuilder.group({
+    religion: ['', Validators.required],
+    motherTongue: ['', Validators.required],
+    country: ['', Validators.required],
+  });
   phoneFormGroup = this._formBuilder.group({
     email: ['', Validators.required],
-    phone: ['', Validators.required],
+    mobile: ['', Validators.required],
+    password: ['', Validators.required],
   });
 
   clickEvent(event: MouseEvent) {
@@ -43,11 +54,31 @@ export class SigninComponent {
 
   onSelectionChange(e: any) {
     this.accForSelected = e
-    // this.gender
+    this.firstFormGroup.controls.profileFor.setValue(e);
+    if (e === 'My Son' || e === 'My Brother') {
+      this.firstFormGroup.controls.gender.setValue('Male');
+    }
+    if (e === 'My Daughter' || e === 'My Sister') {
+      this.firstFormGroup.controls.gender.setValue('Female');
+    }
   }
 
   handleSubmit() {
-    // console.warn(this.loginForm.value);
-
+    const payload = {
+      ...this.firstFormGroup.getRawValue(),
+      ...this.secondFormGroup.getRawValue(),
+      ...this.religionFormGroup.getRawValue(),
+      ...this.phoneFormGroup.getRawValue()
+    };
+    console.log(payload, 'payload')
+    this._authService.register(payload).subscribe(response => {
+      if (response.success) {
+        this.firstFormGroup.reset()
+        this.secondFormGroup.reset()
+        this.religionFormGroup.reset()
+        this.phoneFormGroup.reset()
+        this._router.navigate(['/login']);
+      }
+    })
   }
 }
