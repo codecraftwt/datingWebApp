@@ -1,5 +1,5 @@
 <div class="profile-container rounded-5 position-relative">
-    <img class="h-100 w-100 rounded-5 blur-image" [src]="profile.image" alt="">
+    <img class="h-100 w-100 rounded-5 blur-image" [src]="profile?.image || profile?.profilePhoto || 'about-us.jpg'" alt="">
     <div class="top-overlay-content">
         <div>
             <i-feather name="heart" class="new-likes me-1"></i-feather>

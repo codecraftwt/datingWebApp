@@ -8,12 +8,12 @@
         <div class="row mb-5">
             <div class="col-sm-12 mb-3 mb-lg-0">
                 <div class="row">
-                    @for (profile of profiles; track profile) {
+                    @for (profile of userProfiles; track profile) {
                     <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',1]">
                         <app-profile-card [profile]="profile" />
                     </div>
                     }
-                    @if(profiles.length===0) {
+                    @if(userProfiles.length===0) {
                     <div class="col-12 col-md-12 mx-auto mb-4">
                         <div class="mb-4">
                             <i-feather name="star" class="big-heart"></i-feather>

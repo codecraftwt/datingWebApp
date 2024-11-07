@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { DiscoverService } from '../../services/discover.service';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
   styleUrl: './discover.component.scss'
 })
-export class DiscoverComponent {
-
+export class DiscoverComponent implements OnInit {
+  private _discoverService = inject(DiscoverService);
+  public userProfiles: any[] = []
   newForYou = [
     {
       id: "new1",
@@ -63,5 +65,19 @@ export class DiscoverComponent {
   sports = ["American Football", "Athletics", "Badminton", "Baseball", "Basketball", "Bouldering", "Bowling", "Canoe", "Climing"]
 
   trips = ["Active Trips", "Adventure Trips", "All-Inclusive Trips", "Art & Culture Holidays", "Backpacking", "Beach Trips"]
+
+  ngOnInit(): void {
+    this.getUsers()
+  }
+
+  getUsers() {
+    this._discoverService.getUsers().subscribe((response: any) => {
+      console.log(response, '<==== response')
+      if (response.success) {
+        this.userProfiles = response.data;
+      }
+    })
+  }
+
 
 }
