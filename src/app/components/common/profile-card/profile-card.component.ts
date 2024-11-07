@@ -9,5 +9,6 @@ export class ProfileCardComponent implements OnInit {
   @Input({ required: true }) profile: any;
 
   ngOnInit(): void {
+    console.log(this.profile,'profile')
   }
 }

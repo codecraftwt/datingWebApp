@@ -27,7 +27,7 @@ export class AuthService {
   login(data: any) {
     return this.http.post<any>(`${environment.apiUrl}api/auth/login`, data, { headers: { 'Content-Type': 'application/json' } })
       .pipe(map(user => {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user.data));
         this.userSubject.next(user);
         return user;
       }));
@@ -38,8 +38,6 @@ export class AuthService {
   }
 
   logout() {
-    // remove user from local storage to log user out
-    // localStorage.removeItem('user');
     localStorage.clear();
     this.userSubject.next(null);
     this.router.navigate(['/login']);

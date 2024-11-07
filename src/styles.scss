@@ -46,7 +46,7 @@ body {
     color: $accent-color;
 }
 
-.text-primary{
+.text-primary {
     color: $primary-color;
 }
 
@@ -143,4 +143,27 @@ body {
             background-color: $primary-color;
         }
     }
+}
+
+/* Success Snackbar */
+.mat-mdc-snack-bar-container.success-snackbar .mat-mdc-snackbar-surface {
+    background-color: #4caf50 !important;
+    color: white !important;
+}
+
+/* Error Snackbar */
+.mat-mdc-snack-bar-container.error-snackbar .mat-mdc-snackbar-surface {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+
+/* Info Snackbar */
+.mat-mdc-snack-bar-container.info-snackbar .mat-mdc-snackbar-surface {
+    background-color: #2196f3 !important;
+    color: white !important;
+}
+
+.mat-mdc-form-field-error-wrapper {
+    position: relative !important;
+    top: -18px !important;
 }
