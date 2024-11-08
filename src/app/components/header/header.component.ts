@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { DiscoverService } from '../../services/discover.service';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,9 @@ export class HeaderComponent implements OnInit {
       name: 'Messages'
     }
   ]
+
+  currentUser: any = localStorage.getItem('user')
+  user = JSON.parse(this.currentUser).user
   isLogin: boolean = false
 
   ngOnInit(): void {

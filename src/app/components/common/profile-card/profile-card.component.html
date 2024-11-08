@@ -1,5 +1,6 @@
 <div class="profile-container rounded-5 position-relative">
-    <img class="h-100 w-100 rounded-5 blur-image" [src]="profile?.image || profile?.profilePhoto || 'about-us.jpg'" alt="">
+    <img class="h-100 w-100 rounded-5 blur-image" [src]="profile?.image || profile?.profilePhoto || 'about-us.jpg'"
+        alt="">
     <div class="top-overlay-content">
         <div>
             <i-feather name="heart" class="new-likes me-1"></i-feather>
@@ -12,7 +13,7 @@
     </div>
     <div class="overlay-content">
         <div class="d-flex align-items-center">
-            <h2 class="me-2 mb-0">{{profile.name}}</h2>
+            <h2 class="me-2 mb-0">{{profile.name || profile.firstName +' '+ profile.lastName}}</h2>
             <h1 class="mb-0 fw-light">{{profile.age}}</h1>
         </div>
         <h6 class="fw-normal mb-3">{{profile?.designation || ''}}</h6>

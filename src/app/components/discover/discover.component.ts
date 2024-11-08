@@ -9,6 +9,7 @@ import { DiscoverService } from '../../services/discover.service';
 export class DiscoverComponent implements OnInit {
   private _discoverService = inject(DiscoverService);
   public userProfiles: any[] = []
+  
   newForYou = [
     {
       id: "new1",
