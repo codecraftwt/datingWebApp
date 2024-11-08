@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { DiscoverService } from '../../services/discover.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,8 @@ import { DataService } from '../../services/data.service';
 export class DashboardComponent implements OnInit {
   private dataService = inject(DataService);
   profiles: any[] = [];
+  currentUser: any = localStorage.getItem('user')
+  user = JSON.parse(this.currentUser).user
   steps = [
     {
       id: "step1",
@@ -44,10 +47,15 @@ export class DashboardComponent implements OnInit {
 
   responsiveOptions: any[] | undefined;
 
+  private _discoverService = inject(DiscoverService);
+  public userProfiles: any[] = []
+
   constructor() { }
 
   ngOnInit() {
-    this.getProfiles()
+    // this.getProfiles()
+    this.getUsers()
+    this.getRecentVisitors()
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -72,7 +80,23 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-  getProfiles() {
-    this.profiles = this.dataService.getProfiles()
+  // getProfiles() {
+  //   this.profiles = this.dataService.getProfiles()
+  // }
+
+  getRecentVisitors() {
+    this._discoverService.getRecentUsers().subscribe((response: any) => {
+      console.log(response, '<=== recent visitors response')
+    })
   }
+
+  getUsers() {
+    this._discoverService.getUsers().subscribe((response: any) => {
+      console.log(response, '<==== response')
+      if (response.success) {
+        this.userProfiles = response.data;
+      }
+    })
+  }
+
 }

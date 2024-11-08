@@ -23,8 +23,8 @@ import { errorInterceptor } from './_helper/error.interceptor';
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(),
-    { provide: HTTP_INTERCEPTORS, useValue: jwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useValue: errorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useFactory: () => jwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useFactory: () => errorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

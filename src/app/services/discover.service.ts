@@ -9,10 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class DiscoverService {
   private httpService = inject(HttpService);
-
+  user: any = localStorage.getItem('user');
+  currentUser = JSON.parse(this.user).user;
   constructor() { }
 
   getUsers<T>(): Observable<T> {
     return this.httpService.get<any>('api/user/all');
+  }
+
+  getRecentUsers<T>(): Observable<T> {
+    return this.httpService.get<any>(`api/visitors/${this.currentUser._id}`);
   }
 }

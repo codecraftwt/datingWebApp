@@ -18,8 +18,8 @@
                 }
             </ul>
             <button *ngIf="!isLogin" [routerLink]="['/login']" class="" mat-flat-button>Login Profile</button>
-            <div *ngIf="isLogin"  class="avtar-container">
-                <img src="avtar.avif" alt="">
+            <div *ngIf="isLogin" class="avtar-container">
+                <img [src]="user.profilePhoto || 'avtar.avif'" alt="">
             </div>
         </div>
     </div>
