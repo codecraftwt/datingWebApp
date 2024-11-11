@@ -17,7 +17,11 @@ export class DiscoverService {
     return this.httpService.get<any>('api/user/all');
   }
 
-  getRecentUsers<T>(): Observable<T> {
+  getRecentVisitors<T>(): Observable<T> {
     return this.httpService.get<any>(`api/visitors/${this.currentUser._id}`);
+  }
+
+  getVisitedProfiles<T>(): Observable<T> {
+    return this.httpService.get<any>(`api/visitors/visited/${this.currentUser._id}`);
   }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-subscriptions',
@@ -13,4 +14,10 @@ export class SubscriptionsComponent {
     "Distance search",
     "Detailed personality profile",
   ]
+
+  authService = inject(AuthService)
+
+  handleLogin() {
+    this.authService.logout();
+  }
 }

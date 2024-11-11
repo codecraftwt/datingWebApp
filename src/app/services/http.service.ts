@@ -11,14 +11,9 @@ export class HttpService {
   constructor() { }
 
   private getHeaders(): HttpHeaders {
-    const user: any = localStorage.getItem('user');
-    const token = JSON.parse(user).token;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    if (token) {
-      headers = headers.append('Authorization', `Bearer ${token}`);
-    }
     return headers;
   }
 
