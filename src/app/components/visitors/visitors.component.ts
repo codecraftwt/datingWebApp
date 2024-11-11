@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { DiscoverService } from '../../services/discover.service';
 
 @Component({
   selector: 'app-visitors',
@@ -8,13 +9,23 @@ import { DataService } from '../../services/data.service';
 })
 export class VisitorsComponent implements OnInit {
   private dataService = inject(DataService);
+  private _discoverService = inject(DiscoverService);
   profiles: any[] = [];
+  userProfiles: any[] = [];
 
   ngOnInit(): void {
     this.getProfiles()
   }
 
   getProfiles() {
-    // this.profiles = this.dataService.getProfiles()
+    this._discoverService.getRecentVisitors().subscribe((response: any) => {
+      console.log(response, '<==== response')
+      if (response.success) {
+        this.userProfiles = response.data;
+      }
+    },
+      (error) => {
+        console.error('Error fetching users:', error);
+      })
   }
 }

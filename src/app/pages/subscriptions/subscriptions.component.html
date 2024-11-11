@@ -20,7 +20,7 @@
                     <a class="nav-link active" aria-current="page">page</a>
                 </li>
             </ul>
-            <button class="" mat-flat-button>Logout</button>
+            <button class="" mat-flat-button (click)="handleLogin()">Logout</button>
             <!--<div *ngIf="isLogin"  class="avtar-container">
                 <img src="avtar.avif" alt="">
             </div> -->
@@ -31,11 +31,11 @@
 <section class="py-5">
     <div class="container main-content">
         <div class="row justify-content-center mb-4">
-            <div class="col-10">
+            <div class="col-lg-10">
                 <mat-card appearance="raised" class="offer-card">
                     <mat-card-content>
                         <div class="row align-items-center">
-                            <div class="col-3">
+                            <div class="col-md-3 mb-3 mb-md-0">
                                 <mat-card appearance="raised" class="days-card border-0">
                                     <mat-card-content class="text-center">
                                         <p class="mb-0">This offer is only valid</p>
@@ -43,10 +43,10 @@
                                     </mat-card-content>
                                 </mat-card>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-md-4 text-center mb-3 mb-md-0">
                                 <h4>Our Welcome Offer</h4>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-4 text-center text-md-start">
                                 <h3>35% off</h3>
                                 <p class="mb-0">on all Premium Memberships</p>
                             </div>
@@ -57,9 +57,9 @@
         </div>
         <div class="row justify-content-center text-center">
             <h3 class="mb-5">Select your Premium Membership</h3>
-            <div class="col-10">
+            <div class="col-lg-10">
                 <div class="row align-items-center mb-5">
-                    <div class="col-4">
+                    <div class="col-md-4 mb-5 mb-md-0">
                         <mat-card appearance="raised" class="subscription-card shadow">
                             <mat-card-header class="p-4 justify-content-center">
                                 <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> light</h4>
@@ -86,7 +86,7 @@
                             </mat-card-content>
                         </mat-card>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4 mb-5 mb-md-0">
                         <mat-card appearance="raised" class="subscription-card most-popular shadow">
                             <mat-card-header class="p-4 justify-content-center">
                                 <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> PLUS</h4>
@@ -117,7 +117,7 @@
                             </div>
                         </mat-card>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4 mb-5 mb-md-0">
                         <mat-card appearance="raised" class="subscription-card shadow">
                             <mat-card-header class="p-4 justify-content-center">
                                 <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> EXTRA</h4>
@@ -147,7 +147,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
                             <mat-card-content class="text-center">
                                 <mat-icon>lock</mat-icon>
@@ -157,7 +157,7 @@
                             </mat-card-content>
                         </mat-card>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
                             <mat-card-content class="text-center">
                                 <mat-icon>lock</mat-icon>
@@ -167,7 +167,7 @@
                             </mat-card-content>
                         </mat-card>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
                             <mat-card-content class="text-center">
                                 <mat-icon>lock</mat-icon>

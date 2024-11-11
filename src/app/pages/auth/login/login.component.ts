@@ -11,8 +11,8 @@ import { AuthService } from '../../../services/auth.service';
 export class LoginComponent implements OnInit {
   hide = signal(true);
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('trupti01@yopmail.com'),
+    password: new FormControl('Trupti@123'),
   });
 
   clickEvent(event: MouseEvent) {

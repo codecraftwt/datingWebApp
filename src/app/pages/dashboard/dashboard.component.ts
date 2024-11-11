@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   getRecentVisitors() {
-    this._discoverService.getRecentUsers().subscribe((response: any) => {
+    this._discoverService.getRecentVisitors().subscribe((response: any) => {
       console.log(response, '<=== recent visitors response')
     })
   }
@@ -96,7 +96,10 @@ export class DashboardComponent implements OnInit {
       if (response.success) {
         this.userProfiles = response.data;
       }
-    })
+    },
+      (error) => {
+        console.error('Error fetching users:', error);
+      })
   }
 
 }
