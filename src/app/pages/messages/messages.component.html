@@ -7,10 +7,10 @@
                         <h5 class="text-gradient">Messages</h5>
                     </mat-card-header> -->
                     <mat-card-content class="ps-0">
-                        <div class="row mb-5 justify-content-between ">
+                        <div class="row mb-3 justify-content-between ">
                             <div class="col-12 col-md-5 pe-0">
                                 <h5 class="text-gradient text-start ps-4">Messages</h5>
-                                <div class="subscription-card py-3" [routerLink]="['/subscriptions']">
+                                <div class="subscription-card py-3 mb-4" [routerLink]="['/subscriptions']">
                                     <div class="row align-items-center">
                                         <div class="col-md-6">
                                             <h5>Unlock all features</h5>
@@ -28,7 +28,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    @for (room of rooms; track room) {
+                                    <div class="room-container">
+                                        {{room.name}}
+                                    </div>
+                                    }
+                                </div>
                             </div>
+                            @if(messages.length===0) {
                             <div class="col-12 col-md-6 mb-4 px-5 text-center">
                                 <div class="mb-4 svg-comtainer mx-auto">
                                     <img class="h-100 w-100" src="rocket.svg" alt="">
@@ -41,9 +49,36 @@
                                 <button class="btn-gradient" mat-flat-button [routerLink]="['/discover']">Let's
                                     Go</button>
                             </div>
+                            }
+                            @if(messages.length>0) {
+                            <div class="col-12 col-md-7 ps-4">
+                                <div class="messages-container">
+                                    @for (msg of messages; track msg) {
+                                    <div class="message-container">
+                                        {{ msg?.message }}
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            }
                         </div>
                     </mat-card-content>
                     <mat-card-footer>
+                        @if(messages.length>0) {
+                        <div class="row justify-content-end">
+                            <div class="col-12 col-md-7 px-3">
+                                <!-- <form class="example-form"> -->
+                                    <mat-form-field appearance="outline" class="example-full-width w-100">
+                                        <input matInput maxlength="256" [(ngModel)]="message" placeholder="Message">
+                                        <button class="me-2" mat-icon-button matSuffix (click)="sendMessage()">
+                                            <mat-icon>send</mat-icon>
+                                        </button>
+                                    </mat-form-field>
+                                <!-- </form> -->
+                            </div>
+                        </div>
+                        }
+                        @if(messages.length===0) {
                         <div class="row justify-content-end">
                             <div class="col-12 col-md-7 mb-4">
                                 <div class="d-flex align-items-center">
@@ -53,6 +88,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     </mat-card-footer>
                 </mat-card>
             </div>

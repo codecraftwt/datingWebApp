@@ -36,4 +36,26 @@
             z-index: 2;
         }
     }
+
+
+    .messages-container {
+        max-height: 400px;
+        overflow-y: scroll;
+
+        .message-container {
+            padding: 15px;
+            background-color: $accent-color;
+            width: 50%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .room-container {
+        padding: 10px;
+        background: $grey;
+        color: $white;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
 }
