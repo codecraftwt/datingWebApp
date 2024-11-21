@@ -17,6 +17,8 @@ export class SocketService {
 
   socketInitialization() {
     this.socket.on('message', (data) => { this.getMessages(data.roomId) })
+    this.socket.on('message', (data) => { this.getRoomById(data.roomId) })
+    this.socket.on('createroom', (data) => { this.getAllRooms() })
   }
 
   public sendMessage(data: any) {
@@ -39,4 +41,22 @@ export class SocketService {
       });
     });
   }
+
+  // new APIs
+  public getAllRooms() {
+    return this._httpService.get<any>(`api/chat/rooms`)
+  }
+
+  public getRoomById(roomId: string) {
+    return this._httpService.get<any>(`api/chat/rooms/${roomId}`)
+  }
+
+  public sendNewMessage(roomId: string, data: any) {
+    return this._httpService.post<any>(`api/chat/${roomId}/messages`, data)
+  }
+
+  public createRoom(data: any) {
+    return this._httpService.post<any>(`api/chat/create-room`, data)
+  }
+
 }

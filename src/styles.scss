@@ -40,6 +40,12 @@ body {
 
 .bg-gradient {
     background: $gradient-background;
+    background-image: $gradient-background !important;
+}
+
+.bg-gradient-up {
+    background: $gradient-background-top;
+    background-image: $gradient-background-top !important;
 }
 
 .text-light-blue {
