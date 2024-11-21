@@ -37,8 +37,12 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   scrollToBottom(): void {
     try {
-      const container = this.messagesContainer.nativeElement;
-      container.scrollTop = container.scrollHeight;
+      const container: any = this.messagesContainer?.nativeElement;
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+      } else {
+        console.warn('Messages container not found.');
+      }
     } catch (err) {
       console.error('Scroll error', err);
     }
