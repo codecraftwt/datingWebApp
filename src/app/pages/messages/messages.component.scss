@@ -39,17 +39,68 @@
 
 
     .messages-container {
+        min-height: 250px;
         max-height: 400px;
         overflow-y: scroll;
+
+        .left-message {
+            .message-container::before {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                left: -6px;
+                top: 0;
+                border-top: 5px solid $accent-color;
+                border-bottom: 5px solid transparent;
+                border-left: 5px solid transparent;
+                border-right: 5px solid $accent-color;
+            }
+        }
+
+        .right-message {
+            .message-container::before {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                right: -6px;
+                top: 0;
+                border-top: 5px solid $accent-color;
+                border-bottom: 5px solid transparent;
+                border-left: 5px solid $accent-color;
+                border-right: 5px solid transparent;
+            }
+        }
 
         .message-container {
             padding: 15px;
             background-color: $accent-color;
-            width: 50%;
+            // width: 50%;
+            min-width: 45%;
+            max-width: 80%;
             border-radius: 5px;
             margin-bottom: 10px;
+            position: relative;
+
+
+            p {
+                margin-bottom: 0px;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            small {
+                position: absolute;
+                right: 9px;
+                bottom: 4px;
+                font-size: 10px;
+                font-weight: 500;
+            }
         }
+
     }
+
 
     .room-container {
         padding: 10px;
@@ -57,5 +108,53 @@
         color: $white;
         font-weight: 500;
         margin-bottom: 10px;
+        border-top-right-radius: 70px;
+        border-bottom-right-radius: 70px;
+        cursor: pointer;
+
+        p {
+            max-width: 65%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 10px;
+            font-weight: 400;
+        }
+
     }
+
+    .profile-container {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+
+        img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+
+    .messages-header {
+        padding: 10px;
+        color: $white;
+        margin-bottom: 10px;
+    }
+}
+
+:host::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece {
+    border-image: linear-gradient(9deg, #d7e3ff, #005cbb) 1;
+}
+
+:host::ng-deep.mdc-notched-outline {
+    border-radius: 40px;
+    border: 1px solid #005cbb;
+}
+
+:host::ng-deep.mdc-notched-outline__leading {
+    border: none !important;
+}
+:host::ng-deep.mdc-notched-outline__trailing {
+    border: none !important;
 }

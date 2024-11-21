@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { Socket } from 'socket.io-client';
 
@@ -7,47 +7,92 @@ import { Socket } from 'socket.io-client';
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, AfterViewChecked {
   _socketService = inject(SocketService)
   messages: any[] = [];
   rooms: any[] = [];
   message: string = '';
   private socket!: Socket
+  currentUser: any = localStorage.getItem('user')
+  user = JSON.parse(this.currentUser).user
+  receiverId: string = '671f260804f1e0d03308b13f'
+  currentRoom: any
+  currentReceiver: any
+
+  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
 
   ngOnInit(): void {
     this._socketService.onMessage().subscribe((message: any) => {
-      console.log('message===>', message)
-      this.messages.push(message);
+      let currentRoom = this.rooms.find(room => message.roomId === room._id)
+      currentRoom.chat[0] = message.newMessage
+      this.messages.push(message.newMessage);
     });
-    this.getMessages();
-    this.getRooms()
+    this.getAllRooms();
   }
+  // new APIs
 
-  getMessages() {
-    this._socketService.getMessages('room123').subscribe((response: any) => {
-      console.log(response)
-      this.messages = response
-      this.message = '';
-    });
-  }
-
-  getRooms() {
-    this._socketService.getRooms().subscribe((response: any) => {
-      console.log(response)
-      this.rooms = response
-    });
-  }
-
-  sendMessage(): void {
-    const payload = {
-      message: this.message,
-      roomId: 'room123',
-      userId: 'user1',
+  scrollToBottom(): void {
+    try {
+      const container = this.messagesContainer.nativeElement;
+      container.scrollTop = container.scrollHeight;
+    } catch (err) {
+      console.error('Scroll error', err);
     }
-    this._socketService.sendMessage(payload).subscribe((response: any) => {
+  }
+
+  selectRoom(room: any): void {
+    console.log(room)
+    this.getRoom(room._id)
+  }
+
+  getAllRooms(): void {
+    this._socketService.getAllRooms().subscribe((response: any) => {
+      console.log(response, 'rooms all response')
+      if (response.status == 200) {
+        this.rooms = response.data
+      }
+    })
+  }
+
+  getRoom(roomId: string): void {
+    this._socketService.getRoomById(roomId).subscribe(response => {
+      console.log(response, 'current room response')
+      if (response.success) {
+        this.currentRoom = response.data
+        if (this.user._id === this.currentRoom.createdWith._id) {
+          this.currentReceiver = this.currentRoom.createdBy
+        } else {
+          this.currentReceiver = this.currentRoom.createdWith
+        }
+        this.messages = response.data.chat
+      }
+    })
+  }
+
+  sendNewMessage(roomId?: string): void {
+    const payload = {
+      senderId: this.user._id,
+      receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
+      message: this.message
+    }
+    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe((response: any) => {
       console.log(response)
       this.message = '';
-    });
+    })
+  }
+
+  createRoom(): void {
+    const payload = {
+      createdBy: this.user._id,
+      createdWith: this.receiverId
+    }
+    this._socketService.createRoom(payload).subscribe(response => {
+      console.log(response, 'create room response')
+    })
   }
 
 }
