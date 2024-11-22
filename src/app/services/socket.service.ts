@@ -15,7 +15,7 @@ export class SocketService {
 
   constructor() {
     // this.socket = io('http://localhost:5000');
-    this.socket = io(environment.apiUrl);
+    this.socket = io('https://backend-dating.onrender.com');
     this.socketInitialization()
   }
 
