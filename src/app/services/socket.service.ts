@@ -11,7 +11,7 @@ export class SocketService {
   private _httpService = inject(HttpService);
 
   constructor() {
-    this.socket = io('http://localhost:5000');
+    this.socket = io('https://backend-dating.onrender.com/');
     this.socketInitialization()
   }
 
