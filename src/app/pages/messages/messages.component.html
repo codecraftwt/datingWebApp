@@ -32,14 +32,14 @@
                                     @for (room of rooms; track room) {
                                     <div class="room-container d-flex col-md-8 align-items-center"
                                         (click)="selectRoom(room)">
-                                        <ng-container *ngIf="user._id === room.createdWith._id; else elseBlock">
+                                        <ng-container *ngIf="user._id == room.createdWith._id; else elseBlock">
                                             <div class="profile-container me-3 col-md-2">
                                                 <img [src]="room?.createdBy?.profilePhoto || 'avtar.avif'" alt="">
                                             </div>
                                             <div class="w-100">
                                                 <h5 class="mb-0">{{ room.createdBy.firstName }} {{
                                                     room.createdBy.lastName }}</h5>
-                                                <p class="mb-0 w-75 text-truncate">{{room.chat[0].message}}</p>
+                                                <p class="mb-0 w-75 text-truncate">{{room?.chat[0]?.message}}</p>
                                             </div>
                                         </ng-container>
                                         <ng-template #elseBlock>
@@ -49,7 +49,7 @@
                                             <div class="w-100">
                                                 <h5 class="mb-0">{{ room.createdWith.firstName }} {{
                                                     room.createdWith.lastName }}</h5>
-                                                <p class="mb-0 w-75 text-truncate">{{room.chat[0].message}}</p>
+                                                <p class="mb-0 w-75 text-truncate">{{room?.chat[0]?.message}}</p>
                                             </div>
                                         </ng-template>
                                     </div>
