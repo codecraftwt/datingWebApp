@@ -34,7 +34,7 @@
                                         (click)="selectRoom(room)">
                                         <ng-container *ngIf="user._id === room.createdWith._id; else elseBlock">
                                             <div class="profile-container me-3 col-md-2">
-                                                <img [src]="room.createdBy.profilePhoto" alt="">
+                                                <img [src]="room?.createdBy?.profilePhoto || 'avtar.avif'" alt="">
                                             </div>
                                             <div class="w-100">
                                                 <h5 class="mb-0">{{ room.createdBy.firstName }} {{
@@ -44,7 +44,7 @@
                                         </ng-container>
                                         <ng-template #elseBlock>
                                             <div class="profile-container me-3">
-                                                <img [src]="room.createdWith.profilePhoto" alt="">
+                                                <img [src]="room?.createdWith?.profilePhoto || 'avtar.avif'" alt="">
                                             </div>
                                             <div class="w-100">
                                                 <h5 class="mb-0">{{ room.createdWith.firstName }} {{
@@ -74,7 +74,7 @@
                             <div class="col-12 col-md-7 ps-4">
                                 <div class="messages-header bg-gradient-up d-flex align-items-center">
                                     <div class=" profile-container me-3">
-                                        <img [src]="currentReceiver.profilePhoto" alt="">
+                                        <img [src]="currentReceiver?.profilePhoto || 'avtar.avif'" alt="">
                                     </div>
                                     <div>
                                         <h5 class="mb-0">{{ currentReceiver.firstName }} {{

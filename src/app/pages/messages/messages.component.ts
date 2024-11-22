@@ -19,7 +19,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   currentRoom: any
   currentReceiver: any
 
-  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+  // @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+  @ViewChild('messagesContainer', { static: false }) messagesContainer!: ElementRef;
 
   ngAfterViewChecked(): void {
     this.scrollToBottom();
