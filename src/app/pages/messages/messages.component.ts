@@ -50,32 +50,43 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   selectRoom(room: any): void {
-    console.log(room)
+    console.log(room, '<================== room')
     this.getRoom(room._id)
   }
 
   getAllRooms(): void {
-    this._socketService.getAllRooms().subscribe((response: any) => {
-      console.log(response, 'rooms all response')
-      if (response.status == 200) {
-        this.rooms = response.data
+    this._socketService.getAllRooms(this.user._id).subscribe({
+      next: (response) => {
+        console.log(response, 'get all room response');
+        if (response.status == 200) {
+          this.rooms = response.data
+        }
+      },
+      error: (error) => {
+        console.error(error);
       }
-    })
+    });
   }
 
   getRoom(roomId: string): void {
-    this._socketService.getRoomById(roomId).subscribe(response => {
-      console.log(response, 'current room response')
-      if (response.success) {
-        this.currentRoom = response.data
-        if (this.user._id === this.currentRoom.createdWith._id) {
-          this.currentReceiver = this.currentRoom.createdBy
-        } else {
-          this.currentReceiver = this.currentRoom.createdWith
+    this._socketService.getRoomById(roomId).subscribe({
+      next: (response) => {
+        console.log(response, 'current room response');
+        if (response.success) {
+          this.currentRoom = response.data
+          if (this.user._id === this.currentRoom.createdWith._id) {
+            this.currentReceiver = this.currentRoom.createdBy
+          } else {
+            this.currentReceiver = this.currentRoom.createdWith
+          }
+          this.messages = response.data.chat
         }
-        this.messages = response.data.chat
+      },
+      error: (error) => {
+        console.error(error);
       }
-    })
+    });
+
   }
 
   sendNewMessage(roomId?: string): void {
@@ -84,10 +95,14 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
       message: this.message
     }
-    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe((response: any) => {
-      console.log(response)
-      this.message = '';
-    })
+    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
+      next: (response) => {
+        this.message = '';
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   createRoom(): void {
@@ -95,9 +110,17 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       createdBy: this.user._id,
       createdWith: this.receiverId
     }
-    this._socketService.createRoom(payload).subscribe(response => {
-      console.log(response, 'create room response')
-    })
+    this._socketService.createRoom(payload).subscribe({
+      next: (response) => {
+        console.log(response, 'create room response');
+        // if (response.status == 200) {
+        //   this.rooms = response.data
+        // }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
 }

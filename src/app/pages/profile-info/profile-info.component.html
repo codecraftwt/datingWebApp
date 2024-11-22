@@ -26,7 +26,7 @@
                                             <h2 class="me-2 mb-0">{{'profile.name'}}</h2>
                                             <h1 class="mb-0 fw-light">{{'30'}}</h1>
                                         </div>
-                                        <h6 class="fw-normal mb-3">{{'profile?.designation' || ''}}</h6>
+                                        <h6 class="fw-normal mb-3">{{'profile?.designation'}}</h6>
                                         <div class="d-flex align-items-center last-login">
                                             <p class="dark-background me-2 mb-0">
                                                 Last login:Today
@@ -38,6 +38,9 @@
                                         </div>
                                     </div>
                                     <div>
+                                        <button class="btn-gradient text-white shadow me-2" mat-raised-button (click)="handleMessage()">
+                                            <i-feather name="message-square" class="new-likes me-1"></i-feather>Message
+                                        </button>
                                         <button class="btn-gradient text-white shadow" mat-raised-button>
                                             <i-feather name="heart" class="new-likes me-1"></i-feather>Like
                                         </button>

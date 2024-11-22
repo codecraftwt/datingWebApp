@@ -17,7 +17,8 @@
                                     <div class="col-sm-12 mb-3 mb-lg-0">
                                         <div class="row">
                                             @for (profile of userProfiles; track profile) {
-                                            <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',1]">
+                                            <div class="col-lg-4 col-12 col-md-6 mb-4"
+                                                [routerLink]="['/profile',profile._id]">
                                                 <app-profile-card [profile]="profile" />
                                             </div>
                                             }
