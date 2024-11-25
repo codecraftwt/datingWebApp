@@ -50,7 +50,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   selectRoom(room: any): void {
-    console.log(room, '<================== room')
     this.getRoom(room._id)
   }
 
