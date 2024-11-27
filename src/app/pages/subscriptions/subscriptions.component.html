@@ -187,3 +187,41 @@
         </div>
     </div>
 </section>
+
+<section>
+    <div class="container">
+        <h2 class="mt-5 mb-4">Angular 18 Stripe Payment Gateway Example</h2>
+        <div class="col-md-5 mb-2">
+            <button (click)="makePayment(15)" class="btn btn-danger btn-block">Pay $15</button>
+        </div>
+        <div class="col-md-5 mb-2">
+            <button (click)="makePayment(25)" class="btn btn-primary btn-block">Pay $25</button>
+        </div>
+        <div class="col-md-5">
+            <button (click)="makePayment(35)" class="btn btn-success btn-block">Pay $35</button>
+        </div>
+    </div>
+    <div [formGroup]="paymentElementForm">
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="name" formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Email" type="email" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Address" formControlName="address" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="ZIP Code" formControlName="zipcode" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="city" formControlName="city" />
+        </mat-form-field>
+        @if (elementsOptions.clientSecret) {
+        <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
+            <ngx-stripe-payment [options]="paymentElementOptions" />
+        </ngx-stripe-elements>
+        }
+        <button (click)="pay()">PAY</button>
+    </div>
+</section>
