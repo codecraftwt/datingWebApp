@@ -28,6 +28,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { NgxStripeModule } from 'ngx-stripe';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -56,6 +57,7 @@ export const MY_DATE_FORMATS = {
 
     CarouselModule,
     ButtonModule,
+    NgxStripeModule.forRoot(),
 
     MatButtonModule,
     MatListModule,
@@ -85,6 +87,7 @@ export const MY_DATE_FORMATS = {
 
     CarouselModule,
     ButtonModule,
+    NgxStripeModule,
 
     MatButtonModule,
     MatListModule,

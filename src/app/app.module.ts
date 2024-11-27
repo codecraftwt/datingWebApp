@@ -9,6 +9,7 @@ import { SharedModule } from './components/shared/shared.module';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from './_helper/jwt.interceptor';
 import { errorInterceptor } from './_helper/error.interceptor';
+import { provideNgxStripe } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { errorInterceptor } from './_helper/error.interceptor';
     SharedModule,
   ],
   providers: [
+    provideNgxStripe(),
     provideAnimationsAsync(),
     provideHttpClient(
       withInterceptors([jwtInterceptor, errorInterceptor]),

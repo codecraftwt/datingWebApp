@@ -14,8 +14,8 @@ export class SocketService {
   currentUser = JSON.parse(this.user).user;
 
   constructor() {
-    // this.socket = io('http://localhost:5000');
-    this.socket = io('https://backend-dating.onrender.com');
+    this.socket = io('http://localhost:5000');
+    // this.socket = io('https://backend-dating.onrender.com');
     this.socketInitialization()
   }
 
