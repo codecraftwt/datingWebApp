@@ -37,6 +37,7 @@ export class ProfileInfoComponent implements OnInit {
     })
   }
   createRoom(): void {
+    console.log('cretateroom')
     const payload = {
       createdBy: this.user._id,
       createdWith: this.selectedUserId
@@ -49,7 +50,7 @@ export class ProfileInfoComponent implements OnInit {
           this._router.navigate(['/messages']);
         }
         if (response.status === 400) {
-          alert(response.message)
+          this._router.navigate(['/messages']);
         }
       },
       error: (error) => {
@@ -62,6 +63,29 @@ export class ProfileInfoComponent implements OnInit {
   handleMessage() {
     console.log('handle message')
     this.createRoom();
+  }
+
+  handleLike(){
+    const payload ={
+      userId:this.user._id,
+      likedProfileId:this.selectedUserId
+    }
+    this._profileService.likeProfile(payload).subscribe({
+      next: (response) => {
+        console.log(response, 'Like profile response');
+        this.getProfileDetails();
+        // if (response.success) {
+        //   this._router.navigate(['/messages']);
+        // }
+        // if (response.status === 400) {
+        //   alert(response.message)
+        // }
+      },
+      error: (error) => {
+        console.log(error, '<======== error')
+        // alert(error);
+      }
+    });
   }
 
 }

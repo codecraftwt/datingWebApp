@@ -11,7 +11,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 })
 export class SigninComponent implements OnInit {
   hide = signal(true);
-  accFor = ['Myself', 'My Son', 'My Daughter', 'My Sister', 'My Brother', 'My Relative', 'My Friend']
+  accFor = ['Myself']
   accForSelected: string = ''
   gender: string = ''
   maxDate!: Date;
@@ -48,6 +48,14 @@ export class SigninComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     mobile: ['', [Validators.required, this.mobileValidator]],
     password: ['', [Validators.required, Validators.minLength(8), this.passwordValidator]],
+  });
+  personalityProfileFormGroup = this._formBuilder.group({
+    searchingFor: ['', [Validators.required]],
+    height: ['', []],
+    weight: ['', []],
+    education: ['', []],
+    hobbies:['',[]],
+    occupation: ['', []],
   });
 
   mobileValidator(control: any) {
@@ -94,7 +102,8 @@ export class SigninComponent implements OnInit {
       ...this.firstFormGroup.getRawValue(),
       ...this.secondFormGroup.getRawValue(),
       ...this.religionFormGroup.getRawValue(),
-      ...this.phoneFormGroup.getRawValue()
+      ...this.phoneFormGroup.getRawValue(),
+      ...this.personalityProfileFormGroup.getRawValue()
     };
     console.log(payload, 'payload')
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.religionFormGroup.valid && this.phoneFormGroup.valid) {

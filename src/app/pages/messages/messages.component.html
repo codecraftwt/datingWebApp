@@ -43,7 +43,7 @@
                                             </div>
                                         </ng-container>
                                         <ng-template #elseBlock>
-                                            <div class="profile-container me-3">
+                                            <div class="profile-container me-3 col-md-2">
                                                 <img [src]="room?.createdWith?.profilePhoto || 'avtar.avif'" alt="">
                                             </div>
                                             <div class="w-100">
@@ -56,7 +56,7 @@
                                     }
                                 </div>
                             </div>
-                            @if(messages.length===0) {
+                            @if(rooms.length===0) {
                             <div class="col-12 col-md-6 mb-4 px-5 text-center">
                                 <div class="mb-4 svg-comtainer mx-auto">
                                     <img class="h-100 w-100" src="rocket.svg" alt="">
@@ -70,37 +70,49 @@
                                     Go</button>
                             </div>
                             }
-                            @if(messages.length>0) {
                             <div class="col-12 col-md-7 ps-4">
                                 <div class="messages-header bg-gradient-up d-flex align-items-center">
                                     <div class=" profile-container me-3">
                                         <img [src]="currentReceiver?.profilePhoto || 'avtar.avif'" alt="">
                                     </div>
                                     <div>
-                                        <h5 class="mb-0">{{ currentReceiver.firstName }} {{
-                                            currentReceiver.lastName }}</h5>
+                                        <h5 class="mb-0">{{ currentReceiver?.firstName }} {{
+                                            currentReceiver?.lastName }}</h5>
                                     </div>
                                 </div>
+                                @if(messages.length>0) {
                                 <div class="messages-container px-2" #messagesContainer>
                                     @for (msg of messages; track msg) {
                                     <div class="inner-message-container d-flex"
                                         [ngClass]="user._id === msg.senderId?'justify-content-end right-message':'justify-content-start left-message'">
                                         <div class="message-container">
                                             <p>{{ msg?.message }}</p>
-                                            <small class="mb-0">{{msg.timestamp | date:'shortTime'}}</small>
+                                            <small class="mb-0">{{msg.timestamp | daysAgo}}</small>
                                         </div>
-                                        <!-- <button mat-icon-button>
+                                        <button mat-icon-button class="mx-2">
                                             <mat-icon>more_vert</mat-icon>
-                                        </button> -->
+                                        </button>
                                     </div>
                                     }
                                 </div>
+                                }
+                                <div *ngIf="currentReceiver && messages.length===0" class="h-100">
+                                    <div class="d-flex h-75 align-items-center justify-content-center">
+                                        <div class="card p-3 shadow-sm border-0">
+                                            <div class="card-body">
+                                                <h4>Start chatting with</h4>
+                                                <!-- <h5 class="text-primary text-center"> {{ currentReceiver?.firstName }}</h5> -->
+                                                <h5 class="mb-0 text-center text-primary">{{ currentReceiver?.firstName
+                                                    }}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            }
                         </div>
                     </mat-card-content>
                     <mat-card-footer>
-                        @if(messages.length>0) {
+                        @if(messages.length>=0) {
                         <div class="row justify-content-end">
                             <div class="col-12 col-md-7 px-3">
                                 <mat-form-field appearance="outline" class="example-full-width w-100"

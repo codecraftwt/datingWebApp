@@ -24,9 +24,7 @@
                                                 </ng-container>
                                             </mat-chip-listbox>
                                         </div>
-                                        <div class="mb-2" *ngIf="accForSelected == 'Myself' || 
-                                            accForSelected == 'My Relative'|| 
-                                            accForSelected == 'My Friend'">
+                                        <div class="mb-2">
                                             <mat-radio-group aria-label="Select gender" formControlName="gender">
                                                 <mat-radio-button value="Male">Male</mat-radio-button>
                                                 <mat-radio-button value="Female">Female</mat-radio-button>
@@ -137,7 +135,8 @@
                                     </form>
                                     <div>
                                         <button mat-button matStepperPrevious>Back</button>
-                                        <button mat-button matStepperNext [disabled]="religionFormGroup.invalid">Next</button>
+                                        <button mat-button matStepperNext
+                                            [disabled]="religionFormGroup.invalid">Next</button>
                                     </div>
                                 </mat-step>
                                 <mat-step>
@@ -190,6 +189,73 @@
                                                     Password must contain at least one uppercase letter, one lowercase
                                                     letter, and one number.
                                                 </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <button mat-button matStepperPrevious>Back</button>
+                                        <button mat-button matStepperNext
+                                            [disabled]="phoneFormGroup.invalid">Next</button>
+                                    </div>
+                                </mat-step>
+
+                                <!--  -->
+                                <mat-step>
+                                    <ng-template matStepLabel>Personality Profile</ng-template>
+                                    <form [formGroup]="personalityProfileFormGroup">
+                                        <div>
+                                            <mat-label>Searching For </mat-label><br />
+                                            <div class="mb-2">
+                                                <mat-radio-group aria-label="Searching For"
+                                                    formControlName="searchingFor">
+                                                    <mat-radio-button class="me-2" value="Male">Male</mat-radio-button>
+                                                    <mat-radio-button class="me-2"
+                                                        value="Female">Female</mat-radio-button>
+                                                    <mat-radio-button value="Transgender">Transgender</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <mat-label>Height (in ft)</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput placeholder="Enter height" formControlName="height">
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Weight (in Kg)</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput placeholder="Enter Weight" formControlName="weight">
+                                            </mat-form-field>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <button mat-button matStepperPrevious>Back</button>
+                                        <button mat-button matStepperNext>Skip</button>
+                                        <button mat-button matStepperNext
+                                            [disabled]="personalityProfileFormGroup.invalid">Next</button>
+                                    </div>
+                                </mat-step>
+                                <mat-step>
+                                    <ng-template matStepLabel>Personality Profile</ng-template>
+                                    <form [formGroup]="personalityProfileFormGroup">
+                                        <div>
+                                            <mat-label>Education</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput placeholder="Enter education"
+                                                    formControlName="education">
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Hobbies</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput placeholder="Enter hobbies" formControlName="hobbies">
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Occupation</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <input matInput placeholder="Enter occupation"
+                                                    formControlName="occupation">
                                             </mat-form-field>
                                         </div>
                                     </form>

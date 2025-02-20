@@ -59,6 +59,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
         console.log(response, 'get all room response');
         if (response.status == 200) {
           this.rooms = response.data
+          this.getRoom(this.rooms[0]._id)
         }
       },
       error: (error) => {
@@ -78,6 +79,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           } else {
             this.currentReceiver = this.currentRoom.createdWith
           }
+          console.log(this.currentReceiver,'<=== currentReceiver')
           this.messages = response.data.chat
         }
       },

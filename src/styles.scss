@@ -12,6 +12,7 @@
 html,
 body {
     height: 100%;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 body {
@@ -56,6 +57,10 @@ body {
     color: $primary-color;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 // theme classes
 .btn-purple {
     background: $light-grey-color !important;
@@ -82,6 +87,13 @@ body {
     fill: $accent-color !important;
     height: 70px !important;
     width: 70px !important;
+}
+
+.big-mat-icon{
+    font-size: 52px !important;
+    height: 50px !important;
+    width: 50px !important;
+    color: $primary-color !important;
 }
 
 .inner-card {

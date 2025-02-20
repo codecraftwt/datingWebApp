@@ -2,13 +2,17 @@ import { inject, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
   private _httpService = inject(HttpService);
-  constructor() { }
+  constructor() {}
 
   public getProfileById(id: string) {
-    return this._httpService.get<any>(`api/user/${id}`)
+    return this._httpService.get<any>(`api/user/${id}`);
+  }
+
+  public likeProfile(data: any) {
+    return this._httpService.post(`api/likes/like-profile`, data);
   }
 }

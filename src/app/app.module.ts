@@ -10,24 +10,22 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from './_helper/jwt.interceptor';
 import { errorInterceptor } from './_helper/error.interceptor';
 import { provideNgxStripe } from 'ngx-stripe';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from '../environments/environment.development';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    SharedModule,
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, SharedModule,],
   providers: [
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
     provideNgxStripe(),
     provideAnimationsAsync(),
-    provideHttpClient(
-      withInterceptors([jwtInterceptor, errorInterceptor]),
-    )
+    provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

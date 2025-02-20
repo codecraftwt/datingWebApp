@@ -29,6 +29,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { NgxStripeModule } from 'ngx-stripe';
+import { DaysAgoPipe } from '../../pipes/days-ago.pipe';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -45,7 +46,8 @@ export const MY_DATE_FORMATS = {
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DaysAgoPipe
   ],
   imports: [
     CommonModule,
@@ -104,7 +106,8 @@ export const MY_DATE_FORMATS = {
     MatTreeModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    DaysAgoPipe
   ],
   providers: [
     MatDatepickerModule,

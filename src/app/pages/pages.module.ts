@@ -17,6 +17,8 @@ import { LikesComponent } from './likes/likes.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { ProfileDetailsComponent } from './auth/profile-details/profile-details.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 @NgModule({
@@ -35,11 +37,21 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     ProfileInfoComponent,
     MessagesComponent,
     SubscriptionsComponent,
+    ProfileDetailsComponent,
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
   ]
 })
 export class PagesModule { }
