@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
@@ -76,7 +77,9 @@ export const MY_DATE_FORMATS = {
     MatTreeModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule,
+    
   ],
   exports: [
     HeaderComponent,
@@ -107,6 +110,7 @@ export const MY_DATE_FORMATS = {
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
     DaysAgoPipe
   ],
   providers: [

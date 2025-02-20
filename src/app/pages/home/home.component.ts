@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { OnBhalfOf } from '../enums/home-enums';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,9 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/n
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  selectedValue = ''
+  UserForm!: FormGroup;
+  onBehalfOf = Object.values(OnBhalfOf);
+  selectedValue = '';
   age = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   whatYouGet = [
     {
@@ -90,15 +94,45 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  constructor(private _fb: FormBuilder) { }
   ngOnInit(): void {
-
+    this._intializeForm();
   }
+
+  _intializeForm() {
+    this.UserForm = this._fb.group({
+      profileFor: [''], // Bride, Groom
+      firstname: [''],
+      lastname: [''],
+      gender: [''],
+      email: [''],
+      phone: [''],
+      password: [''],
+      confirmPassword: [''],
+      dob: [''],  // Date of Birth
+      height: [''],  // Height
+      weight: [''],  // Weight
+      caste: [''],  // Caste
+      religion: [''],  // Religion
+      maritalStatus: [''],  // Marital Status
+      education: [''],  // Education
+      occupation: [''],  // Occupation
+      city: [''],  // City
+      state: [''],  // State
+      country: [''],  // Country
+      language: [''],  // Language
+      community: [''],  // Community
+      about: [''],  // About
+    });
+  }
+
+  onSubmit() { }
 
   onSelectionChange(event: any) {
     const selectedChip = event.source.value;
   }
 
   trackCategory(index: number, category: any) {
-    return category.name; 
+    return category.name;
   }
 }

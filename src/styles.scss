@@ -162,7 +162,14 @@ body {
         }
     }
 }
-
+.custom-menu{
+    width: 220px;
+    margin-bottom: 0px !important;
+    padding-left: 0px !important;
+    ul {
+        list-style: none;
+    }
+}
 /* Success Snackbar */
 .mat-mdc-snack-bar-container.success-snackbar .mat-mdc-snackbar-surface {
     background-color: #4caf50 !important;

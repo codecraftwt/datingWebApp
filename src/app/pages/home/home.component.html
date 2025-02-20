@@ -33,6 +33,55 @@
                     </div>
                     <button class="px-5" mat-flat-button>Search</button>
                 </div>
+                <div class="card-body">
+                    <h4 class="card-title">Create Your Account</h4>
+                    <Form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <mat-form-field class="me-3">
+                                <mat-label>Select On Behalf Of</mat-label>
+                                <mat-select formControlName="profileFor" name="onBehalfOf">
+                                    @for (item of onBehalfOf; track item) {
+                                    <mat-option [value]="item">{{item}}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput placeholder="John" formControlName="firstname" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput placeholder="Doe" formControlName="lastname" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Gender</mat-label>
+                                    <mat-select formControlName="gender" name="gender">
+                                        <mat-option value="Male">Male</mat-option>
+                                        <mat-option value="Female">Female</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Date of Birth</mat-label>
+                                    <input matInput [matDatepicker]="picker">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </Form>
+                </div>
             </div>
         </div>
     </div>

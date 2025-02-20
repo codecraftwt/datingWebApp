@@ -9,8 +9,6 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const user = authenticationService.userValue;
   const isLoggedIn = user?.token;
   const isApiUrl = req.url.startsWith(environment.apiUrl);
-  console.log(isLoggedIn, 'isLoggedIn')
-  console.log(isApiUrl, 'isApiUrl')
 
   if (isLoggedIn && isApiUrl) {
     req = req.clone({

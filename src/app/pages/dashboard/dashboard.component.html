@@ -10,13 +10,13 @@
 
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-4 col-md-2">
-                        <div class="icon-container mb-2 mx-auto" matTooltip="New Messages">
+                        <div class="icon-container mb-2 mx-auto" [routerLink]="['/messages']" matTooltip="New Messages">
                             <mat-icon class="text-light-blue">chat_bubble</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
                     <div class="col-4 col-md-2">
-                        <div class="icon-container mb-2 mx-auto" matTooltip="New for you">
+                        <div class="icon-container mb-2 mx-auto" [routerLink]="['/discover']" matTooltip="New for you">
                             <mat-icon class="text-light-blue">group</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
@@ -28,7 +28,7 @@
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
                     <div class="col-4 col-md-2">
-                        <div class="icon-container mb-2 mx-auto" matTooltip="Profile">
+                        <div class="icon-container mb-2 mx-auto" [routerLink]="['/profile-details']" matTooltip="Profile">
                             <mat-icon class="text-light-blue">security</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">50%</h6>
