@@ -12,7 +12,8 @@
                         <div class="d-flex flex-column justify-content-between h-100">
                             <div class="d-flex justify-content-between align-items-center text-white">
                                 <div class="dark-background">
-                                    <i-feather name="heart" class="new-likes me-1"></i-feather>
+                                    <!-- <i-feather name="heart" class="new-likes me-1"></i-feather> -->
+                                    <mat-icon class="me-1">favorite</mat-icon>
                                     <span>{{profileDetails?.likes}}</span>
                                 </div>
                                 <div class="dark-background">
@@ -43,9 +44,15 @@
                                             (click)="handleMessage()">
                                             <i-feather name="message-square" class="new-likes me-1"></i-feather>Message
                                         </button>
-                                        <button class="btn-gradient text-white shadow" mat-raised-button (click)="handleLike()">
-                                            <i-feather name="heart" class="new-likes me-1"></i-feather>Like
-                                        </button>
+                                        @if(profileDetails?.likes == 0){
+                                            <button class="btn-gradient text-white shadow" mat-raised-button (click)="handleLike()">
+                                                <mat-icon class="me-1">favorite</mat-icon>Like
+                                            </button>
+                                        } @else{
+                                            <button class="btn-gradient text-white shadow" mat-raised-button (click)="handleLike()">
+                                                <i-feather name="heart" class="new-likes me-1"></i-feather>Dislike
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             </div>

@@ -19,6 +19,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { ProfileDetailsComponent } from './auth/profile-details/profile-details.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     MessagesComponent,
     SubscriptionsComponent,
     ProfileDetailsComponent,
+    EditProfileDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { HttpService } from './http.service';
 })
 export class ProfileService {
   private _httpService = inject(HttpService);
-  constructor() {}
+  constructor() { }
 
   public getProfileById(id: string) {
     return this._httpService.get<any>(`api/user/${id}`);
@@ -14,5 +14,9 @@ export class ProfileService {
 
   public likeProfile(data: any) {
     return this._httpService.post(`api/likes/like-profile`, data);
+  }
+
+  public updateProfile(id: string, data: any) {
+    return this._httpService.put(`api/user/${id}`, data)
   }
 }

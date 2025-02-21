@@ -1,6 +1,6 @@
 <section class="home">
     <div class="row justify-content-end align-items-center h-100 mx-auto">
-        <div class="col-md-10 col-lg-7 col-xl-5">
+        <div class="col-md-10 col-lg-7 col-xl-5 user-form">
             <div class="card p-3 border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title">Your Life Partner</h4>
@@ -33,13 +33,13 @@
                     </div>
                     <button class="px-5" mat-flat-button>Search</button>
                 </div>
-                <div class="card-body">
+                <!-- <div class="card-body">
                     <h4 class="card-title">Create Your Account</h4>
                     <Form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <mat-form-field class="me-3">
                                 <mat-label>Select On Behalf Of</mat-label>
-                                <mat-select formControlName="profileFor" name="onBehalfOf">
+                                <mat-select formControlName="profileFor" name="onBehalfOf" required>
                                     @for (item of onBehalfOf; track item) {
                                     <mat-option [value]="item">{{item}}</mat-option>
                                     }
@@ -64,7 +64,7 @@
                             <div class="col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Gender</mat-label>
-                                    <mat-select formControlName="gender" name="gender">
+                                    <mat-select formControlName="gender" name="gender" required>
                                         <mat-option value="Male">Male</mat-option>
                                         <mat-option value="Female">Female</mat-option>
                                     </mat-select>
@@ -73,15 +73,77 @@
                             <div class="col-lg-6">
                                 <mat-form-field>
                                     <mat-label>Date of Birth</mat-label>
-                                    <input matInput [matDatepicker]="picker">
+                                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
                                     <mat-hint>MM/DD/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>
+                        <div class="row">
+                            @if(isEmail){
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="email" formControlName="email" required>
+                            </mat-form-field>
+                            } @else {
+                            <mat-form-field>
+                                <mat-label>Phone Number</mat-label>
+                                <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
+                            </mat-form-field>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Password</mat-label>
+                                    <input matInput placeholder="*****" type="password" formControlName="password"
+                                        required>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field>
+                                    <mat-label>Confirm password</mat-label>
+                                    <input matInput placeholder="*****" type="password" formControlName="confirmPassword"
+                                        onchange="onChnageConfirmPassword($event)" required>
+                                        <mat-error *ngIf="isPasswordMismatch()">Passwords do not match</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field class="me-3">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country" name="country" required>
+                                        @for (item of countries; track item) {
+                                        <mat-option [value]="item">{{item}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field class="me-3">
+                                    <mat-label>Religion</mat-label>
+                                    <mat-select formControlName="religion" name="religion" required>
+                                        @for (item of countries; track item) {
+                                        <mat-option [value]="item">{{item}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="me-3">
+                                    <mat-label>Mother Tongue</mat-label>
+                                    <input matInput placeholder="Mother Tongue" type="text" formControlName="motherTongue"
+                                        required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="px-5" mat-flat-button type="submit">Submit</button>
+                        </div>
                     </Form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

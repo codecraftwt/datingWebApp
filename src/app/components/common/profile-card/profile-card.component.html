@@ -2,14 +2,15 @@
     <img class="h-100 w-100 rounded-5 blur-image" [src]="profile?.image || profile?.profilePhoto || 'about-us.jpg'"
         alt="">
     <div class="top-overlay-content">
-        <div>
+        <div class="d-flex align-items-center">
+            <!-- <i-feather name="heart" class="new-likes me-1"></i-feather> -->
+            <mat-icon class="me-1">favorite</mat-icon>
+            <span>{{profile.likes}}</span>
+        </div>
+        <!-- <div>
             <i-feather name="heart" class="new-likes me-1"></i-feather>
             <span>108</span>
-        </div>
-        <div>
-            <i-feather name="heart" class="new-likes me-1"></i-feather>
-            <span>108</span>
-        </div>
+        </div> -->
     </div>
     <div class="overlay-content">
         <div class="">

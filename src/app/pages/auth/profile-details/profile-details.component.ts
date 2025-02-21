@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
-
+import {
+  MatDialog,
+} from '@angular/material/dialog';
+import { EditProfileDialogComponent } from '../../edit-profile-dialog/edit-profile-dialog.component';
 @Component({
   selector: 'app-profile-details',
   templateUrl: './profile-details.component.html',
@@ -9,7 +12,9 @@ import { ProfileService } from '../../../services/profile.service';
 export class ProfileDetailsComponent implements OnInit {
   currentUser: any;
   profileDetails: any;
-  constructor(private readonly _profileService: ProfileService) {}
+
+  constructor(private readonly _profileService: ProfileService,
+              private readonly _dialog: MatDialog,) {}
 
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');
@@ -17,6 +22,15 @@ export class ProfileDetailsComponent implements OnInit {
     this.getProfileDetails();
   }
 
+  handleEditProfile() {
+    this._dialog.open(EditProfileDialogComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      height:'90vh',
+      disableClose: false // Prevent closing by clicking outside
+    });
+  }
+  
   getProfileDetails(): void {
     console.log(this.currentUser,'<=== currentUser')
     this._profileService.getProfileById(this.currentUser._id).subscribe({

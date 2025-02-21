@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
 import { DiscoverService } from '../../services/discover.service';
 
 @Component({
@@ -8,7 +7,6 @@ import { DiscoverService } from '../../services/discover.service';
   styleUrl: './visitors.component.scss'
 })
 export class VisitorsComponent implements OnInit {
-  private dataService = inject(DataService);
   private _discoverService = inject(DiscoverService);
   profiles: any[] = [];
   userProfiles: any[] = [];
