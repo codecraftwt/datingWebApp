@@ -1,8 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
+import { FileValidator } from '../validator/file-validator';
+import { NgxFileDropEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-signin',
@@ -10,6 +12,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
   styleUrl: './signin.component.scss'
 })
 export class SigninComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef;
   hide = signal(true);
   accFor = ['Myself']
   accForSelected: string = ''
@@ -28,7 +31,7 @@ export class SigninComponent implements OnInit {
     { id: 5, name: 'Jewish' },
   ];
   community: any[] = ['Marathi', 'Tamil', 'Hindi', 'English', 'Kannada', 'Urdu', 'Malyalam', 'Telugu', 'French', 'Japanese']
-  country: any[] = ['India', 'Austrelia', 'Canada', 'Kuwait', 'New Zealand', 'Pakistan', 'USA', 'UAE', 'UK']
+  country: any[] = ['India', 'Australia', 'Canada', 'Kuwait', 'New Zealand', 'Pakistan', 'USA', 'UAE', 'UK']
 
   firstFormGroup = this._formBuilder.group({
     profileFor: ['', Validators.required],
@@ -54,8 +57,9 @@ export class SigninComponent implements OnInit {
     height: ['', []],
     weight: ['', []],
     education: ['', []],
-    hobbies:['',[]],
-    occupation: ['', []],
+    hobbies: ['', []],
+    designation: ['', []],
+    biodata: [null, [Validators.required, FileValidator]]
   });
 
   mobileValidator(control: any) {
@@ -94,6 +98,30 @@ export class SigninComponent implements OnInit {
     }
     if (e === 'My Daughter' || e === 'My Sister') {
       this.firstFormGroup.controls.gender.setValue('Female');
+    }
+  }
+
+  // Handle file drop event
+  onFileDrop(files: NgxFileDropEntry[]) {
+    const fileEntry = files[0].fileEntry as FileSystemFileEntry;
+
+    fileEntry.file((file: File) => {
+      const biodataControl = this.personalityProfileFormGroup.get('biodata');
+      if (biodataControl) {
+        // biodataControl.setValue(file);  // Set the file
+      }
+    });
+  }
+
+
+  onFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const biodataControl = this.personalityProfileFormGroup.get('biodata');
+      if (biodataControl) {
+        // biodataControl.setValue(file);  // Set the file to form control
+      }
     }
   }
 

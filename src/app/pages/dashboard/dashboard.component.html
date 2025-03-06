@@ -1,3 +1,4 @@
+<!-- Top section -->
 <section class="welcome-section py-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -22,18 +23,19 @@
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
                     <div class="col-4 col-md-2">
-                        <div class="icon-container mb-2 mx-auto" matTooltip="New Visitors">
+                        <div class="icon-container mb-2 mx-auto" matTooltip="New Visitors" (click)="openVisitors()">
                             <mat-icon class="text-light-blue"> contact_phone</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">0</h6>
                     </div>
                     <div class="col-4 col-md-2">
-                        <div class="icon-container mb-2 mx-auto" [routerLink]="['/profile-details']" matTooltip="Profile">
+                        <div class="icon-container mb-2 mx-auto" [routerLink]="['/profile-details']"
+                            matTooltip="Profile">
                             <mat-icon class="text-light-blue">security</mat-icon>
                         </div>
                         <h6 class="text-light-blue text-center">50%</h6>
                     </div>
-                    <div class="col-4 col-md-2">
+                    <div class="col-4 col-md-2 d-none">
                         <div class="icon-container mb-2 mx-auto">
                             <mat-icon class="text-light-blue">star_half</mat-icon>
                         </div>
@@ -44,13 +46,16 @@
         </div>
     </div>
 </section>
+<!-- Top section -->
 
+<!-- Main section -->
 <section class="posts-section py-5">
     <div class="container px-4">
         <mat-card class="p-3 h-100 align-items-center justify-content-center shadow" appearance="outlined">
             <mat-card-content class="w-100">
                 <div class="row mb-4">
                     <div class="col-sm-12 col-lg-7 col-xl-8 mb-3 mb-lg-0">
+                        <!-- New Likes -->
                         <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-4">
                             <mat-card-header>
                                 <h5 class="mb-4 text-gradient text-uppercase">
@@ -58,20 +63,32 @@
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
+                                @if (likeUserProfiles && likeUserProfiles.length > 0) {
+                                <div class="row">
+                                    @for (profile of likeUserProfiles; track profile) {
+                                    <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mx-md-auto">
+                                        <app-profile-card [profile]="profile" />
+                                    </div>
+                                    }
+                                </div>
+                                } @else {
                                 <div class="mb-4">
                                     <i-feather name="heart" class="big-heart"></i-feather>
                                 </div>
                                 <p class="text-gradient">Here you'll see members who have contacted or liked you first.
                                     Nothing new today?
                                     Instead, take the first step and message someone now.</p>
+                                }
                             </mat-card-content>
                             <mat-card-footer class="mt-5 p-3">
-                                <div class="text-end">
+                                <div class="text-end" *ngIf="likeUserProfiles && likeUserProfiles.length > 0">
                                     <button class="btn-gradient" mat-flat-button>Reach Out</button>
                                 </div>
                             </mat-card-footer>
                         </mat-card>
+                        <!-- New Likes -->
 
+                        <!-- New For You -->
                         <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-4">
                             <mat-card-header>
                                 <h5 class="mb-4 text-gradient text-uppercase">
@@ -79,21 +96,36 @@
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
+                                @if (newUserProfiles && newUserProfiles.length > 0) {
                                 <div class="row">
-                                    @for (profile of userProfiles; track profile) {
+                                    @for (profile of newUserProfiles; track profile) {
                                     <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mx-md-auto">
                                         <app-profile-card [profile]="profile" />
                                     </div>
                                     }
                                 </div>
+                                } @else {
+                                <div class="mb-4">
+                                    <i-feather name="image" style="fill: none !important;"
+                                        class="big-heart"></i-feather>
+                                </div>
+                                <p class="text-gradient">
+                                    No new profiles have been added recently. Keep checking back for updates or try
+                                    engaging with other profiles to stay active in the community. Stay tuned for
+                                    exciting new connections!
+                                </p>
+                                }
                             </mat-card-content>
                             <mat-card-footer class="mt-2 p-3">
-                                <div class="text-md-end text-center">
+                                <div *ngIf="newUserProfiles && newUserProfiles.length > 0"
+                                    class="text-md-end text-center">
                                     <button class="btn-gradient" mat-flat-button>Show All</button>
                                 </div>
                             </mat-card-footer>
                         </mat-card>
+                        <!-- New For You -->
 
+                        <!-- Recent Visitors -->
                         <mat-card appearance="outlined" class="w-100 inner-card p-3">
                             <mat-card-header>
                                 <h5 class="mb-4 text-gradient text-uppercase">
@@ -101,6 +133,15 @@
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
+                                @if (recentVistorUserProfiles && recentVistorUserProfiles.length > 0) {
+                                <div class="row">
+                                    @for (profile of recentVistorUserProfiles; track profile) {
+                                    <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mx-md-auto">
+                                        <app-profile-card [profile]="profile" />
+                                    </div>
+                                    }
+                                </div>
+                                } @else {
                                 <div class="mb-4">
                                     <i-feather name="image" style="fill: none !important;"
                                         class="big-heart"></i-feather>
@@ -109,6 +150,8 @@
                                     If you have had no visitors to your profile, consider adding
                                     some more photos.
                                 </p>
+                                }
+
                             </mat-card-content>
                             <mat-card-footer class="mt-5 p-3">
                                 <div class="text-md-end text-center">
@@ -116,8 +159,11 @@
                                 </div>
                             </mat-card-footer>
                         </mat-card>
+                        <!-- Recent Visitors -->
+
                     </div>
                     <div class="col-sm-12 col-lg-5 col-xl-4">
+                        <!-- Carousel section -->
                         <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-4">
                             <p-carousel [value]="steps" [numVisible]="1" [numScroll]="1" [circular]="true"
                                 [responsiveOptions]="responsiveOptions" autoplayInterval="8000">
@@ -146,7 +192,9 @@
                                 </ng-template>
                             </p-carousel>
                         </mat-card>
+                        <!-- Carousel section -->
 
+                        <!-- Let's go -->
                         <mat-card appearance="outlined" class="w-100 inner-card p-3">
                             <mat-card-header>
                                 <h5 class="mb-4 text-gradient text-uppercase">
@@ -183,9 +231,12 @@
                                 </mat-list>
                             </mat-card-content>
                         </mat-card>
+                        <!-- Let's go -->
+
                     </div>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
 </section>
+<!-- Main section -->

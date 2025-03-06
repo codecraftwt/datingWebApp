@@ -41,18 +41,17 @@
                                     </div>
                                     <div>
                                         <button class="btn-gradient text-white shadow me-2" mat-raised-button
-                                            (click)="handleMessage()">
-                                            <i-feather name="message-square" class="new-likes me-1"></i-feather>Message
+                                            (click)="handleMessage()">Message
                                         </button>
-                                        @if(profileDetails?.likes == 0){
-                                            <button class="btn-gradient text-white shadow" mat-raised-button (click)="handleLike()">
-                                                <mat-icon class="me-1">favorite</mat-icon>Like
-                                            </button>
-                                        } @else{
-                                            <button class="btn-gradient text-white shadow" mat-raised-button (click)="handleLike()">
-                                                <i-feather name="heart" class="new-likes me-1"></i-feather>Dislike
-                                            </button>
-                                        }
+                                        <button *ngIf="!isProfileLiked" class="btn-gradient text-white shadow"
+                                            mat-raised-button (click)="handleLike()">
+                                            <mat-icon class="me-1">favorite</mat-icon>Like
+                                        </button>
+
+                                        <button *ngIf="isProfileLiked" class="btn-gradient text-white shadow"
+                                            mat-raised-button (click)="handleLike()">
+                                            <i-feather name="heart" class="new-likes me-1"></i-feather>Dislike
+                                        </button>
                                     </div>
                                 </div>
                             </div>

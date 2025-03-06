@@ -255,8 +255,31 @@
                                             <mat-label>Occupation</mat-label><br />
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <input matInput placeholder="Enter occupation"
-                                                    formControlName="occupation">
+                                                    formControlName="designation">
                                             </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <mat-label>Biodata</mat-label><br />
+
+                                            <ngx-file-drop [accept]="'.jpg, .jpeg, .png, .pdf, .doc, .docx'"
+                                                [dropZoneLabel]="'Drag and drop your biodata file here'"
+                                                (onFileDrop)="onFileDrop($event)"
+                                                [ngClass]="{
+                                                    'is-invalid': personalityProfileFormGroup.get('biodata')?.invalid && personalityProfileFormGroup.get('biodata')?.touched
+                                                  }">
+                                            </ngx-file-drop>
+
+                                            <!-- Fallback for file input -->
+                                            <input type="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" #fileInput
+                                                (change)="onFileSelect($event)" formControlName="biodata"
+                                                style="display: none;" />
+                                            <button mat-button (click)="fileInput.click()">Choose File</button>
+
+
+                                            <div *ngIf="personalityProfileFormGroup.get('biodata')?.invalid && personalityProfileFormGroup.get('biodata')?.touched"
+                                                class="error">
+                                                {{ personalityProfileFormGroup.get('biodata')?.errors?.['invalidFileType'] }}
+                                            </div>
                                         </div>
                                     </form>
                                     <div>

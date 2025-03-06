@@ -18,13 +18,15 @@ export class ProfileInfoComponent implements OnInit {
   currentUser: any = localStorage.getItem('user')
   user = JSON.parse(this.currentUser).user
   selectedUserId = ''
-  profileDetails: any
+  profileDetails: any;
+  isProfileLiked: boolean = false;
 
   ngOnInit(): void {
     this._activatedRouter.params.subscribe((params: any) => {
       this.selectedUserId = params.id
       this.getProfileDetails();
       this.handleVisit();
+      this.checkIsLiked();
     })
   }
 
@@ -38,6 +40,17 @@ export class ProfileInfoComponent implements OnInit {
       }
     })
   }
+
+  checkIsLiked() {
+    this._profileService.checkLike(this.user._id, this.selectedUserId).subscribe((response: any) => {
+      if(response.success){
+        this.isProfileLiked = response.like.isLike;
+      }
+    }, (error) => {
+      throw error;
+    });
+  }
+
   createRoom(): void {
     const payload = {
       createdBy: this.user._id,
@@ -54,8 +67,7 @@ export class ProfileInfoComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error, '<======== error')
-        // alert(error);
+        throw error;
       }
     });
   }
@@ -68,34 +80,28 @@ export class ProfileInfoComponent implements OnInit {
     const payload = {
       userId: this.user._id,
       likedProfileId: this.selectedUserId
-    }
+    };
+  
     this._profileService.likeProfile(payload).subscribe({
       next: (response) => {
-        this.getProfileDetails();
-        // if (response.success) {
-        //   this._router.navigate(['/messages']);
-        // }
-        // if (response.status === 400) {
-        //   alert(response.message)
-        // }
+        if (response) {
+          this.isProfileLiked = !this.isProfileLiked; // Toggle UI immediately
+          this.getProfileDetails(); // Refresh profile details after update
+        }
       },
       error: (error) => {
-        console.log(error, '<======== error')
-        // alert(error);
+        console.error(error);
       }
     });
   }
 
   handleVisit() {
     let visitorsId = this.user._id;
-    let visitedId = this.selectedUserId;
-    console.log(visitorsId, visitedId, '<=== visitorsId,visitedId');
+    let visitedId = this.selectedUserId;    
     try {
       this._discoverService.postVisit(visitorsId, visitedId).subscribe((response: any) => {
-        console.log(response, '<==== response')
       })
     } catch (error) {
-      console.log(error, 'e');
       throw error;
     }
   }

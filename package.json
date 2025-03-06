@@ -29,6 +29,7 @@
     "firebase": "^11.0.2",
     "igniteui-angular": "^19.0.8",
     "ng-circle-progress": "^1.7.1",
+    "ngx-file-drop": "^16.0.0",
     "ngx-stripe": "^18.1.0",
     "ngx-toastr": "^19.0.0",
     "primeng": "^17.18.11",

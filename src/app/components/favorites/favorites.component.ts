@@ -20,7 +20,7 @@ export class FavoritesComponent implements OnInit {
 
   getProfiles() {
     this._discoverService.getUsers().subscribe((response: any) => {
-      console.log(response, '<==== response')
+      console.log(response, '<==== response Favorites')
       if (response.success) {
         this.userProfiles = response.data;
       }

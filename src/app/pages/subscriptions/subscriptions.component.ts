@@ -87,7 +87,7 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
           key: environment.stripePublicKey,
           locale: 'auto',
           token: function (stripeToken: any) {
-            console.log(stripeToken);
+            console.log(stripeToken, 'stripeToken');
             alert('Payment has been successfull!');
           },
         });
@@ -113,50 +113,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // pay() {
-  //   if (this.paying() || this.paymentElementForm.invalid) return;
-  //   this.paying.set(true);
-
-  //   const {
-  //     name,
-  //     email,
-  //     address,
-  //     zipcode,
-  //     city
-  //   } = this.paymentElementForm.getRawValue();
-
-  //   this.stripe
-  //     .confirmPayment({
-  //       elements: this.paymentElement.elements,
-  //       confirmParams: {
-  //         payment_method_data: {
-  //           billing_details: {
-  //             name: name as string,
-  //             email: email as string,
-  //             address: {
-  //               line1: address as string,
-  //               postal_code: zipcode as string,
-  //               city: city as string
-  //             }
-  //           }
-  //         }
-  //       },
-  //       redirect: 'if_required'
-  //     })
-  //     .subscribe((result: any) => {
-  //       this.paying.set(false);
-  //       if (result.error) {
-  //         // Show error to your customer (e.g., insufficient funds)
-  //         alert({ success: false, error: result.error.message });
-  //       } else {
-  //         // The payment has been processed!
-  //         if (result.paymentIntent.status === 'succeeded') {
-  //           // Show a success message to your customer
-  //           alert({ success: true });
-  //         }
-  //       }
-  //     });
-  // }
   handleLogin() {
     this.authService.logout();
   }
@@ -166,6 +122,10 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       (response) => {
         const clientSecret = response.clientSecret;
         console.log('Client Secret:', clientSecret);
+        if (!clientSecret) {
+          console.error('Client secret is missing');
+          return;
+        }
   
         // Assuming you have a Payment Element to attach to the DOM
         const paymentElement = this.elements.create('payment');
@@ -193,6 +153,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       (error) => {
         console.error('Payment intent creation failed:', error);
       }
-    );
+    );    
   }
 }

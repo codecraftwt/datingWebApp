@@ -12,12 +12,12 @@ export class VisitorsComponent implements OnInit {
   userProfiles: any[] = [];
 
   ngOnInit(): void {
-    this.getProfiles()
+    this.getProfiles();
   }
 
   getProfiles() {
     this._discoverService.getRecentVisitors().subscribe((response: any) => {
-      console.log(response, '<==== response')
+      console.log(response, '<==== response getRecentVisitors')
       if (response.success) {
         this.userProfiles = response.data;
       }

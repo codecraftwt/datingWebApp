@@ -17,9 +17,13 @@ export class HeaderComponent implements OnInit {
       route: '/discover',
       name: 'Discover'
     },
+    // {
+    //   route: '/likes',
+    //   name: 'Likes'
+    // },
     {
-      route: '/likes',
-      name: 'Likes'
+      route: '/subscriptions',
+      name: 'Subscriptions'
     },
     {
       route: '/messages',

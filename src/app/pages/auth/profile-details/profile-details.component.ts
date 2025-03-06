@@ -32,10 +32,8 @@ export class ProfileDetailsComponent implements OnInit {
   }
   
   getProfileDetails(): void {
-    console.log(this.currentUser,'<=== currentUser')
     this._profileService.getProfileById(this.currentUser._id).subscribe({
       next: (response: any) => {
-        console.log(response,'<==== response')
         this.profileDetails = response.user;
         console.log(this.profileDetails,'<=== profileUsers')
       },

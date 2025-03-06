@@ -16,6 +16,10 @@ export class ProfileService {
     return this._httpService.post(`api/likes/like-profile`, data);
   }
 
+  public checkLike(currentUserId: string, profileId: string) {
+    return this._httpService.get(`api/likes/${profileId}?loggedInUserId=${currentUserId}`);
+  }
+
   public updateProfile(id: string, data: any) {
     return this._httpService.put(`api/user/${id}`, data)
   }

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { DiscoverService } from '../../services/discover.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +49,10 @@ export class DashboardComponent implements OnInit {
   responsiveOptions: any[] | undefined;
 
   private _discoverService = inject(DiscoverService);
-  public userProfiles: any[] = []
+  private _router = inject(Router);
+  public newUserProfiles: any[] = [];
+  public likeUserProfiles: any[] = [];
+  public recentVistorUserProfiles: any[] = [];
 
   constructor() { }
 
@@ -86,20 +90,29 @@ export class DashboardComponent implements OnInit {
 
   getRecentVisitors() {
     this._discoverService.getRecentVisitors().subscribe((response: any) => {
-      console.log(response, '<=== recent visitors response')
-    })
+      if (response.success) {
+        this.recentVistorUserProfiles = response.data;
+      }
+    },
+      (error) => {
+        console.error('Error fetching users:', error);
+      })
   }
 
   getUsers() {
     this._discoverService.getUsers().subscribe((response: any) => {
       console.log(response, '<==== response')
       if (response.success) {
-        this.userProfiles = response.data;
+        this.newUserProfiles = response.data;
       }
     },
       (error) => {
         console.error('Error fetching users:', error);
       })
+  }
+
+  openVisitors(): void {
+    this._router.navigate(['/discover'], { queryParams: { tab: 2 } });
   }
 
 }

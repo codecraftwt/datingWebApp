@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'profile/:id', component: ProfileInfoComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'profile-details', component: ProfileDetailsComponent },
+      { path: 'subscriptions', component: SubscriptionsComponent },
     ]
   }
 ];

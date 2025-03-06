@@ -20,7 +20,7 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
 import { ProfileDetailsComponent } from './auth/profile-details/profile-details.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
-
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-d
     CommonModule,
     PagesRoutingModule,
     SharedModule,
+    NgxFileDropModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,

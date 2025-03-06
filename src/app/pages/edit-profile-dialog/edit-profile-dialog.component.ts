@@ -36,7 +36,8 @@ export class EditProfileDialogComponent implements OnInit {
       country: '',
       religion: '',
       motherTongue: '',
-      profilePhoto: ''
+      profilePhoto: '',
+      otherPhotos: ['https://picsum.photos/300/200?random=1','https://picsum.photos/300/200?random=2','https://picsum.photos/300/200?random=3'],
     });
   }
 
