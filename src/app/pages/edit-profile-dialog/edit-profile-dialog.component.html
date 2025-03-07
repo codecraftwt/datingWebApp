@@ -1,7 +1,7 @@
 <h4 class="ms-4" mat-dialog-title>Edit Profile</h4>
 <div class="d-flex justify-content-center align-items-center">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-        <div class="row g-3"> <!-- Bootstrap Grid with gap -->
+        <div class="row g-3">
             <div class="col-lg-4">
                 <mat-form-field class="w-100">
                     <mat-label>Profile For</mat-label>
@@ -11,13 +11,13 @@
             <div class="col-lg-4">
                 <mat-form-field class="w-100">
                     <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstname">
+                    <input matInput formControlName="firstName">
                 </mat-form-field>
             </div>
             <div class="col-lg-4">
                 <mat-form-field class="w-100">
                     <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastname">
+                    <input matInput formControlName="lastName">
                 </mat-form-field>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="col-lg-6">
                 <mat-form-field class="w-100">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput formControlName="phoneNumber">
+                    <input matInput formControlName="mobile">
                 </mat-form-field>
             </div>
         </div>
@@ -40,7 +40,10 @@
             <div class="col-lg-4">
                 <mat-form-field class="w-100">
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput formControlName="dob" type="date">
+                    <input [max]="maxDate" matInput [matDatepicker]="picker" formControlName="dob">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
             <div class="col-lg-4">

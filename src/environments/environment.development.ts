@@ -1,8 +1,8 @@
 export const environment = {
     apiUrl: 'http://localhost:5000/',
     // apiUrl: 'https://backend-dating.onrender.com/',
-    stripePublicKey: "pk_test_51QruqqLZM9gXYc5js0SvQGIZ0n7cq5WdJHTbDzlP29jsrf3kc5zUP6fodYuRxPYvLRcK8sF5FHJSXf3NmO6Adfy000mdgB0YM9",
-    stripeSecreteKey: "sk_test_51QruqqLZM9gXYc5je4fvSBF9S5Z7RaQMKgmwmUCL2gbUJDUwlDjT4YJhPDl59otuSXBSsUyfB8tI1ayyZrqJa16s009VyL3ak5",
+    stripePublicKey: "pk_test_51P0emDSIGHCYyfmyO11rmy1ydw7yVCfk2o9ffLgVCLQw1ufJ9UF08jgL6PTe5Y0BWadbmoWG31JAPBqWvesWKgYg00wLYUEoAS",
+    stripeSecreteKey: "sk_test_51P0emDSIGHCYyfmyZBJ3xLu7qiDPsYAfCHujhZ2pP5XhZmmxv3mO5tPWvXJxUf24mKLMpgstNpRnaUcvpFy5SmwE00c6g7IGW7",
     firebaseConfig : {
         apiKey: "AIzaSyAo5pz5w7dlmRTgBkv9wgvH644yp55gQjY",
         authDomain: "login-app-d1481.firebaseapp.com",

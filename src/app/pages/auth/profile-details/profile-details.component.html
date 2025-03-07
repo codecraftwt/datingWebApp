@@ -176,14 +176,9 @@
                                             </mat-card-content>
                                         </mat-card>
                                         <div class="row mb-3">
-                                            <div class="col-6">
-                                                <div class="all-image-container">
-                                                    <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="all-image-container">
-                                                    <img class="h-100 w-100" src="about-us.jpg" alt="">
+                                            <div class="col-6" *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                <div class="all-image-container mb-2">
+                                                    <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
                                             </div>
                                         </div>
@@ -216,14 +211,14 @@
                                                     What makes you compatible?
                                                 </h4>
                                             </mat-card-header>
-                                            <mat-card-content class="px-0">
-                                                <div class="d-flex">
+                                            <mat-card-content class="px-0 d-flex flex-column gap-2">
+                                                <div class="d-flex" *ngFor="let image of profileDetails.otherPhotos; let i = index">
                                                     <div class="profile-container me-2">
-                                                        <img class="h-100 w-100" src="about-us.jpg" alt="">
+                                                        <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                     </div>
-                                                    <div class="profile-container">
+                                                    <!-- <div class="profile-container">
                                                         <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </mat-card-content>
                                         </mat-card>

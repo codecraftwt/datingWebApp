@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject, OnInit, signal, ViewChild } from '@an
 import { AuthService } from '../../services/auth.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
-import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stripe-js';
+import { StripePaymentElementOptions } from '@stripe/stripe-js';
 import { environment } from '../../../environments/environment.development';
 import { StripeService } from '../../services/stripe.service';
 
@@ -12,6 +12,9 @@ import { StripeService } from '../../services/stripe.service';
   styleUrl: './subscriptions.component.scss',
 })
 export class SubscriptionsComponent implements OnInit, AfterViewInit {
+  @ViewChild(StripePaymentElementComponent)
+  paymentElement!: StripePaymentElementComponent;
+
   planBenifits = [
     'View unlimited photos',
     'Unlimited messaging',
@@ -19,24 +22,20 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     'Distance search',
     'Detailed personality profile',
   ];
-  elements: any;
+  // elements: any;
+  
+  private readonly authService = inject(AuthService);
+  // private readonly fb = inject(UntypedFormBuilder);
+  // private readonly stripeService = inject(StripeService);
 
-  authService = inject(AuthService);
-
-  @ViewChild(StripePaymentElementComponent)
-  paymentElement!: StripePaymentElementComponent;
-
-  private readonly fb = inject(UntypedFormBuilder);
-  private readonly stripeService = inject(StripeService);
-
-  paymentElementForm = this.fb.group({
-    name: ['John Doe', [Validators.required]],
-    email: ['support@ngx-stripe.dev', [Validators.required]],
-    address: [''],
-    zipcode: [''],
-    city: [''],
-    amount: [2500, [Validators.required, Validators.pattern(/\d+/)]],
-  });
+  // paymentElementForm = this.fb.group({
+  //   name: ['John Doe', [Validators.required]],
+  //   email: ['support@ngx-stripe.dev', [Validators.required]],
+  //   address: [''],
+  //   zipcode: [''],
+  //   city: [''],
+  //   amount: [2500, [Validators.required, Validators.pattern(/\d+/)]],
+  // });
 
   elementsOptions: any = {
     locale: 'en',
@@ -45,7 +44,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       theme: 'flat',
     },
   };
-
   paymentElementOptions: StripePaymentElementOptions = {
     layout: {
       type: 'tabs',
@@ -55,10 +53,8 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     },
   };
 
-  // Replace with your own public key
   stripe = injectStripe(environment.stripePublicKey);
   paying = signal(false);
-
   paymentHandler: any = null;
 
   ngAfterViewInit() {
@@ -117,42 +113,42 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     this.authService.logout();
   }
 
-  pay(): void {
-    this.stripeService.createPaymentIntent(200).subscribe(
-      (response) => {
-        const clientSecret = response.clientSecret;
-        console.log('Client Secret:', clientSecret);
-        if (!clientSecret) {
-          console.error('Client secret is missing');
-          return;
-        }
+  // pay(): void {
+  //   this.stripeService.createPaymentIntent(200).subscribe(
+  //     (response) => {
+  //       const clientSecret = response.clientSecret;
+  //       console.log('Client Secret:', clientSecret);
+  //       if (!clientSecret) {
+  //         console.error('Client secret is missing');
+  //         return;
+  //       }
   
-        // Assuming you have a Payment Element to attach to the DOM
-        const paymentElement = this.elements.create('payment');
-        paymentElement.mount('#payment-element'); // Mount the element to a DOM element with the ID 'payment-element'
+  //       // Assuming you have a Payment Element to attach to the DOM
+  //       const paymentElement = this.elements.create('payment');
+  //       paymentElement.mount('#payment-element'); // Mount the element to a DOM element with the ID 'payment-element'
   
-        // Confirm the payment with the clientSecret from the response
-        this.stripe.confirmPayment({
-          elements: this.elements,
-          confirmParams: {
-            return_url: 'https://your-site.com/payment-success',
-          },
-        }).subscribe({
-          next: (result) => {
-            if (result.error) {
-              console.error('Payment failed:', result.error.message);
-            } else {
-              console.log('Payment successful');
-            }
-          },
-          error: (err) => {
-            console.error('Payment confirmation failed:', err);
-          },
-        });
-      },
-      (error) => {
-        console.error('Payment intent creation failed:', error);
-      }
-    );    
-  }
+  //       // Confirm the payment with the clientSecret from the response
+  //       this.stripe.confirmPayment({
+  //         elements: this.elements,
+  //         confirmParams: {
+  //           return_url: 'https://your-site.com/payment-success',
+  //         },
+  //       }).subscribe({
+  //         next: (result) => {
+  //           if (result.error) {
+  //             console.error('Payment failed:', result.error.message);
+  //           } else {
+  //             console.log('Payment successful');
+  //           }
+  //         },
+  //         error: (err) => {
+  //           console.error('Payment confirmation failed:', err);
+  //         },
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Payment intent creation failed:', error);
+  //     }
+  //   );    
+  // }
 }

@@ -14,7 +14,8 @@ export class ProfileDetailsComponent implements OnInit {
   profileDetails: any;
 
   constructor(private readonly _profileService: ProfileService,
-              private readonly _dialog: MatDialog,) {}
+              private readonly _dialog: MatDialog,) {
+              }
 
   ngOnInit(): void {
     let user: any = localStorage.getItem('user');

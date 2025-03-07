@@ -198,8 +198,6 @@
                                             [disabled]="phoneFormGroup.invalid">Next</button>
                                     </div>
                                 </mat-step>
-
-                                <!--  -->
                                 <mat-step>
                                     <ng-template matStepLabel>Personality Profile</ng-template>
                                     <form [formGroup]="personalityProfileFormGroup">
@@ -271,8 +269,7 @@
 
                                             <!-- Fallback for file input -->
                                             <input type="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" #fileInput
-                                                (change)="onFileSelect($event)" formControlName="biodata"
-                                                style="display: none;" />
+                                                (change)="onFileSelect($event)" style="display: none;" />
                                             <button mat-button (click)="fileInput.click()">Choose File</button>
 
 

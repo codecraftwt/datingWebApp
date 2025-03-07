@@ -13,6 +13,7 @@ import { NgxFileDropEntry } from 'ngx-file-drop';
 })
 export class SigninComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
+  selectedBiodataFile: File | null = null;
   hide = signal(true);
   accFor = ['Myself']
   accForSelected: string = ''
@@ -59,7 +60,7 @@ export class SigninComponent implements OnInit {
     education: ['', []],
     hobbies: ['', []],
     designation: ['', []],
-    biodata: [null, [Validators.required, FileValidator]]
+    biodata: [null as File | null, [Validators.required, FileValidator]]
   });
 
   mobileValidator(control: any) {
@@ -106,10 +107,8 @@ export class SigninComponent implements OnInit {
     const fileEntry = files[0].fileEntry as FileSystemFileEntry;
 
     fileEntry.file((file: File) => {
-      const biodataControl = this.personalityProfileFormGroup.get('biodata');
-      if (biodataControl) {
-        // biodataControl.setValue(file);  // Set the file
-      }
+      this.selectedBiodataFile = file;
+      this.personalityProfileFormGroup.patchValue({ biodata: file });
     });
   }
 
@@ -118,10 +117,8 @@ export class SigninComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      const biodataControl = this.personalityProfileFormGroup.get('biodata');
-      if (biodataControl) {
-        // biodataControl.setValue(file);  // Set the file to form control
-      }
+      this.selectedBiodataFile = file;
+      this.personalityProfileFormGroup.patchValue({ biodata: file });
     }
   }
 
