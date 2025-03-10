@@ -1,6 +1,12 @@
 @import './../../../styles/theme.scss';
 
 .messages-section {
+    .serach-box{
+        input:focus{
+            box-shadow: none;
+            background-color: #eaeff9;
+        }
+    }
     .text-preferences {
         & i-feather {
             height: 20px;
@@ -115,6 +121,16 @@
         border-top-right-radius: 70px;
         border-bottom-right-radius: 70px;
         cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(180deg, #d7e3ff, #005cbb);
+           background-image: linear-gradient(180deg, #d7e3ff, #005cbb) !important;
+        }
+    
+        &.active {
+           background: linear-gradient(180deg, #d7e3ff, #005cbb);
+           background-image: linear-gradient(180deg, #d7e3ff, #005cbb) !important;
+        }
 
         p {
             max-width: 65%;

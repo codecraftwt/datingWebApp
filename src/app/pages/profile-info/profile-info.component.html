@@ -43,15 +43,17 @@
                                         <button class="btn-gradient text-white shadow me-2" mat-raised-button
                                             (click)="handleMessage()">Message
                                         </button>
-                                        <button *ngIf="!isProfileLiked" class="btn-gradient text-white shadow"
-                                            mat-raised-button (click)="handleLike()">
+                                        @if(!isProfileLiked){
+                                        <button class="btn-gradient text-white shadow" mat-raised-button
+                                            (click)="handleLike()">
                                             <mat-icon class="me-1">favorite</mat-icon>Like
                                         </button>
-
-                                        <button *ngIf="isProfileLiked" class="btn-gradient text-white shadow"
-                                            mat-raised-button (click)="handleLike()">
+                                        } @else{
+                                        <button class="btn-gradient text-white shadow" mat-raised-button
+                                            (click)="handleLike()">
                                             <i-feather name="heart" class="new-likes me-1"></i-feather>Dislike
                                         </button>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -122,14 +124,10 @@
                                             </mat-card-content>
                                         </mat-card>
                                         <div class="row mb-3">
-                                            <div class="col-6">
-                                                <div class="all-image-container">
-                                                    <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="all-image-container">
-                                                    <img class="h-100 w-100" src="about-us.jpg" alt="">
+                                            <div class="col-6"
+                                                *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                <div class="all-image-container mb-2">
+                                                    <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
                                             </div>
                                         </div>
@@ -162,15 +160,25 @@
                                                     What makes you compatible?
                                                 </h4>
                                             </mat-card-header>
-                                            <mat-card-content class="px-0">
-                                                <div class="d-flex">
+                                            <mat-card-content class="px-0 d-flex flex-column gap-2">
+                                                <div class="d-flex"
+                                                    *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                    <div class="profile-container me-2">
+                                                        <img class="h-100 w-100" [src]="image"
+                                                            [alt]="'Image ' + (i + 1)">
+                                                    </div>
+                                                    <!-- <div class="profile-container">
+                                                        <img class="h-100 w-100" src="about-us.jpg" alt="">
+                                                    </div> -->
+                                                </div>
+                                                <!-- <div class="d-flex">
                                                     <div class="profile-container me-2">
                                                         <img class="h-100 w-100" src="about-us.jpg" alt="">
                                                     </div>
                                                     <div class="profile-container">
                                                         <img class="h-100 w-100" src="about-us.jpg" alt="">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </mat-card-content>
                                         </mat-card>
                                         <mat-card appearance="outlined" class="w-100 inner-card bg-dark p-3">
