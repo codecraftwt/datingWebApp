@@ -70,7 +70,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   getAllRooms(): void {
     this._socketService.getAllRooms(this.user._id).subscribe({
       next: (response) => {
-        console.log(response, 'get all room');
         if (response.status == 200) {
           this.rooms = response.data
           this.getRoom(this.rooms[0]._id)
@@ -85,7 +84,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   getRoom(roomId: string): void {
     this._socketService.getRoomById(roomId).subscribe({
       next: (response) => {
-        console.log(response, 'current room response');
         if (response.success) {
           this.currentRoom = response.data
           if (this.user._id === this.currentRoom.createdWith._id) {
@@ -93,7 +91,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           } else {
             this.currentReceiver = this.currentRoom.createdWith
           }
-          console.log(this.currentReceiver,'<=== currentReceiver')
           this.messages = response.data.chat
         }
       },
@@ -127,7 +124,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     }
     this._socketService.createRoom(payload).subscribe({
       next: (response) => {
-        console.log(response, 'create room response');
         // if (response.status == 200) {
         //   this.rooms = response.data
         // }

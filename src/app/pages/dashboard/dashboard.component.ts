@@ -101,7 +101,6 @@ export class DashboardComponent implements OnInit {
 
   getUsers() {
     this._discoverService.getUsers().subscribe((response: any) => {
-      console.log(response, '<==== response')
       if (response.success) {
         this.newUserProfiles = response.data;
       }

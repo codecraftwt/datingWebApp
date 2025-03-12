@@ -83,7 +83,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
           key: environment.stripePublicKey,
           locale: 'auto',
           token: function (stripeToken: any) {
-            console.log(stripeToken, 'stripeToken');
             alert('Payment has been successfull!');
           },
         });
@@ -98,7 +97,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       key: environment.stripePublicKey,
       locale: 'auto',
       token: function (stripeToken: any) {
-        console.log(stripeToken);
         alert('Stripe token generated!');
       },
     });
@@ -117,7 +115,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
   //   this.stripeService.createPaymentIntent(200).subscribe(
   //     (response) => {
   //       const clientSecret = response.clientSecret;
-  //       console.log('Client Secret:', clientSecret);
   //       if (!clientSecret) {
   //         console.error('Client secret is missing');
   //         return;
@@ -138,7 +135,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
   //           if (result.error) {
   //             console.error('Payment failed:', result.error.message);
   //           } else {
-  //             console.log('Payment successful');
   //           }
   //         },
   //         error: (err) => {

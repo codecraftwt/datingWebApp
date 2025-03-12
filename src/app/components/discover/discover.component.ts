@@ -88,7 +88,6 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
 
   getUsers() {
     this._discoverService.getUsers().subscribe((response: any) => {
-      console.log(response, '<==== response discover')
       if (response.success) {
         this.userProfiles = response.data;
       }

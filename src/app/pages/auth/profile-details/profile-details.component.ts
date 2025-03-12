@@ -36,7 +36,6 @@ export class ProfileDetailsComponent implements OnInit {
     this._profileService.getProfileById(this.currentUser._id).subscribe({
       next: (response: any) => {
         this.profileDetails = response.user;
-        console.log(this.profileDetails,'<=== profileUsers')
       },
       error: (error: any) => {
         console.error(error);

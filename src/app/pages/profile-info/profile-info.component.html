@@ -13,7 +13,7 @@
                             <div class="d-flex justify-content-between align-items-center text-white">
                                 <div class="dark-background">
                                     <!-- <i-feather name="heart" class="new-likes me-1"></i-feather> -->
-                                    <mat-icon class="me-1">favorite</mat-icon>
+                                    <mat-icon class="me-1" [color]="isProfileLiked ? 'warn' : 'default'">favorite</mat-icon>
                                     <span>{{profileDetails?.likes}}</span>
                                 </div>
                                 <div class="dark-background">
@@ -46,7 +46,7 @@
                                         @if(!isProfileLiked){
                                         <button class="btn-gradient text-white shadow" mat-raised-button
                                             (click)="handleLike()">
-                                            <mat-icon class="me-1">favorite</mat-icon>Like
+                                            <mat-icon class="me-1" color="warn">favorite</mat-icon>Like
                                         </button>
                                         } @else{
                                         <button class="btn-gradient text-white shadow" mat-raised-button
@@ -125,7 +125,7 @@
                                         </mat-card>
                                         <div class="row mb-3">
                                             <div class="col-6"
-                                                *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                *ngFor="let image of profileDetails?.otherPhotos; let i = index">
                                                 <div class="all-image-container mb-2">
                                                     <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
@@ -162,7 +162,7 @@
                                             </mat-card-header>
                                             <mat-card-content class="px-0 d-flex flex-column gap-2">
                                                 <div class="d-flex"
-                                                    *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                    *ngFor="let image of profileDetails?.otherPhotos; let i = index">
                                                     <div class="profile-container me-2">
                                                         <img class="h-100 w-100" [src]="image"
                                                             [alt]="'Image ' + (i + 1)">

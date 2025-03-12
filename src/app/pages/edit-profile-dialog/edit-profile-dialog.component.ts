@@ -63,7 +63,6 @@ export class EditProfileDialogComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.profileDetails.profilePhoto = reader.result as string;
-        console.log(this.profileDetails.profilePhoto, '<=== profilePhoto');
         // this.userForm.patchValue({ profilePhoto: this.profileDetails.profilePhoto });
       };
       reader.readAsDataURL(file);
@@ -82,7 +81,6 @@ export class EditProfileDialogComponent implements OnInit {
       };
       this._profileService.updateProfile(this.currentUser._id, updatedFormValue).subscribe({
         next: (response: any) => {
-          console.log(response);
           this.closeDialog();
         },
         error: (error: any) => {

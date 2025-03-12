@@ -27,4 +27,16 @@ export class DiscoverService {
   getVisitedProfiles<T>(): Observable<T> {
     return this.httpService.get<any>(`api/visitors/visited/${this.currentUser._id}`);
   }
+
+  getFavouritesByUser<T>(): Observable<T> {
+    return this.httpService.get<any>(`api/favorite/${this.currentUser._id}`)
+  }
+
+  AddToFavourite<T>(favoriteUserId: string): Observable<T> {
+    return this.httpService.post<any>(`api/favorite/add`, {favoriteUserId});
+  }
+
+  removeFavourite<T>(favoriteUserId: string): Observable<T> {
+    return this.httpService.post<any>(`api/favorite/remove`, {favoriteUserId});
+  }
 }

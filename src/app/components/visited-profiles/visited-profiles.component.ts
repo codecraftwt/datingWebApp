@@ -25,7 +25,6 @@ export class VisitedProfilesComponent implements OnInit {
 
   getVisitedProfiles() {
     this._discoverService.getVisitedProfiles().subscribe((response: any) => {
-      console.log(response, '<==== response getVisitedProfiles')
       if (response.success) {
         this.userProfiles = response.data;
       }

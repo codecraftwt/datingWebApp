@@ -137,9 +137,6 @@ export class HomeComponent implements OnInit {
   passwordsMatchValidator(control: AbstractControl) {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-    console.log(password,'password');
-    console.log(confirmPassword,'confirmPassword');
-    console.log(password === confirmPassword,'password === confirmPassword');
     
     return password === confirmPassword ? null : { mismatch: true };
   }
@@ -147,7 +144,6 @@ export class HomeComponent implements OnInit {
     return this.UserForm.hasError('mismatch') && this.UserForm.get('confirmPassword')?.touched;
   }
   onSubmit() {
-    console.log(this.UserForm.value), 'UserForm.values';
     this.router.navigate(['login']);
   }
 

@@ -130,7 +130,6 @@ export class SigninComponent implements OnInit {
       ...this.phoneFormGroup.getRawValue(),
       ...this.personalityProfileFormGroup.getRawValue()
     };
-    console.log(payload, 'payload')
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.religionFormGroup.valid && this.phoneFormGroup.valid) {
       this._authService.register(payload).subscribe(response => {
         if (response.success) {

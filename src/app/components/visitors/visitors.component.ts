@@ -17,7 +17,6 @@ export class VisitorsComponent implements OnInit {
 
   getProfiles() {
     this._discoverService.getRecentVisitors().subscribe((response: any) => {
-      console.log(response, '<==== response getRecentVisitors')
       if (response.success) {
         this.userProfiles = response.data;
       }

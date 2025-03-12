@@ -36,6 +36,15 @@
             background: rgba(0, 0, 0, 0.8);
         }
     }
+    
+    .new-likes{
+        cursor: pointer;
+    }
+
+    .filled {
+        fill: white;
+        stroke: white;
+      }
 }
 
 .overlay-content {
