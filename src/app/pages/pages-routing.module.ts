@@ -10,6 +10,7 @@ import { LikesComponent } from './likes/likes.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { ProfileDetailsComponent } from './auth/profile-details/profile-details.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,8 @@ const routes: Routes = [
       { path: 'likes', component: LikesComponent },
       { path: 'profile/:id', component: ProfileInfoComponent },
       { path: 'messages', component: MessagesComponent },
+      { path: 'profile-details', component: ProfileDetailsComponent },
+      { path: 'subscriptions', component: SubscriptionsComponent },
     ]
   }
 ];

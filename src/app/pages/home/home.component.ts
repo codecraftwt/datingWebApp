@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { OnBhalfOf } from '../enums/home-enums';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +10,13 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/n
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  selectedValue = ''
+  UserForm!: FormGroup;
+  onBehalfOf = Object.values(OnBhalfOf);
+  selectedValue = '';
+  isEmail: boolean = false;
   age = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  countries = ['India', 'China', 'Japan', 'United States', 'Australia', 'New Zealand', 'South Africa', 'England', 'France', 'Germany', 'Italy', 'Spain', 'Portugal', 'Brazil', 'Argentina', 'Mexico', 'Canada', 'Russia', 'Ukraine',];
+  religions = ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Buddhist', 'Jain', 'Bahai', 'Parsi', 'Jewish', 'Communist', 'Atheist', 'Agnostic', 'Other'];
   whatYouGet = [
     {
       title: '9000+ Members',
@@ -90,8 +98,53 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  constructor(
+    private _fb: FormBuilder,
+    private router: Router) { }
   ngOnInit(): void {
+    this._intializeForm();
+  }
 
+  _intializeForm() {
+    this.UserForm = this._fb.group({
+      profileFor: '',
+      firstname: '',
+      lastname: '',
+      gender: '',
+      email: '',
+      phoneNumber: '',
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+      dob: '',
+      country: '',
+      religion: '',
+      motherTongue: '',
+
+      // height: [''],  // Height
+      // weight: [''],  // Weight
+      // caste: [''],  // Caste
+      // maritalStatus: [''],  // Marital Status
+      // education: [''],  // Education
+      // occupation: [''],  // Occupation
+      // city: [''],  // City
+      // state: [''],  // State
+      // language: [''],  // Language
+      // community: [''],  // Community
+      // about: [''],  // About
+    },{ validator: this.passwordsMatchValidator });
+  }
+
+  passwordsMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+  isPasswordMismatch() {
+    return this.UserForm.hasError('mismatch') && this.UserForm.get('confirmPassword')?.touched;
+  }
+  onSubmit() {
+    this.router.navigate(['login']);
   }
 
   onSelectionChange(event: any) {
@@ -99,6 +152,6 @@ export class HomeComponent implements OnInit {
   }
 
   trackCategory(index: number, category: any) {
-    return category.name; 
+    return category.name;
   }
 }

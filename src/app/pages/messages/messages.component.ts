@@ -18,6 +18,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   receiverId: string = '671f260804f1e0d03308b13f'
   currentRoom: any
   currentReceiver: any
+  selectedRoom: any = null;
 
   // @ViewChild('messagesContainer') messagesContainer!: ElementRef;
   @ViewChild('messagesContainer', { static: false }) messagesContainer!: ElementRef;
@@ -49,16 +50,29 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  onSearch(event:any){
+    const searchTerm = event.target.value;
+    
+    if(searchTerm === ""){
+      this.getAllRooms();
+    }
+    const filteredRooms = this.rooms.filter(room => 
+      room.createdWith.firstName.includes(searchTerm) || room.createdWith.lastName.includes(searchTerm)
+    );
+    this.rooms = filteredRooms;
+  }
+
   selectRoom(room: any): void {
-    this.getRoom(room._id)
+    this.selectedRoom = room;
+    this.getRoom(room._id);
   }
 
   getAllRooms(): void {
     this._socketService.getAllRooms(this.user._id).subscribe({
       next: (response) => {
-        console.log(response, 'get all room response');
         if (response.status == 200) {
           this.rooms = response.data
+          this.getRoom(this.rooms[0]._id)
         }
       },
       error: (error) => {
@@ -70,7 +84,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   getRoom(roomId: string): void {
     this._socketService.getRoomById(roomId).subscribe({
       next: (response) => {
-        console.log(response, 'current room response');
         if (response.success) {
           this.currentRoom = response.data
           if (this.user._id === this.currentRoom.createdWith._id) {
@@ -111,7 +124,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     }
     this._socketService.createRoom(payload).subscribe({
       next: (response) => {
-        console.log(response, 'create room response');
         // if (response.status == 200) {
         //   this.rooms = response.data
         // }

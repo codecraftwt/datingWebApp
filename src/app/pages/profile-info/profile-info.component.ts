@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 import { ProfileService } from '../../services/profile.service';
+import { DiscoverService } from '../../services/discover.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -13,16 +14,19 @@ export class ProfileInfoComponent implements OnInit {
   private _router = inject(Router);
   private _socketService = inject(SocketService)
   private _profileService = inject(ProfileService)
+  private _discoverService = inject(DiscoverService)
   currentUser: any = localStorage.getItem('user')
   user = JSON.parse(this.currentUser).user
   selectedUserId = ''
-  profileDetails: any
+  profileDetails: any;
+  isProfileLiked: boolean = false;
 
   ngOnInit(): void {
     this._activatedRouter.params.subscribe((params: any) => {
-      console.log(params, '<==== params');
       this.selectedUserId = params.id
       this.getProfileDetails();
+      this.handleVisit();
+      this.checkIsLiked();
     })
   }
 
@@ -36,6 +40,17 @@ export class ProfileInfoComponent implements OnInit {
       }
     })
   }
+
+  checkIsLiked() {
+    this._profileService.checkLike(this.user._id, this.selectedUserId).subscribe((response: any) => {
+      if(response.success){
+        this.isProfileLiked = response.like.isLike;
+      }
+    }, (error) => {
+      throw error;
+    });
+  }
+
   createRoom(): void {
     const payload = {
       createdBy: this.user._id,
@@ -44,24 +59,50 @@ export class ProfileInfoComponent implements OnInit {
 
     this._socketService.createRoom(payload).subscribe({
       next: (response) => {
-        console.log(response, 'create room response');
         if (response.success) {
           this._router.navigate(['/messages']);
         }
         if (response.status === 400) {
-          alert(response.message)
+          this._router.navigate(['/messages']);
         }
       },
       error: (error) => {
-        console.log(error, '<======== error')
-        // alert(error);
+        throw error;
       }
     });
   }
 
   handleMessage() {
-    console.log('handle message')
     this.createRoom();
   }
 
+  handleLike() {
+    const payload = {
+      userId: this.user._id,
+      likedProfileId: this.selectedUserId
+    };
+  
+    this._profileService.likeProfile(payload).subscribe({
+      next: (response) => {
+        if (response) {
+          this.isProfileLiked = !this.isProfileLiked; // Toggle UI immediately
+          this.getProfileDetails(); // Refresh profile details after update
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  handleVisit() {
+    let visitorsId = this.user._id;
+    let visitedId = this.selectedUserId;    
+    try {
+      this._discoverService.postVisit(visitorsId, visitedId).subscribe((response: any) => {
+      })
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-10">
-                <mat-tab-group>
+                <mat-tab-group #tabGroup>
                     <mat-tab label="Discover">
                         <mat-card appearance="raised" class="w-100 shadow p-3 mt-3">
                             <mat-card-header>
                                 <div class="d-flex w-100 justify-content-between mb-4">
-                                    <h5 class="text-gradient">Discover</h5>
+                                    <h5 class="text-gradient">Discover | {{userProfiles.length}}</h5>
                                     <h5 class="mb-0 fw-normal text-preferences">Member preferences<i-feather
                                             name="activity" class="ms-1"></i-feather></h5>
                                 </div>
@@ -170,9 +170,6 @@
                         <app-visited-profiles />
                     </mat-tab>
                 </mat-tab-group>
-
-
-
             </div>
         </div>
     </div>

@@ -25,7 +25,6 @@ export class SnackbarService {
         panelClass = 'info-snackbar';
         break;
     }
-    console.log(panelClass)
     this._snackbar.open(message, '', {
       duration: duration,
       horizontalPosition: 'right',

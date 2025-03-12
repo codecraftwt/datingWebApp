@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
     <div class="container">
         <a class="navbar-brand me-0" href="/">
             <div class="logo-container">
@@ -11,22 +11,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mx-auto   mb-lg-0">
-                <!-- @for (menu of menus; track menu;){
+                @for (menu of menus; track menu;){
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" [routerLink]="[menu.route]">{{menu.name}}</a>
                 </li>
-                } -->
+                }
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page">page</a>
                 </li>
             </ul>
             <button class="" mat-flat-button (click)="handleLogin()">Logout</button>
-            <!--<div *ngIf="isLogin"  class="avtar-container">
+            <div *ngIf="isLogin"  class="avtar-container">
                 <img src="avtar.avif" alt="">
-            </div> -->
+            </div>
         </div>
     </div>
-</nav>
+</nav> -->
 
 <section class="py-5">
     <div class="container main-content">
@@ -201,7 +201,7 @@
             <button (click)="makePayment(35)" class="btn btn-success btn-block">Pay $35</button>
         </div>
     </div>
-    <div [formGroup]="paymentElementForm">
+    <!-- <div [formGroup]="paymentElementForm">
         <mat-form-field appearance="fill">
             <input matInput placeholder="name" formControlName="name" />
         </mat-form-field>
@@ -223,5 +223,5 @@
         </ngx-stripe-elements>
         }
         <button (click)="pay()">PAY</button>
-    </div>
+    </div> -->
 </section>

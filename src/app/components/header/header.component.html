@@ -18,9 +18,20 @@
                 }
             </ul>
             <button *ngIf="!isLogin" [routerLink]="['/login']" class="" mat-flat-button>Login Profile</button>
-            <div *ngIf="isLogin" class="avtar-container">
+            <div *ngIf="isLogin" class="avtar-container pointer" [matMenuTriggerFor]="menu">
                 <img [src]="user.profilePhoto || 'avtar.avif'" alt="">
             </div>
+
+            <mat-menu #menu="matMenu">
+                <ul class="custom-menu">
+                    <li mat-menu-item [routerLink]="['/profile-details']">
+                        View Profile
+                    </li>
+                    <li mat-menu-item (click)="logout()">
+                        Logout
+                    </li>
+                </ul>
+            </mat-menu>
         </div>
     </div>
 </nav>

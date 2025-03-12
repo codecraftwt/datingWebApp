@@ -1,0 +1,55 @@
+@import './../../../../styles/theme.scss';
+
+.image-container {
+    height: 185px;
+    width: 185px;
+    // position: absolute;
+    // top: -116px;
+    // bottom: 0;
+    // right: -62px;
+    // z-index: 99;
+
+    img {
+        object-fit: cover;
+        border: 5px solid $accent-color;
+    }
+}
+
+.bg-dark {
+    background-color: $accent-color !important;
+}
+
+.detail-box{
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    padding: 10px;
+    p{
+        font-size: 14px;
+    }
+    h5{
+        font-size: 17px;
+    }
+}
+
+.big-feather-icon {
+    fill: none !important;
+    color: $primary-color !important;
+    stroke-width: 1px;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.text-preference {
+    font-size: 17px;
+}
+
+.all-image-container {
+    height: 250px;
+    width: 100%;
+
+    img {
+        object-fit: cover;
+        border-radius: 15px;
+        border: 7px solid #d7e3ff !important;
+    }
+}

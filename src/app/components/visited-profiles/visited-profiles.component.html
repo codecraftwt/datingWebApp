@@ -1,7 +1,7 @@
 <mat-card appearance="raised" class="w-100 shadow p-3 mt-3">
     <mat-card-header>
         <h6 class="mb-4 text-gradient text-uppercase">
-            Your recent profile visits
+            Your recent profile visits | {{userProfiles.length}}
         </h6>
     </mat-card-header>
     <mat-card-content class="text-center">
@@ -9,8 +9,9 @@
             <div class="col-sm-12 mb-3 mb-lg-0">
                 <div class="row">
                     @for (profile of userProfiles; track profile) {
-                    <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',profile._id]">
-                        <app-profile-card [profile]="profile.visitor" />
+                    <!-- <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',profile._id]"> -->
+                    <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',profile.visitedId]">
+                        <app-profile-card [profile]="profile.visitor"/>
                     </div>
                     }
                     @if(userProfiles.length===0) {

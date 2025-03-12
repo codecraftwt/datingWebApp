@@ -1,80 +1,132 @@
-<section class="profile-info">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <div class="row py-5">
-                    <div class="col-md-4">
-                        <div class="image-container">
-                            <img class="h-100 w-100" [src]="profileDetails?.profilePhoto ||  'about-us.jpg'" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="d-flex flex-column justify-content-between h-100">
-                            <div class="d-flex justify-content-between align-items-center text-white">
-                                <div class="dark-background">
-                                    <!-- <i-feather name="heart" class="new-likes me-1"></i-feather> -->
-                                    <mat-icon class="me-1" [color]="isProfileLiked ? 'warn' : 'default'">favorite</mat-icon>
-                                    <span>{{profileDetails?.likes}}</span>
-                                </div>
-                                <div class="dark-background">
-                                    <i-feather name="more-vertical" class="new-likes me-1"></i-feather>
-                                </div>
-                            </div>
-                            <div class="text-white">
-                                <div class="d-flex justify-content-between align-items-center text-white">
-                                    <div class="">
-                                        <div class="d-flex align-items-center">
-                                            <h2 class="me-2 mb-0">{{profileDetails?.firstName}}
-                                                {{profileDetails?.lastName}}</h2>
-                                            <h1 class="mb-0 fw-light">{{'30'}}</h1>
-                                        </div>
-                                        <h6 class="fw-normal mb-3">{{'profile?.designation'}}</h6>
-                                        <div class="d-flex align-items-center last-login">
-                                            <p class="dark-background me-2 mb-0">
-                                                Last login:Today
-                                            </p>
-                                            <p class="dark-background mb-0">
-                                                <i-feather name="image" class="new-likes me-1 mb-1"></i-feather><span>3
-                                                    Photo(s)</span>
-                                            </p>
-                                        </div>
-                                    </div>
+<section class="posts-section py-5">
+    <div class="container px-4">
+        <div class="row justify-content-center mb-4">
+            <div class="col-10 mb-3 mb-lg-0">
+                <mat-card class="p-3 h-100 align-items-center justify-content-center shadow" appearance="outlined">
+                    <mat-card-content class="w-100">
+                        <div class="row mb-4">
+                            <div class="col-12 mb-3 mb-lg-0">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="mb-4 text-gradient text-uppercase">
+                                        <i-feather name="user" class="new-likes me-3"></i-feather>Profile Details
+                                    </h5>
                                     <div>
-                                        <button class="btn-gradient text-white shadow me-2" mat-raised-button
-                                            (click)="handleMessage()">Message
-                                        </button>
-                                        @if(!isProfileLiked){
-                                        <button class="btn-gradient text-white shadow" mat-raised-button
-                                            (click)="handleLike()">
-                                            <mat-icon class="me-1" color="warn">favorite</mat-icon>Like
-                                        </button>
-                                        } @else{
-                                        <button class="btn-gradient text-white shadow" mat-raised-button
-                                            (click)="handleLike()">
-                                            <i-feather name="heart" class="new-likes me-1"></i-feather>Dislike
-                                        </button>
-                                        }
+                                        <Button type="button" class="btn-gradient border-0 rounded-5" mat-flat-button (click)="handleEditProfile()">Edit Profile</Button>
                                     </div>
                                 </div>
+                                <mat-card appearance="outlined" class="w-100 inner-card p-2 mb-4">
+                                    <mat-card-content class="text-center py-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <!-- <circle-progress [percent]="profileDetails?.profileProgress"
+                                                    [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+                                                    [outerStrokeColor]="'#005cbb'" [innerStrokeColor]="'#d7e3ff'"
+                                                    [animation]="true" [animationDuration]="300"></circle-progress> -->
+                                                    <div class="image-container rounded-3">
+                                                        <img class="h-100 w-100 rounded-3"
+                                                            [src]="profileDetails?.profilePhoto || 'avtar.avif'"
+                                                            alt="avtar">
+                                                    </div>
+                                            </div>
+
+                                            <div class="col-7">
+                                                <!-- <div class="position-relative">
+                                                    <div class="image-container rounded-3">
+                                                        <img class="h-100 w-100 rounded-3"
+                                                            [src]="profileDetails?.profilePhoto || 'avtar.avif'"
+                                                            alt="avtar">
+                                                    </div>
+                                                </div> -->
+                                                <mat-card appearance="outlined" class="w-100 inner-card p-3">
+                                                    <div class="row align-items-center justify-content-between">
+                                                        <div class="col-6">
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>person</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.firstName}}
+                                                                        {{profileDetails?.lastName}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>mail</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.email}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>local_phone</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.mobile}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>cake</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.dob | date}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>cake</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.religion}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>cake</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.gender}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>location_on</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.country}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row align-items-center mb-2">
+                                                                <div class="col-2">
+                                                                    <mat-icon>favorites</mat-icon>
+                                                                </div>
+                                                                <div class="col-10 text-start">
+                                                                    <span
+                                                                        class="text-preference">{{profileDetails?.likes}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </mat-card>
+                                            </div>
+                                        </div>
+
+
+                                    </mat-card-content>
+                                </mat-card>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="profile-section-card">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-12">
-                        <mat-card appearance="raised" class="w-100 shadow p-3 mt-3 mb-5">
-                            <mat-card-content class="">
+                            <div class="col-12">
                                 <div class="row mb-4">
                                     <div class="col-sm-12 col-lg-7 col-xl-8 mb-3 mb-lg-0">
                                         <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-3">
@@ -124,8 +176,7 @@
                                             </mat-card-content>
                                         </mat-card>
                                         <div class="row mb-3">
-                                            <div class="col-6"
-                                                *ngFor="let image of profileDetails?.otherPhotos; let i = index">
+                                            <div class="col-6" *ngFor="let image of profileDetails.otherPhotos; let i = index">
                                                 <div class="all-image-container mb-2">
                                                     <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
@@ -161,28 +212,18 @@
                                                 </h4>
                                             </mat-card-header>
                                             <mat-card-content class="px-0 d-flex flex-column gap-2">
-                                                <div class="d-flex"
-                                                    *ngFor="let image of profileDetails?.otherPhotos; let i = index">
+                                                <div class="d-flex" *ngFor="let image of profileDetails.otherPhotos; let i = index">
                                                     <div class="profile-container me-2">
-                                                        <img class="h-100 w-100" [src]="image"
-                                                            [alt]="'Image ' + (i + 1)">
+                                                        <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                     </div>
                                                     <!-- <div class="profile-container">
                                                         <img class="h-100 w-100" src="about-us.jpg" alt="">
                                                     </div> -->
                                                 </div>
-                                                <!-- <div class="d-flex">
-                                                    <div class="profile-container me-2">
-                                                        <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                    </div>
-                                                    <div class="profile-container">
-                                                        <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                    </div>
-                                                </div> -->
                                             </mat-card-content>
                                         </mat-card>
                                         <mat-card appearance="outlined" class="w-100 inner-card bg-dark p-3">
-                                            <mat-card-content>
+                                            <mat-card-content class="py-0">
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
                                                         <!-- <i-feather name="heart"
@@ -191,7 +232,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Gender</p>
-                                                        <h5>Woman</h5>
+                                                        <h5>{{profileDetails.gender}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -202,7 +243,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">City of residence</p>
-                                                        <h5>Hong Kong, HK</h5>
+                                                        <h5>{{profileDetails.country}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -332,10 +373,10 @@
                                         </mat-card>
                                     </div>
                                 </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>

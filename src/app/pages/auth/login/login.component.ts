@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('isLogin', 'true')
     this.authService.login(this.loginForm.value)
       .subscribe(response => {
-        console.log(response, 'response')
         if (response.status == 200) {
           this.router.navigate(['/dashoard'])
         }

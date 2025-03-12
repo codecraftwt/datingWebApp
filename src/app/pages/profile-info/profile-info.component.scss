@@ -36,6 +36,9 @@
     }
 
     .dark-background {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: rgba(0, 0, 0, 0.6);
         padding: 5px 15px;
         border-radius: 20px;
@@ -63,9 +66,30 @@
 
 }
 
+.detail-box{
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    padding: 10px;
+    p{
+        font-size: 14px;
+    }
+    h5{
+        font-size: 17px;
+    }
+}
+
+.big-feather-icon {
+    fill: none !important;
+    color: $primary-color !important;
+    stroke-width: 1px;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+
 .profile-container {
     height: 175px;
-    width: 155px;
+    // width: 155px;
 
     img {
         border-radius: 10px;

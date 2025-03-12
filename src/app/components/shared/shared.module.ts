@@ -24,11 +24,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { NgxStripeModule } from 'ngx-stripe';
+import { DaysAgoPipe } from '../../pipes/days-ago.pipe';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -45,7 +47,8 @@ export const MY_DATE_FORMATS = {
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DaysAgoPipe
   ],
   imports: [
     CommonModule,
@@ -74,7 +77,9 @@ export const MY_DATE_FORMATS = {
     MatTreeModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule,
+    
   ],
   exports: [
     HeaderComponent,
@@ -104,7 +109,9 @@ export const MY_DATE_FORMATS = {
     MatTreeModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule,
+    DaysAgoPipe
   ],
   providers: [
     MatDatepickerModule,

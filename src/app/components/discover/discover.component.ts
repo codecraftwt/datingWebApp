@@ -1,14 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { DiscoverService } from '../../services/discover.service';
+import { MatTabGroup } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
   styleUrl: './discover.component.scss'
 })
-export class DiscoverComponent implements OnInit {
+export class DiscoverComponent implements OnInit ,AfterViewInit {
+
   private _discoverService = inject(DiscoverService);
-  public userProfiles: any[] = []
+  private _route = inject(ActivatedRoute);
+  public userProfiles: any[] = [];
+  @ViewChild('tabGroup') tabGroup!: MatTabGroup;
+
   
   newForYou = [
     {
@@ -68,12 +74,20 @@ export class DiscoverComponent implements OnInit {
   trips = ["Active Trips", "Adventure Trips", "All-Inclusive Trips", "Art & Culture Holidays", "Backpacking", "Beach Trips"]
 
   ngOnInit(): void {
-    this.getUsers()
+    this.getUsers();
+  }
+
+  ngAfterViewInit(): void {
+    this._route.queryParams.subscribe(params => {
+      const tabIndex = +params['tab'];
+      if (!isNaN(tabIndex)) {
+        this.tabGroup.selectedIndex = tabIndex;
+      }
+    });
   }
 
   getUsers() {
     this._discoverService.getUsers().subscribe((response: any) => {
-      console.log(response, '<==== response')
       if (response.success) {
         this.userProfiles = response.data;
       }

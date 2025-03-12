@@ -2,60 +2,59 @@ import { AfterViewInit, Component, inject, OnInit, signal, ViewChild } from '@an
 import { AuthService } from '../../services/auth.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
-import { StripeElementsOptions, StripePaymentElementOptions } from '@stripe/stripe-js';
+import { StripePaymentElementOptions } from '@stripe/stripe-js';
 import { environment } from '../../../environments/environment.development';
+import { StripeService } from '../../services/stripe.service';
 
 @Component({
   selector: 'app-subscriptions',
   templateUrl: './subscriptions.component.html',
-  styleUrl: './subscriptions.component.scss'
+  styleUrl: './subscriptions.component.scss',
 })
 export class SubscriptionsComponent implements OnInit, AfterViewInit {
-  planBenifits = [
-    "View unlimited photos",
-    "Unlimited messaging",
-    "See who's viewed you",
-    "Distance search",
-    "Detailed personality profile",
-  ]
-
-  authService = inject(AuthService)
-
   @ViewChild(StripePaymentElementComponent)
   paymentElement!: StripePaymentElementComponent;
 
-  private readonly fb = inject(UntypedFormBuilder);
+  planBenifits = [
+    'View unlimited photos',
+    'Unlimited messaging',
+    "See who's viewed you",
+    'Distance search',
+    'Detailed personality profile',
+  ];
+  // elements: any;
+  
+  private readonly authService = inject(AuthService);
+  // private readonly fb = inject(UntypedFormBuilder);
+  // private readonly stripeService = inject(StripeService);
 
-  paymentElementForm = this.fb.group({
-    name: ['John Doe', [Validators.required]],
-    email: ['support@ngx-stripe.dev', [Validators.required]],
-    address: [''],
-    zipcode: [''],
-    city: [''],
-    amount: [2500, [Validators.required, Validators.pattern(/\d+/)]]
-  });
+  // paymentElementForm = this.fb.group({
+  //   name: ['John Doe', [Validators.required]],
+  //   email: ['support@ngx-stripe.dev', [Validators.required]],
+  //   address: [''],
+  //   zipcode: [''],
+  //   city: [''],
+  //   amount: [2500, [Validators.required, Validators.pattern(/\d+/)]],
+  // });
 
   elementsOptions: any = {
     locale: 'en',
     client: environment.stripeSecreteKey,
     appearance: {
-      theme: 'flat'
-    }
+      theme: 'flat',
+    },
   };
-
   paymentElementOptions: StripePaymentElementOptions = {
     layout: {
       type: 'tabs',
       defaultCollapsed: false,
       radios: false,
-      spacedAccordionItems: false
-    }
+      spacedAccordionItems: false,
+    },
   };
 
-  // Replace with your own public key
   stripe = injectStripe(environment.stripePublicKey);
   paying = signal(false);
-
   paymentHandler: any = null;
 
   ngAfterViewInit() {
@@ -84,7 +83,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
           key: environment.stripePublicKey,
           locale: 'auto',
           token: function (stripeToken: any) {
-            console.log(stripeToken);
             alert('Payment has been successfull!');
           },
         });
@@ -99,7 +97,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       key: environment.stripePublicKey,
       locale: 'auto',
       token: function (stripeToken: any) {
-        console.log(stripeToken);
         alert('Stripe token generated!');
       },
     });
@@ -110,51 +107,44 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  pay() {
-    if (this.paying() || this.paymentElementForm.invalid) return;
-    this.paying.set(true);
-
-    const {
-      name,
-      email,
-      address,
-      zipcode,
-      city
-    } = this.paymentElementForm.getRawValue();
-
-    this.stripe
-      .confirmPayment({
-        elements: this.paymentElement.elements,
-        confirmParams: {
-          payment_method_data: {
-            billing_details: {
-              name: name as string,
-              email: email as string,
-              address: {
-                line1: address as string,
-                postal_code: zipcode as string,
-                city: city as string
-              }
-            }
-          }
-        },
-        redirect: 'if_required'
-      })
-      .subscribe((result: any) => {
-        this.paying.set(false);
-        if (result.error) {
-          // Show error to your customer (e.g., insufficient funds)
-          alert({ success: false, error: result.error.message });
-        } else {
-          // The payment has been processed!
-          if (result.paymentIntent.status === 'succeeded') {
-            // Show a success message to your customer
-            alert({ success: true });
-          }
-        }
-      });
-  }
   handleLogin() {
     this.authService.logout();
   }
+
+  // pay(): void {
+  //   this.stripeService.createPaymentIntent(200).subscribe(
+  //     (response) => {
+  //       const clientSecret = response.clientSecret;
+  //       if (!clientSecret) {
+  //         console.error('Client secret is missing');
+  //         return;
+  //       }
+  
+  //       // Assuming you have a Payment Element to attach to the DOM
+  //       const paymentElement = this.elements.create('payment');
+  //       paymentElement.mount('#payment-element'); // Mount the element to a DOM element with the ID 'payment-element'
+  
+  //       // Confirm the payment with the clientSecret from the response
+  //       this.stripe.confirmPayment({
+  //         elements: this.elements,
+  //         confirmParams: {
+  //           return_url: 'https://your-site.com/payment-success',
+  //         },
+  //       }).subscribe({
+  //         next: (result) => {
+  //           if (result.error) {
+  //             console.error('Payment failed:', result.error.message);
+  //           } else {
+  //           }
+  //         },
+  //         error: (err) => {
+  //           console.error('Payment confirmation failed:', err);
+  //         },
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Payment intent creation failed:', error);
+  //     }
+  //   );    
+  // }
 }
