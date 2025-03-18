@@ -137,8 +137,11 @@
                                                 </h5>
                                             </mat-card-content>
                                             <mat-card-footer class="text-end">
-                                                <button mat-mini-fab aria-label="Example icon button with a menu icon">
+                                                <button mat-mini-fab>
                                                     <i-feather name="heart" class=""></i-feather>
+                                                </button>
+                                                <button mat-mini-fab class="mx-2">
+                                                    <i-feather name="edit" class=""></i-feather>
                                                 </button>
                                             </mat-card-footer>
                                         </mat-card>
@@ -157,6 +160,14 @@
                                                     <mat-chip>Reading</mat-chip>
                                                     <mat-chip>Sports</mat-chip>
                                                     <mat-chip>Wellness</mat-chip>
+                                                    <mat-chip (click)="onClickAdd('Interests and Hobbies')">
+                                                        Add
+                                                        <img
+                                                          matChipAvatar
+                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                          alt="Shiba Inu"
+                                                        />
+                                                      </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
@@ -172,6 +183,14 @@
                                                     <mat-chip>Hiking</mat-chip>
                                                     <mat-chip>Jogging</mat-chip>
                                                     <mat-chip>Yoga</mat-chip>
+                                                    <mat-chip (click)="onClickAdd('Sports')">
+                                                        Add
+                                                        <img
+                                                          matChipAvatar
+                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                          alt="Shiba Inu"
+                                                        />
+                                                      </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
@@ -200,6 +219,14 @@
                                                     <mat-chip class="mb-2">Mountains Trips</mat-chip>
                                                     <mat-chip class="mb-2">Spa/Wellness Trips</mat-chip>
                                                     <mat-chip class="mb-2">Staycation</mat-chip>
+                                                    <mat-chip (click)="onClickAdd('Travelling')">
+                                                        Add
+                                                        <img
+                                                          matChipAvatar
+                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                          alt="Shiba Inu"
+                                                        />
+                                                      </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>

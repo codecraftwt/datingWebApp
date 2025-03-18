@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripePaymentElementOptions } from '@stripe/stripe-js';
 import { environment } from '../../../environments/environment.development';
 import { StripeService } from '../../services/stripe.service';
+import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
   selector: 'app-subscriptions',
@@ -12,19 +12,13 @@ import { StripeService } from '../../services/stripe.service';
   styleUrl: './subscriptions.component.scss',
 })
 export class SubscriptionsComponent implements OnInit, AfterViewInit {
-  @ViewChild(StripePaymentElementComponent)
-  paymentElement!: StripePaymentElementComponent;
+  @ViewChild(StripePaymentElementComponent) paymentElement!: StripePaymentElementComponent;
+  plans: any;
+  user: any = localStorage.getItem('user');
+  currentUser = JSON.parse(this.user).user;
 
-  planBenifits = [
-    'View unlimited photos',
-    'Unlimited messaging',
-    "See who's viewed you",
-    'Distance search',
-    'Detailed personality profile',
-  ];
-  // elements: any;
-  
-  private readonly authService = inject(AuthService);
+  private readonly _subscriptionService = inject(SubscriptionService);
+  private readonly _stripeService = inject(StripeService);
   // private readonly fb = inject(UntypedFormBuilder);
   // private readonly stripeService = inject(StripeService);
 
@@ -57,17 +51,18 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
   paying = signal(false);
   paymentHandler: any = null;
 
+  ngOnInit() {
+    this.invokeStripe();
+    this._getAllSubscriptions();
+    if (!this.stripe) {
+      console.error('Stripe is not initialized');
+    }
+  }
+
   ngAfterViewInit() {
     // Check if paymentElement is initialized properly
     if (!this.paymentElement) {
       console.error('Payment Element is not initialized');
-    }
-  }
-
-  ngOnInit() {
-    this.invokeStripe();
-    if (!this.stripe) {
-      console.error('Stripe is not initialized');
     }
   }
 
@@ -107,44 +102,45 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  handleLogin() {
-    this.authService.logout();
+  proceedToCheckout(plan: any) {
+    this.paying.set(true);
+    debugger
+    // Step 1: Create a Checkout Session
+    this._stripeService.createCheckoutSession({
+      amount: plan.price,
+      currency: 'INR',
+      userId: this.currentUser._id,
+      planId: plan._id,
+    }).subscribe({
+      next: (response: any) => {
+        debugger
+        const sessionId = response.sessionId;
+  
+        // Step 2: Redirect to Stripe Checkout
+        debugger
+        this.stripe.redirectToCheckout({
+          sessionId: sessionId,
+        }).subscribe((result: any) => {
+          debugger
+          if (result.error) {
+            alert('Payment failed: ' + result.error.message);
+            this.paying.set(false);
+          }
+          // No need to handle success here; it will be handled by the success URL
+        });
+      },
+      error: (error) => {
+        console.error('Error creating checkout session:', error);
+        this.paying.set(false);
+      },
+    });
   }
 
-  // pay(): void {
-  //   this.stripeService.createPaymentIntent(200).subscribe(
-  //     (response) => {
-  //       const clientSecret = response.clientSecret;
-  //       if (!clientSecret) {
-  //         console.error('Client secret is missing');
-  //         return;
-  //       }
-  
-  //       // Assuming you have a Payment Element to attach to the DOM
-  //       const paymentElement = this.elements.create('payment');
-  //       paymentElement.mount('#payment-element'); // Mount the element to a DOM element with the ID 'payment-element'
-  
-  //       // Confirm the payment with the clientSecret from the response
-  //       this.stripe.confirmPayment({
-  //         elements: this.elements,
-  //         confirmParams: {
-  //           return_url: 'https://your-site.com/payment-success',
-  //         },
-  //       }).subscribe({
-  //         next: (result) => {
-  //           if (result.error) {
-  //             console.error('Payment failed:', result.error.message);
-  //           } else {
-  //           }
-  //         },
-  //         error: (err) => {
-  //           console.error('Payment confirmation failed:', err);
-  //         },
-  //       });
-  //     },
-  //     (error) => {
-  //       console.error('Payment intent creation failed:', error);
-  //     }
-  //   );    
-  // }
+  private _getAllSubscriptions() {
+    this._subscriptionService.getAllSubscriptionPlans().subscribe((response: any) => {
+      if (response.success) {
+        this.plans = response.data;
+      };
+    });
+  }
 }

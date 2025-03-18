@@ -1,33 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
-    <div class="container">
-        <a class="navbar-brand me-0" href="/">
-            <div class="logo-container">
-                <img src="logo-removebg-preview.png" alt="Logo" class="w-100 h-100">
-            </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mx-auto   mb-lg-0">
-                @for (menu of menus; track menu;){
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" [routerLink]="[menu.route]">{{menu.name}}</a>
-                </li>
-                }
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page">page</a>
-                </li>
-            </ul>
-            <button class="" mat-flat-button (click)="handleLogin()">Logout</button>
-            <div *ngIf="isLogin"  class="avtar-container">
-                <img src="avtar.avif" alt="">
-            </div>
-        </div>
-    </div>
-</nav> -->
-
 <section class="py-5">
     <div class="container main-content">
         <div class="row justify-content-center mb-4">
@@ -59,92 +29,34 @@
             <h3 class="mb-5">Select your Premium Membership</h3>
             <div class="col-lg-10">
                 <div class="row align-items-center mb-5">
+                    @for (plan of plans; track $index) {
                     <div class="col-md-4 mb-5 mb-md-0">
-                        <mat-card appearance="raised" class="subscription-card shadow">
+                        <mat-card appearance="raised" class="subscription-card shadow" [ngClass]="{ 'most-popular': $index === 1 }">
                             <mat-card-header class="p-4 justify-content-center">
-                                <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> light</h4>
+                                <h4 class="mb-0 fw-light">{{plan.name}}</h4>
                             </mat-card-header>
                             <mat-card-content class="text-start p-3 py-4">
-                                <p class="fw-semibold">6-month plan</p>
+                                <h6 class="fw-semibold text-center">3 Months Plan</h6>
                                 <mat-list>
-                                    @for (benefit of planBenifits; track benefit) {
+                                    @for (feature of plan.features; track feature) {
                                     <mat-list-item>
                                         <mat-icon class="check-circle" matListItemIcon>check_circle</mat-icon>
-                                        <div matListItemTitle>{{benefit}}</div>
+                                        <div matListItemTitle>{{feature}}</div>
                                     </mat-list-item>
                                     }
                                 </mat-list>
                                 <div class="text-center">
-                                    <button class="btn btn-danger rounded-pill px-3 fw-semibold mb-2">-35%</button>
-                                    <p class="text-secondary mb-0">regular $ <span class="text-decoration-line-through">
-                                            45.90</span> /month</p>
-                                    <h1 class="text-danger mb-3">$29.<sup>84</sup><sub>/month</sub></h1>
-                                    <button
-                                        class="btn btn-success rounded-pill px-4 mb-2 d-flex align-items-center mx-auto">Select
+                                    <h1 class="text-danger mb-3">₹{{plan.price}}<sub>/ 3 months</sub></h1>
+                                    <button class="btn btn-success rounded-pill px-4 mb-2 d-flex align-items-center mx-auto" (click)="proceedToCheckout(plan)">Select
                                         <mat-icon>keyboard_arrow_right</mat-icon></button>
                                 </div>
                             </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-4 mb-5 mb-md-0">
-                        <mat-card appearance="raised" class="subscription-card most-popular shadow">
-                            <mat-card-header class="p-4 justify-content-center">
-                                <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> PLUS</h4>
-                            </mat-card-header>
-                            <mat-card-content class="text-start p-3 py-4">
-                                <p class="fw-semibold">12-month plan</p>
-                                <mat-list>
-                                    @for (benefit of planBenifits; track benefit) {
-                                    <mat-list-item>
-                                        <mat-icon class="check-circle" matListItemIcon>check_circle</mat-icon>
-                                        <div matListItemTitle>{{benefit}}</div>
-                                    </mat-list-item>
-                                    }
-                                </mat-list>
-                                <div class="text-center">
-                                    <button class="btn btn-danger rounded-pill px-3 fw-semibold mb-2">-35%</button>
-                                    <p class="text-secondary mb-0">regular $ <span class="text-decoration-line-through">
-                                            45.90</span> /month</p>
-                                    <h1 class="text-danger mb-3">$29.<sup>84</sup><sub>/month</sub></h1>
-                                    <button
-                                        class="btn btn-success rounded-pill px-4 mb-2 d-flex align-items-center mx-auto">Select
-                                        this
-                                        plan <mat-icon>keyboard_arrow_right</mat-icon></button>
-                                </div>
-                            </mat-card-content>
-                            <div class="most-popular-text">
+                            <div *ngIf="$index === 1" class="most-popular-text">
                                 <span>Most popular</span>
                             </div>
                         </mat-card>
                     </div>
-                    <div class="col-md-4 mb-5 mb-md-0">
-                        <mat-card appearance="raised" class="subscription-card shadow">
-                            <mat-card-header class="p-4 justify-content-center">
-                                <h4 class="mb-0 fw-light"><span class="fw-semibold">Premium</span> EXTRA</h4>
-                            </mat-card-header>
-                            <mat-card-content class="text-start p-3 py-4">
-                                <p class="fw-semibold">24-month plan</p>
-
-                                <mat-list>
-                                    @for (benefit of planBenifits; track benefit) {
-                                    <mat-list-item>
-                                        <mat-icon class="check-circle" matListItemIcon>check_circle</mat-icon>
-                                        <div matListItemTitle>{{benefit}}</div>
-                                    </mat-list-item>
-                                    }
-                                </mat-list>
-                                <div class="text-center">
-                                    <button class="btn btn-danger rounded-pill px-3 fw-semibold mb-2">-35%</button>
-                                    <p class="text-secondary mb-0">regular $ <span class="text-decoration-line-through">
-                                            45.90</span> /month</p>
-                                    <h1 class="text-danger mb-3">$29.<sup>84</sup><sub>/month</sub></h1>
-                                    <button
-                                        class="btn btn-success rounded-pill px-4 mb-2 d-flex align-items-center mx-auto">Select
-                                        <mat-icon>keyboard_arrow_right</mat-icon></button>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
+                    }
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3 mb-md-0">
@@ -161,8 +73,8 @@
                         <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
                             <mat-card-content class="text-center">
                                 <mat-icon>lock</mat-icon>
-                                <p class="fw-semibold">Every 14 minutes, someone finds love on eharmony</p>
-                                <p class="text-secondary mb-0">eharmony user data</p>
+                                <p class="fw-semibold">Every 14 minutes, someone finds love on dating</p>
+                                <p class="text-secondary mb-0">dating user data</p>
 
                             </mat-card-content>
                         </mat-card>
@@ -201,27 +113,4 @@
             <button (click)="makePayment(35)" class="btn btn-success btn-block">Pay $35</button>
         </div>
     </div>
-    <!-- <div [formGroup]="paymentElementForm">
-        <mat-form-field appearance="fill">
-            <input matInput placeholder="name" formControlName="name" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <input matInput placeholder="Email" type="email" formControlName="email" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <input matInput placeholder="Address" formControlName="address" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <input matInput placeholder="ZIP Code" formControlName="zipcode" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <input matInput placeholder="city" formControlName="city" />
-        </mat-form-field>
-        @if (elementsOptions.clientSecret) {
-        <ngx-stripe-elements [stripe]="stripe" [elementsOptions]="elementsOptions">
-            <ngx-stripe-payment [options]="paymentElementOptions" />
-        </ngx-stripe-elements>
-        }
-        <button (click)="pay()">PAY</button>
-    </div> -->
 </section>
