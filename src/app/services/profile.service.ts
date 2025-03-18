@@ -21,6 +21,14 @@ export class ProfileService {
   }
 
   public updateProfile(id: string, data: any) {
-    return this._httpService.put(`api/user/${id}`, data)
+    return this._httpService.put(`api/user/${id}`, data);
+  }
+
+  public getUserDetails(id: string) {
+    return this._httpService.get(`api/userDetails/${id}`);
+  }
+
+  public updateUserDetails(id: string, data: any) {
+    return this._httpService.put(`api/userDetails/${id}`, data);
   }
 }

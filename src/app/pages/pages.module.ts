@@ -21,6 +21,7 @@ import { ProfileDetailsComponent } from './auth/profile-details/profile-details.
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { ProfileDetailsPopupComponent } from './profile-details-popup/profile-details-popup.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     SubscriptionsComponent,
     ProfileDetailsComponent,
     EditProfileDialogComponent,
+    ProfileDetailsPopupComponent,
   ],
   imports: [
     CommonModule,
