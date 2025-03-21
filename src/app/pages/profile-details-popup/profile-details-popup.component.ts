@@ -253,9 +253,10 @@ export class ProfileDetailsPopupComponent implements OnInit {
     if (this.userDetailsForm.valid) {
       const formData = this.userDetailsForm.value;
       console.log(formData,'formData');
-      
-      // this._profileService.updateUserDetails(this.currentUser._id, formData)
-      //   .subscribe(() => {
+      // this._profileService.updateUserDetails(this.currentUser._id, formData).subscribe(() => {
+      //     this._dialogRef.close(true);
+      //   });
+      // this._profileService.postUserDetails(formData).subscribe(() => {
       //     this._dialogRef.close(true);
       //   });
     }
@@ -295,8 +296,9 @@ export class ProfileDetailsPopupComponent implements OnInit {
 
   private _getUserDetails() {
     try { 
-      let data = this._profileService.getUserDetails(this.currentUser._id);
-      console.log(data,'data');
+      this._profileService.getUserDetails(this.currentUser._id).subscribe((response) =>{
+        console.log(response,'response user details');
+      })
     } catch (error) {
       console.error(error);
     }
