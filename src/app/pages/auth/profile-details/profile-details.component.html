@@ -11,7 +11,8 @@
                                         <i-feather name="user" class="new-likes me-3"></i-feather>Profile Details
                                     </h5>
                                     <div>
-                                        <Button type="button" class="btn-gradient border-0 rounded-5" mat-flat-button (click)="handleEditProfile()">Edit Profile</Button>
+                                        <Button type="button" class="btn-gradient border-0 rounded-5" mat-flat-button
+                                            (click)="handleEditProfile()">Edit Profile</Button>
                                     </div>
                                 </div>
                                 <mat-card appearance="outlined" class="w-100 inner-card p-2 mb-4">
@@ -22,11 +23,11 @@
                                                     [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
                                                     [outerStrokeColor]="'#005cbb'" [innerStrokeColor]="'#d7e3ff'"
                                                     [animation]="true" [animationDuration]="300"></circle-progress> -->
-                                                    <div class="image-container rounded-3">
-                                                        <img class="h-100 w-100 rounded-3"
-                                                            [src]="profileDetails?.profilePhoto || 'avtar.avif'"
-                                                            alt="avtar">
-                                                    </div>
+                                                <div class="image-container rounded-3">
+                                                    <img class="h-100 w-100 rounded-3"
+                                                        [src]="profileDetails?.profilePhoto || 'avtar.avif'"
+                                                        alt="avtar">
+                                                </div>
                                             </div>
 
                                             <div class="col-7">
@@ -73,8 +74,8 @@
                                                                     <mat-icon>cake</mat-icon>
                                                                 </div>
                                                                 <div class="col-10 text-start">
-                                                                    <span
-                                                                        class="text-preference">{{profileDetails?.dob | date}}</span>
+                                                                    <span class="text-preference">{{profileDetails?.dob
+                                                                        | date}}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -129,119 +130,167 @@
                             <div class="col-12">
                                 <div class="row mb-4">
                                     <div class="col-sm-12 col-lg-7 col-xl-8 mb-3 mb-lg-0">
-                                        <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-3">
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
                                             <mat-card-content>
                                                 <p class="mb-2 text-secondary">I spend my free time…</p>
-                                                <h5 class="mb-5">
+                                                <h6 class="">
                                                     I like traveling, reading, eating and shopping
-                                                </h5>
+                                                </h6>
                                             </mat-card-content>
-                                            <mat-card-footer class="text-end">
+                                            <mat-card-footer class="text-end pe-2 pb-2">
                                                 <button mat-mini-fab>
                                                     <i-feather name="heart" class=""></i-feather>
                                                 </button>
-                                                <button mat-mini-fab class="mx-2">
-                                                    <i-feather name="edit" class=""></i-feather>
-                                                </button>
                                             </mat-card-footer>
                                         </mat-card>
-                                        <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-3">
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
                                             <mat-card-header>
-                                                <h6 class="mb-5 text-uppercase text-secondary">
+                                                <h6 class="text-uppercase text-secondary">
                                                     Interests and Hobbies
                                                 </h6>
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    <mat-chip>Cooking</mat-chip>
-                                                    <mat-chip>Going Out</mat-chip>
-                                                    <mat-chip>History</mat-chip>
-                                                    <mat-chip>Music</mat-chip>
-                                                    <mat-chip>Reading</mat-chip>
-                                                    <mat-chip>Sports</mat-chip>
-                                                    <mat-chip>Wellness</mat-chip>
+                                                    @for (item of otherDetails.userDetails.interestsAndHobbies; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
                                                     <mat-chip (click)="onClickAdd('Interests and Hobbies')">
                                                         Add
-                                                        <img
-                                                          matChipAvatar
-                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                                                          alt="Shiba Inu"
-                                                        />
-                                                      </mat-chip>
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
-                                        <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-3">
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
                                             <mat-card-header>
-                                                <h6 class="mb-5 text-uppercase text-secondary">
+                                                <h6 class="text-uppercase text-secondary">
                                                     Sports
                                                 </h6>
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    <mat-chip>Cycling</mat-chip>
-                                                    <mat-chip>Hiking</mat-chip>
-                                                    <mat-chip>Jogging</mat-chip>
-                                                    <mat-chip>Yoga</mat-chip>
+                                                    @for (item of otherDetails.userDetails.sports; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
                                                     <mat-chip (click)="onClickAdd('Sports')">
                                                         Add
-                                                        <img
-                                                          matChipAvatar
-                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                                                          alt="Shiba Inu"
-                                                        />
-                                                      </mat-chip>
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
                                         <div class="row mb-3">
-                                            <div class="col-6" *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                            <div class="col-6"
+                                                *ngFor="let image of profileDetails.otherPhotos; let i = index">
                                                 <div class="all-image-container mb-2">
                                                     <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <mat-card appearance="outlined" class="w-100 inner-card p-3 mb-3">
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
                                             <mat-card-header>
-                                                <h6 class="mb-5 text-uppercase text-secondary">
+                                                <h6 class="text-uppercase text-secondary">
                                                     Travelling
                                                 </h6>
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    <mat-chip class="mb-2">All Inclusive Trips</mat-chip>
-                                                    <mat-chip class="mb-2">Beach Trips</mat-chip>
-                                                    <mat-chip class="mb-2">City Trips</mat-chip>
-                                                    <mat-chip class="mb-2">Cruises</mat-chip>
-                                                    <mat-chip class="mb-2">Hiking Trips</mat-chip>
-                                                    <mat-chip class="mb-2">Meditation/Yoga Retreats</mat-chip>
-                                                    <mat-chip class="mb-2">Mountains Trips</mat-chip>
-                                                    <mat-chip class="mb-2">Spa/Wellness Trips</mat-chip>
-                                                    <mat-chip class="mb-2">Staycation</mat-chip>
+                                                    @for (item of otherDetails.userDetails.travelling; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
                                                     <mat-chip (click)="onClickAdd('Travelling')">
                                                         Add
-                                                        <img
-                                                          matChipAvatar
-                                                          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                                                          alt="Shiba Inu"
-                                                        />
-                                                      </mat-chip>
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
+                                                </mat-chip-set>
+                                            </mat-card-content>
+                                        </mat-card>
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
+                                            <mat-card-header>
+                                                <h6 class="text-uppercase text-secondary">
+                                                    Foods and Drinks
+                                                </h6>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <mat-chip-set aria-label="Fish selection">
+                                                    @for (item of otherDetails.userDetails.foodAndDrink; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
+                                                    <mat-chip (click)="onClickAdd('Food and Drinks')">
+                                                        Add
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
+                                                </mat-chip-set>
+                                            </mat-card-content>
+                                        </mat-card>
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
+                                            <mat-card-header>
+                                                <h6 class="text-uppercase text-secondary">
+                                                    character And Traits
+                                                </h6>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <mat-chip-set aria-label="Fish selection">
+                                                    @for (item of otherDetails.userDetails.characterAndTraits; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
+                                                    <mat-chip (click)="onClickAdd('Character And Traits')">
+                                                        Add
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
+                                                </mat-chip-set>
+                                            </mat-card-content>
+                                        </mat-card>
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
+                                            <mat-card-header>
+                                                <h6 class="text-uppercase text-secondary">
+                                                    Life Style
+                                                </h6>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <mat-chip-set aria-label="Fish selection">
+                                                    @for (item of otherDetails.userDetails.lifeStyle; track
+                                                    $index) {
+                                                    <mat-chip>{{item}}</mat-chip>
+                                                    }
+                                                    <mat-chip (click)="onClickAdd('lifeStyle')">
+                                                        Add
+                                                        <img matChipAvatar
+                                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                                            alt="Shiba Inu" />
+                                                    </mat-chip>
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
                                     </div>
                                     <div class="col-sm-12 col-lg-5 col-xl-4">
-                                        <mat-card appearance="outlined" class="w-100 mb-3 inner-card bg-dark p-3">
+                                        <mat-card appearance="outlined" class="w-100 mb-3 inner-card bg-dark p-3 d-none">
                                             <mat-card-header>
                                                 <h4 class="mb-4 text-primary text-center">
                                                     What makes you compatible?
                                                 </h4>
                                             </mat-card-header>
                                             <mat-card-content class="px-0 d-flex flex-column gap-2">
-                                                <div class="d-flex" *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                <div class="d-flex"
+                                                    *ngFor="let image of profileDetails.otherPhotos; let i = index">
                                                     <div class="profile-container me-2">
-                                                        <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
+                                                        <img class="h-100 w-100" [src]="image"
+                                                            [alt]="'Image ' + (i + 1)">
                                                     </div>
                                                     <!-- <div class="profile-container">
                                                         <img class="h-100 w-100" src="about-us.jpg" alt="">
@@ -319,7 +368,9 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Languages</p>
-                                                        <h5>English, Marathi, Hindi</h5>
+                                                            @for (item of otherDetails.languages; track $index) {
+                                                                <h5>{{item}}</h5>
+                                                            }
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">

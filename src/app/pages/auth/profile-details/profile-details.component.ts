@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
-import {
-  MatDialog,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EditProfileDialogComponent } from '../../edit-profile-dialog/edit-profile-dialog.component';
 import { ProfileDetailsPopupComponent } from '../../profile-details-popup/profile-details-popup.component';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-profile-details',
   templateUrl: './profile-details.component.html',
@@ -13,6 +12,7 @@ import { ProfileDetailsPopupComponent } from '../../profile-details-popup/profil
 export class ProfileDetailsComponent implements OnInit {
   currentUser: any;
   profileDetails: any;
+  otherDetails: any;
   constructor(private readonly _profileService: ProfileService,
     private readonly _dialog: MatDialog,) {
   }
@@ -43,12 +43,16 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   getProfileDetails(): void {
-    this._profileService.getProfileById(this.currentUser._id).subscribe({
-      next: (response: any) => {
-        this.profileDetails = response.user;
+    const profile$ = this._profileService.getProfileById(this.currentUser._id);
+    const user$ = this._profileService.getUserDetails(this.currentUser._id);
+
+    forkJoin([profile$, user$]).subscribe({
+      next: ([profileResponse, userResponse]) => {
+        this.profileDetails = profileResponse.user;
+        this.otherDetails = userResponse;
       },
-      error: (error: any) => {
-        console.error(error);
+      error: (error) => {
+        console.error('Error fetching data:', error);
       },
     });
   }

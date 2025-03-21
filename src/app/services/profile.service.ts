@@ -24,11 +24,15 @@ export class ProfileService {
     return this._httpService.put(`api/user/${id}`, data);
   }
 
-  public getUserDetails(id: string) {
-    return this._httpService.get(`api/userDetails/${id}`);
+  public getUserDetails(userId: string) {
+    return this._httpService.get(`api/userDetails/${userId}`);
   }
 
-  public updateUserDetails(id: string, data: any) {
-    return this._httpService.put(`api/userDetails/${id}`, data);
+  public postUserDetails(data: any) {
+    return this._httpService.post(`api/userDetails/create`, data);
+  }
+
+  public updateUserDetails(userId: string, data: any) {
+    return this._httpService.put(`api/userDetails/${userId}`, data);
   }
 }
