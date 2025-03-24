@@ -17,10 +17,10 @@
                 </mat-chip-listbox>
                 <div *ngIf="getFormArray(tab.title).errors" class="text-danger mt-2">
                     <div *ngIf="getFormArray(tab.title).errors?.['minlength']">
-                        Select at least 3 items
+                        Select at least 2 items
                     </div>
                     <div *ngIf="getFormArray(tab.title).errors?.['maxlength']">
-                        Maximum 4 items allowed
+                        Maximum 5 items allowed
                     </div>
                 </div>
             </div>

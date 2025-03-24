@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { FileValidator } from '../validator/file-validator';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { ProfileService } from '../../../services/profile.service';
 
 @Component({
   selector: 'app-signin',
@@ -19,8 +20,10 @@ export class SigninComponent implements OnInit {
   accForSelected: string = ''
   gender: string = ''
   maxDate!: Date;
+  userId: string = '';
   private _formBuilder = inject(FormBuilder);
   private _authService = inject(AuthService);
+  private _profileService = inject(ProfileService);
   private _snackbarService = inject(SnackbarService);
   private _router = inject(Router);
 
@@ -133,16 +136,36 @@ export class SigninComponent implements OnInit {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.religionFormGroup.valid && this.phoneFormGroup.valid) {
       this._authService.register(payload).subscribe(response => {
         if (response.success) {
-          this.firstFormGroup.reset()
-          this.secondFormGroup.reset()
-          this.religionFormGroup.reset()
-          this.phoneFormGroup.reset()
+          this.userId = response.userId;
+          this.firstFormGroup.reset();
+          this.secondFormGroup.reset();
+          this.religionFormGroup.reset();
+          this.phoneFormGroup.reset();
+          setTimeout(() => {
+            this.createEmptyUserDetails();
+          }, 500);
           this._snackbarService.open(response.message, 'success')
           this._router.navigate(['/login']);
         } else {
           this._snackbarService.open(response.error, 'success')
         }
       })
+    }
+  }
+
+  createEmptyUserDetails() {
+    try {
+      let data = {
+        userId: this.userId,
+      }
+      this._profileService.postUserDetails(data).subscribe((response: any) => {
+        if (response.success) {
+          console.log(response, 'response');
+          this._snackbarService.open(response.message, 'success')
+        }
+      })
+    } catch (error) {
+      console.log(error, 'error');
     }
   }
 }
