@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditProfileDialogComponent } from '../../edit-profile-dialog/edit-profile-dialog.component';
 import { ProfileDetailsPopupComponent } from '../../profile-details-popup/profile-details-popup.component';
 import { forkJoin } from 'rxjs';
+import { BodyTypeService } from '../../../services/bodytype.service';
 @Component({
   selector: 'app-profile-details',
   templateUrl: './profile-details.component.html',
@@ -13,8 +14,10 @@ export class ProfileDetailsComponent implements OnInit {
   currentUser: any;
   profileDetails: any;
   otherDetails: any;
+  bodyType: string = '';
   constructor(private readonly _profileService: ProfileService,
-    private readonly _dialog: MatDialog,) {
+    private readonly _dialog: MatDialog,
+    private readonly _bodyTypeService: BodyTypeService) {
   }
 
   ngOnInit(): void {
@@ -24,12 +27,17 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   onClickAdd(tabTitle: string) {
-    this._dialog.open(ProfileDetailsPopupComponent, {
+    const dialogRef = this._dialog.open(ProfileDetailsPopupComponent, {
       data: tabTitle,
       width: '750px',
       maxWidth: '90vw',
       height: '78vh',
       disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getProfileDetails();
+      }
     });
   }
 
@@ -50,10 +58,17 @@ export class ProfileDetailsComponent implements OnInit {
       next: ([profileResponse, userResponse]) => {
         this.profileDetails = profileResponse.user;
         this.otherDetails = userResponse;
+        this.calculateBodyType();
       },
       error: (error) => {
         console.error('Error fetching data:', error);
       },
     });
+  }
+
+  calculateBodyType() {
+    let height = this.profileDetails?.height;
+    let weight = this.profileDetails?.weight;
+    this.bodyType = this._bodyTypeService.getBodyType(height, weight);
   }
 }

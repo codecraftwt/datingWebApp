@@ -15,6 +15,14 @@ export class DiscoverService {
     return this.httpService.get<any>('api/user/all');
   }
 
+  getAllUsersWithProfileMatching<T>(): Observable<T> {
+    return this.httpService.get<any>('api/user/all-with-profile-matching');
+  }
+
+  getAllUsersBySearchingFor<T>(): Observable<T> {
+    return this.httpService.get<any>('api/user/all-by-searchingfor');
+  }
+
   //API to post visit
   postVisit<T>(visitorId: string, visitedId: string): Observable<T> {
     return this.httpService.post<any>('api/visitors/visit', { visitorId, visitedId });

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { DiscoverService } from '../../../services/discover.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'app-profile-card',
@@ -9,6 +10,7 @@ import { DiscoverService } from '../../../services/discover.service';
 export class ProfileCardComponent implements OnInit {
   @Input({ required: true }) profile: any;
   isBookmarked: boolean = false;
+  private readonly _snackbar = inject(SnackbarService);
 
   constructor(
     private readonly _discoverService: DiscoverService
@@ -24,12 +26,14 @@ export class ProfileCardComponent implements OnInit {
         this._discoverService.removeFavourite(this.profile._id).subscribe((response: any) => {
           if (response.success) {
             this.isBookmarked = false;
+            this._snackbar.open(response.message, 'success')
           }
         })
       } else {
         this._discoverService.AddToFavourite(this.profile._id).subscribe((response: any) => {
           if (response.success) {
             this.isBookmarked = true;
+            this._snackbar.open(response.message, 'success')
           }
         })
       }

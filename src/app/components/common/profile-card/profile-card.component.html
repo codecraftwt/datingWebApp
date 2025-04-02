@@ -11,10 +11,10 @@
     </div>
     <div class="overlay-content">
         <div class="">
-            <h2 class="me-2 mb-0">{{profile?.name || profile?.firstName +' '+ profile?.lastName}}</h2>
-            <h1 class="mb-0 fw-light">{{profile?.age}}</h1>
+            <h3 class="me-2 mb-0">{{profile?.name || profile?.firstName +' '+ profile?.lastName}}</h3>
+            <h4 class="mb-0 fw-light">{{profile?.age}}</h4>
         </div>
         <h6 class="fw-normal mb-3">{{profile?.designation || ''}}</h6>
-        <span class="">Your Text Here</span>
+        <span class="">Profile Match : {{profile.profileMatch}} %</span>
     </div>
 </div>

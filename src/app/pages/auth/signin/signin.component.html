@@ -25,11 +25,47 @@
                                             </mat-chip-listbox>
                                         </div>
                                         <div class="mb-2">
+                                            <mat-label>Select Your Gender</mat-label><br />
                                             <mat-radio-group aria-label="Select gender" formControlName="gender">
                                                 <mat-radio-button value="Male">Male</mat-radio-button>
                                                 <mat-radio-button value="Female">Female</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
+                                        <div>
+                                            <mat-label>Marital Status</mat-label><br />
+                                            <div class="mb-2">
+                                                <mat-radio-group aria-label="Marital Status" (change)="onSelectMaritalStatus($event)"
+                                                    formControlName="maritalStatus">
+                                                    <mat-radio-button value="single">Single</mat-radio-button>
+                                                    <mat-radio-button value="married">Married</mat-radio-button>
+                                                    <mat-radio-button value="divorced">Divorced</mat-radio-button>
+                                                    <mat-radio-button value="widowed">Widowed</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        @if(isSingle && !isMarried){
+                                        <div>
+                                            <mat-label>Wish for Children</mat-label><br />
+                                            <div class="mb-2">
+                                                <mat-radio-group aria-label="Wish for Children"
+                                                    formControlName="children">
+                                                    <mat-radio-button value="yes">Yes</mat-radio-button>
+                                                    <mat-radio-button value="no">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        }@else if(isMarried){
+                                        <div>
+                                            <mat-label>Do you have childrens?</mat-label><br />
+                                            <div class="mb-2">
+                                                <mat-radio-group aria-label="Do you have childrens?"
+                                                    formControlName="children">
+                                                    <mat-radio-button value="yes">Yes</mat-radio-button>
+                                                    <mat-radio-button value="no">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        }
                                         <div>
                                             <button mat-button matStepperNext>Next</button>
                                         </div>
@@ -90,6 +126,20 @@
                                 <mat-step>
                                     <form [formGroup]="religionFormGroup">
                                         <ng-template matStepLabel>Religion</ng-template>
+                                        <div>
+                                            <mat-label>Your Ethnicity</mat-label><br />
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-select formControlName="ethnicity">
+                                                    @for (rel of ethnicity; track rel) {
+                                                    <mat-option [value]="rel.name">{{rel.name}}</mat-option>
+                                                    }
+                                                </mat-select>
+                                                <mat-error
+                                                    *ngIf="religionFormGroup.get('ethnicity')?.hasError('required')">
+                                                    Please select Ethnicity
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                         <div>
                                             <mat-label>Your Religion</mat-label><br />
                                             <mat-form-field appearance="outline" class="w-100">
@@ -209,7 +259,7 @@
                                                     <mat-radio-button class="me-2" value="Male">Male</mat-radio-button>
                                                     <mat-radio-button class="me-2"
                                                         value="Female">Female</mat-radio-button>
-                                                    <mat-radio-button value="Transgender">Transgender</mat-radio-button>
+                                                    <mat-radio-button value="Others">Others</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
                                         </div>
@@ -228,25 +278,18 @@
                                     </form>
                                     <div>
                                         <button mat-button matStepperPrevious>Back</button>
-                                        <button mat-button matStepperNext>Skip</button>
                                         <button mat-button matStepperNext
                                             [disabled]="personalityProfileFormGroup.invalid">Next</button>
                                     </div>
                                 </mat-step>
                                 <mat-step>
                                     <ng-template matStepLabel>Personality Profile</ng-template>
-                                    <form [formGroup]="personalityProfileFormGroup">
+                                    <form [formGroup]="personalityProfile2FormGroup">
                                         <div>
                                             <mat-label>Education</mat-label><br />
                                             <mat-form-field appearance="outline" class="w-100">
                                                 <input matInput placeholder="Enter education"
                                                     formControlName="education">
-                                            </mat-form-field>
-                                        </div>
-                                        <div>
-                                            <mat-label>Hobbies</mat-label><br />
-                                            <mat-form-field appearance="outline" class="w-100">
-                                                <input matInput placeholder="Enter hobbies" formControlName="hobbies">
                                             </mat-form-field>
                                         </div>
                                         <div>
@@ -261,9 +304,8 @@
 
                                             <ngx-file-drop [accept]="'.jpg, .jpeg, .png, .pdf, .doc, .docx'"
                                                 [dropZoneLabel]="'Drag and drop your biodata file here'"
-                                                (onFileDrop)="onFileDrop($event)"
-                                                [ngClass]="{
-                                                    'is-invalid': personalityProfileFormGroup.get('biodata')?.invalid && personalityProfileFormGroup.get('biodata')?.touched
+                                                (onFileDrop)="onFileDrop($event)" [ngClass]="{
+                                                    'is-invalid': personalityProfile2FormGroup.get('biodata')?.invalid && personalityProfile2FormGroup.get('biodata')?.touched
                                                   }">
                                             </ngx-file-drop>
 
@@ -273,15 +315,18 @@
                                             <button mat-button (click)="fileInput.click()">Choose File</button>
 
 
-                                            <div *ngIf="personalityProfileFormGroup.get('biodata')?.invalid && personalityProfileFormGroup.get('biodata')?.touched"
+                                            <div *ngIf="personalityProfile2FormGroup.get('biodata')?.invalid && personalityProfile2FormGroup.get('biodata')?.touched"
                                                 class="error">
-                                                {{ personalityProfileFormGroup.get('biodata')?.errors?.['invalidFileType'] }}
+                                                {{
+                                                personalityProfile2FormGroup.get('biodata')?.errors?.['invalidFileType']
+                                                }}
                                             </div>
                                         </div>
                                     </form>
                                     <div>
                                         <button mat-button matStepperPrevious>Back</button>
-                                        <button mat-button (click)="handleSubmit()">Submit</button>
+                                        <button mat-button [disabled]="personalityProfile2FormGroup.invalid"
+                                            (click)="handleSubmit()">Submit</button>
                                     </div>
                                 </mat-step>
                             </mat-stepper>
