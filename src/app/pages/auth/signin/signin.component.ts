@@ -53,7 +53,7 @@ export class SigninComponent implements OnInit {
     gender: ['', Validators.required],
     maritalStatus: ['', Validators.required],
     childrens: [''],
-    wishforchildren: [''],
+    wishForChildren: [''],
   });
   secondFormGroup = this._formBuilder.group({
     firstName: ['', [Validators.required, Validators.pattern('^[A-Za-z]+(?: [A-Za-z]+)*$')]],
@@ -157,7 +157,6 @@ export class SigninComponent implements OnInit {
       ...this.personalityProfileFormGroup.getRawValue(),
       ...this.personalityProfile2FormGroup.getRawValue(),
     };
-    console.log(payload, 'payload');
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.religionFormGroup.valid && this.phoneFormGroup.valid) {
       this._authService.register(payload).subscribe(response => {
         if (response.success) {
