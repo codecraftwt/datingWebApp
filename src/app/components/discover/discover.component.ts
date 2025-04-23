@@ -13,6 +13,8 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
   private _discoverService = inject(DiscoverService);
   private _route = inject(ActivatedRoute);
   public userProfiles: any[] = [];
+  public userProfileswithProfileMatching: any[] = [];
+  public userProfilesBySearchingFor: any[] = [];
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
   
@@ -74,7 +76,9 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
   trips = ["Active Trips", "Adventure Trips", "All-Inclusive Trips", "Art & Culture Holidays", "Backpacking", "Beach Trips"]
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getAllUsers();
+    this.getUserwithProfileMatch();
+    this.getUserBySearchingFor();
   }
 
   ngAfterViewInit(): void {
@@ -86,7 +90,7 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
     });
   }
 
-  getUsers() {
+  getAllUsers() {
     this._discoverService.getUsers().subscribe((response: any) => {
       if (response.success) {
         this.userProfiles = response.data;
@@ -94,5 +98,31 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
     })
   }
 
+  getUserwithProfileMatch() {
+    try{
+      this._discoverService.getAllUsersWithProfileMatching().subscribe((response: any) => {
+        if (response.success) {
+          this.userProfileswithProfileMatching = response.data;
+          console.log(this.userProfileswithProfileMatching,'userProfileswithProfileMatching');
+          
+        }
+      })
+    }catch (error){
+      console.error(error)
+    }
+  }
 
+  getUserBySearchingFor() {
+    try{
+      this._discoverService.getAllUsersBySearchingFor().subscribe((response: any) => {
+        if (response.success) {
+          this.userProfilesBySearchingFor = response.data;
+          console.log(this.userProfilesBySearchingFor,'userProfilesBySearchingFor');
+          
+        }
+      })
+    }catch (error){
+      console.error(error)
+    }
+  }
 }

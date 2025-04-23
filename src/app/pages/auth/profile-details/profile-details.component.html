@@ -292,19 +292,14 @@
                                                         <img class="h-100 w-100" [src]="image"
                                                             [alt]="'Image ' + (i + 1)">
                                                     </div>
-                                                    <!-- <div class="profile-container">
-                                                        <img class="h-100 w-100" src="about-us.jpg" alt="">
-                                                    </div> -->
                                                 </div>
                                             </mat-card-content>
                                         </mat-card>
-                                        <mat-card appearance="outlined" class="w-100 inner-card bg-dark p-3">
+                                        <mat-card appearance="outlined" class="w-100 inner-card bg-dark p-2">
                                             <mat-card-content class="py-0">
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">favorite</mat-icon>
+                                                        <mat-icon class="mat-icon px-0">favorite</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Gender</p>
@@ -313,9 +308,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="map-pin"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon"> location_on</mat-icon>
+                                                        <mat-icon class="mat-icon"> location_on</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">City of residence</p>
@@ -324,9 +317,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                            class="big-feather-icon me-2"></i-feather> -->
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                             fill="#005cbb" class="bi bi-person-standing"
                                                             viewBox="0 0 16 16">
                                                             <path
@@ -335,14 +326,12 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Body type</p>
-                                                        <h5>5' 7"</h5>
+                                                        <h5>{{bodyType}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="flag"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">flag</mat-icon>
+                                                        <mat-icon class="mat-icon">flag</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Ethnicity</p>
@@ -351,9 +340,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">school</mat-icon>
+                                                        <mat-icon class="mat-icon">school</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Highest degree</p>
@@ -362,22 +349,18 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">language</mat-icon>
+                                                        <mat-icon class="mat-icon">language</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Languages</p>
-                                                            @for (item of otherDetails.languages; track $index) {
-                                                                <h5>{{item}}</h5>
+                                                            @for (item of otherDetails.userDetails.languages; track $index) {
+                                                                <h6 class="mb-0">{{item}}</h6>
                                                             }
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">smoke_free</mat-icon>
+                                                        <mat-icon class="mat-icon">smoke_free</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Smoking habits</p>
@@ -386,9 +369,17 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">smoke_free</mat-icon>
+                                                        <i-feather name="heart"
+                                                            class="feather-icon me-2"></i-feather>
+                                                    </div>
+                                                    <div class="col-8 mb-0 ps-0">
+                                                        <p class="mb-0 text-secondary">Alcohol habits</p>
+                                                        <h5>Occasionally</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row d-flex align-items-center mb-2 detail-box">
+                                                    <div class="col-4">
+                                                        <mat-icon class="mat-icon">fitness_center</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Workout frequency</p>
@@ -398,18 +389,16 @@
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
                                                         <i-feather name="heart"
-                                                            class="big-feather-icon me-2"></i-feather>
+                                                            class="feather-icon me-2"></i-feather>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Marital status</p>
-                                                        <h5>Single</h5>
+                                                        <h5>{{profileDetails.maritalStatus | titlecase}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">child_care</mat-icon>
+                                                        <mat-icon class="mat-icon">child_care</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Children</p>
@@ -418,9 +407,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <!-- <i-feather name="heart"
-                                                                    class="big-feather-icon me-2"></i-feather> -->
-                                                        <mat-icon class="big-mat-icon">child_friendly</mat-icon>
+                                                        <mat-icon class="mat-icon">child_friendly</mat-icon>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Wish for children</p>
@@ -429,22 +416,12 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box ">
                                                     <div class="col-4">
-                                                        <i-feather name="heart"
-                                                            class="big-feather-icon me-2"></i-feather>
+                                                        <i-feather name="star"
+                                                            class="feather-icon me-2"></i-feather>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Religion</p>
-                                                        <h5>Unitarian Universalism</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="row d-flex align-items-center mb-2 detail-box">
-                                                    <div class="col-4">
-                                                        <i-feather name="heart"
-                                                            class="big-feather-icon me-2"></i-feather>
-                                                    </div>
-                                                    <div class="col-8 mb-0 ps-0">
-                                                        <p class="mb-0 text-secondary">Political view</p>
-                                                        <h5>Libertarian</h5>
+                                                        <h5>{{profileDetails.religion}}</h5>
                                                     </div>
                                                 </div>
                                             </mat-card-content>

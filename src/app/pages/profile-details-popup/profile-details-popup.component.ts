@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ProfileService } from '../../services/profile.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface ITabData {
   title: string;
@@ -206,14 +207,15 @@ export class ProfileDetailsPopupComponent implements OnInit {
     },
     {
       title: 'lifeStyle',
-      items: ['Quality', 'Standard','Test','Test1']
+      items: ['Quality', 'Standard', 'Test', 'Test1']
     },
   ];
   selectedIndex: number = 0;
   userDetailsForm!: FormGroup;
   user: any = localStorage.getItem('user');
   currentUser = JSON.parse(this.user).user;
-
+  userDetailsId: string = '';
+  private readonly _snackbar = inject(MatSnackBar);
   fieldMappings: { [key: string]: string } = {
     'Interests and Hobbies': 'interestsAndHobbies',
     'Sports': 'sports',
@@ -250,15 +252,20 @@ export class ProfileDetailsPopupComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.userDetailsForm.valid) {
-      const formData = this.userDetailsForm.value;
-      console.log(formData,'formData');
-      // this._profileService.updateUserDetails(this.currentUser._id, formData).subscribe(() => {
-      //     this._dialogRef.close(true);
-      //   });
-      // this._profileService.postUserDetails(formData).subscribe(() => {
-      //     this._dialogRef.close(true);
-      //   });
+    try {
+      if (this.userDetailsForm.valid) {
+        const formData = this.userDetailsForm.value;
+        console.log(formData, 'formData');
+        this._profileService.updateUserDetails(this.userDetailsId, formData).subscribe((response: any) => {
+          if (response.success) {
+            this._getUserDetails()
+            this._snackbar.open(response.message, 'success');
+            this._dialogRef.close(true);
+          }
+        });
+      }
+    } catch (e) {
+      console.error("Error : ", e);
     }
   }
   // Add chip toggle functionality
@@ -282,12 +289,12 @@ export class ProfileDetailsPopupComponent implements OnInit {
 
   private _initializeForm(): void {
     const formGroupConfig: any = {};
-    
+
     this.tabsData.forEach(tab => {
       const fieldName = this.fieldMappings[tab.title];
       formGroupConfig[fieldName] = this._fb.array(
         [],
-        [Validators.minLength(3), Validators.maxLength(4)]
+        [Validators.minLength(2), Validators.maxLength(5)]
       );
     });
 
@@ -295,9 +302,26 @@ export class ProfileDetailsPopupComponent implements OnInit {
   }
 
   private _getUserDetails() {
-    try { 
-      this._profileService.getUserDetails(this.currentUser._id).subscribe((response) =>{
-        console.log(response,'response user details');
+    try {
+      this._profileService.getUserDetails(this.currentUser._id).subscribe((response: any) => {
+        if (response.success) {
+          this.userDetailsId = response?.userDetails?._id;
+          if(!response.userDetails) return;
+          //patch value from response
+          this.tabsData.forEach(tab => {
+            const fieldName = this.fieldMappings[tab.title];
+            const userData = response.userDetails[fieldName] || [];
+            const formArray = this.getFormArray(tab.title);
+            
+            // Clear existing controls
+            formArray.clear();
+            
+            // Add new controls for each item in userData
+            userData.forEach((item:any) => {
+              formArray.push(this._fb.control(item));
+            });
+          });
+        }
       })
     } catch (error) {
       console.error(error);
