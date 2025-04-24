@@ -7,9 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class DiscoverService {
   private httpService = inject(HttpService);
-  user: any = localStorage.getItem('user');
-  currentUser = JSON.parse(this.user).user;
   constructor() { }
+
+  private get currentUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).user : null;
+  }
 
   getUsers<T>(): Observable<T> {
     return this.httpService.get<any>('api/user/all');
@@ -25,15 +28,15 @@ export class DiscoverService {
 
   //API to post visit
   postVisit<T>(visitorId: string, visitedId: string): Observable<T> {
-    return this.httpService.post<any>('api/visitors/visit', { visitorId, visitedId });
+    return this.httpService.post<any>('api/visits/post-visit', { visitorId, visitedId });
   }
 
   getRecentVisitors<T>(): Observable<T> {
-    return this.httpService.get<any>(`api/visitors/${this.currentUser._id}`);
+    return this.httpService.get<any>(`api/visits/visitors/${this.currentUser._id}`);
   }
 
   getVisitedProfiles<T>(): Observable<T> {
-    return this.httpService.get<any>(`api/visitors/visited/${this.currentUser._id}`);
+    return this.httpService.get<any>(`api/visits/visited/${this.currentUser._id}`);
   }
 
   getFavouritesByUser<T>(): Observable<T> {

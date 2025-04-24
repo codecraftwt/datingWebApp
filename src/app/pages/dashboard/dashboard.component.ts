@@ -84,9 +84,6 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-  // getProfiles() {
-  //   this.profiles = this.dataService.getProfiles()
-  // }
 
   getRecentVisitors() {
     this._discoverService.getRecentVisitors().subscribe((response: any) => {
@@ -100,7 +97,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUsers() {
-    this._discoverService.getUsers().subscribe((response: any) => {
+    this._discoverService.getAllUsersBySearchingFor().subscribe((response: any) => {
       if (response.success) {
         this.newUserProfiles = response.data;
       }

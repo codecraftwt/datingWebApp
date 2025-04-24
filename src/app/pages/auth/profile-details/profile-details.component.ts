@@ -55,10 +55,11 @@ export class ProfileDetailsComponent implements OnInit {
     const user$ = this._profileService.getUserDetails(this.currentUser._id);
 
     forkJoin([profile$, user$]).subscribe({
-      next: ([profileResponse, userResponse]) => {
+      next: ([profileResponse, userResponse]:[any, any]) => {
         this.profileDetails = profileResponse.user;
-        this.otherDetails = userResponse;
+        this.otherDetails = userResponse?.userDetails;
         this.calculateBodyType();
+        
       },
       error: (error) => {
         console.error('Error fetching data:', error);

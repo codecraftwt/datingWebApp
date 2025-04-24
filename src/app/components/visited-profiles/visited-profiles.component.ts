@@ -26,7 +26,8 @@ export class VisitedProfilesComponent implements OnInit {
   getVisitedProfiles() {
     this._discoverService.getVisitedProfiles().subscribe((response: any) => {
       if (response.success) {
-        this.userProfiles = response.data;
+        const transformedData = response?.data?.map((visit: any) => visit.visited);
+        this.userProfiles = transformedData;
       }
     },
       (error) => {

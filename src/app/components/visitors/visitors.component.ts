@@ -18,7 +18,8 @@ export class VisitorsComponent implements OnInit {
   getProfiles() {
     this._discoverService.getRecentVisitors().subscribe((response: any) => {
       if (response.success) {
-        this.userProfiles = response.data;
+        const transformedData = response?.data?.map((visit: any) => visit.visitor);
+        this.userProfiles = transformedData;
       }
     },
       (error) => {
