@@ -103,7 +103,6 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
       this._discoverService.getAllUsersWithProfileMatching().subscribe((response: any) => {
         if (response.success) {
           this.userProfileswithProfileMatching = response.data;
-          console.log(this.userProfileswithProfileMatching,'userProfileswithProfileMatching');
           
         }
       })
@@ -117,7 +116,6 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
       this._discoverService.getAllUsersBySearchingFor().subscribe((response: any) => {
         if (response.success) {
           this.userProfilesBySearchingFor = response.data;
-          console.log(this.userProfilesBySearchingFor,'userProfilesBySearchingFor');
           
         }
       })

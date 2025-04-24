@@ -3,7 +3,7 @@
         alt="">
     <div class="top-overlay-content">
         <div class="d-flex justify-content-between align-items-center">
-            <mat-icon class="me-1" [color]="profile.isLiked ? 'warn' : 'default'">favorite</mat-icon>
+            <mat-icon class="me-1" [color]="profile.isLiked || profile?.isFavorited ? 'warn' : 'default'">favorite</mat-icon>
             <span>{{profile?.likes || 0}}</span>
         </div>
         <i-feather [name]="isBookmarked ? 'bookmark' : 'bookmark'" class="new-likes me-2"

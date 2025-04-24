@@ -151,7 +151,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.interestsAndHobbies; track
+                                                    @for (item of otherDetails?.interestsAndHobbies; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -172,7 +172,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.sports; track
+                                                    @for (item of otherDetails?.sports; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -187,7 +187,7 @@
                                         </mat-card>
                                         <div class="row mb-3">
                                             <div class="col-6"
-                                                *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                *ngFor="let image of profileDetails?.otherPhotos; let i = index">
                                                 <div class="all-image-container mb-2">
                                                     <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
                                                 </div>
@@ -201,7 +201,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.travelling; track
+                                                    @for (item of otherDetails?.travelling; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -222,7 +222,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.foodAndDrink; track
+                                                    @for (item of otherDetails?.foodAndDrink; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -243,7 +243,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.characterAndTraits; track
+                                                    @for (item of otherDetails?.characterAndTraits; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -264,7 +264,7 @@
                                             </mat-card-header>
                                             <mat-card-content>
                                                 <mat-chip-set aria-label="Fish selection">
-                                                    @for (item of otherDetails.userDetails.lifeStyle; track
+                                                    @for (item of otherDetails?.lifeStyle; track
                                                     $index) {
                                                     <mat-chip>{{item}}</mat-chip>
                                                     }
@@ -287,7 +287,7 @@
                                             </mat-card-header>
                                             <mat-card-content class="px-0 d-flex flex-column gap-2">
                                                 <div class="d-flex"
-                                                    *ngFor="let image of profileDetails.otherPhotos; let i = index">
+                                                    *ngFor="let image of profileDetails?.otherPhotos; let i = index">
                                                     <div class="profile-container me-2">
                                                         <img class="h-100 w-100" [src]="image"
                                                             [alt]="'Image ' + (i + 1)">
@@ -303,7 +303,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Gender</p>
-                                                        <h5>{{profileDetails.gender}}</h5>
+                                                        <h5>{{profileDetails?.gender}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -312,7 +312,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">City of residence</p>
-                                                        <h5>{{profileDetails.country}}</h5>
+                                                        <h5>{{profileDetails?.country}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -353,7 +353,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Languages</p>
-                                                            @for (item of otherDetails.userDetails.languages; track $index) {
+                                                            @for (item of otherDetails?.languages; track $index) {
                                                                 <h6 class="mb-0">{{item}}</h6>
                                                             }
                                                     </div>
@@ -393,7 +393,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Marital status</p>
-                                                        <h5>{{profileDetails.maritalStatus | titlecase}}</h5>
+                                                        <h5>{{profileDetails?.maritalStatus | titlecase}}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -421,7 +421,7 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Religion</p>
-                                                        <h5>{{profileDetails.religion}}</h5>
+                                                        <h5>{{profileDetails?.religion}}</h5>
                                                     </div>
                                                 </div>
                                             </mat-card-content>
