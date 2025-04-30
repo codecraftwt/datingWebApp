@@ -1,10 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpService } from './http.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
+
+  private profileSubject = new BehaviorSubject<any>(null);
+  public $profile = this.profileSubject.asObservable();
+
   private _httpService = inject(HttpService);
   constructor() { }
 
@@ -35,4 +40,10 @@ export class ProfileService {
   public updateUserDetails(userId: string, data: any) {
     return this._httpService.put(`api/userDetails/${userId}`, data);
   }
+
+  // Method to update the profile picture
+  public updateProfilePicture(profileData: any): void {
+    this.profileSubject.next(profileData);
+  }
+
 }

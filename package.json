@@ -30,6 +30,8 @@
     "igniteui-angular": "^18.1.0",
     "ng-circle-progress": "^1.7.1",
     "ngx-file-drop": "^16.0.0",
+    "ngx-infinite-scroll": "^19.0.0",
+    "ngx-pagination": "^6.0.3",
     "ngx-stripe": "^18.1.0",
     "ngx-toastr": "^19.0.0",
     "primeng": "^17.18.11",

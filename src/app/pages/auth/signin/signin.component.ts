@@ -187,7 +187,7 @@ export class SigninComponent implements OnInit {
         }
       })
     } catch (error) {
-      console.log(error, 'error');
+      console.error(error, 'error');
     }
   }
 }

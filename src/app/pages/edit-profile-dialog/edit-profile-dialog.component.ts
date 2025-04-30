@@ -49,21 +49,25 @@ export class EditProfileDialogComponent implements OnInit {
       religion: '',
       motherTongue: '',
       profilePhoto: '',
-      // otherPhotos: [
-      //   'https://picsum.photos/300/200?random=1',
-      //   'https://picsum.photos/300/200?random=2',
-      //   'https://picsum.photos/300/200?random=3'
-      // ],
     });
   }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
+        // Update both preview and form value
         this.profileDetails.profilePhoto = reader.result as string;
-        // this.userForm.patchValue({ profilePhoto: this.profileDetails.profilePhoto });
+        this.userForm.patchValue({
+          profilePhoto: reader.result as string
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -73,6 +77,7 @@ export class EditProfileDialogComponent implements OnInit {
     try {
       const updatedFormValue = {
         ...this.userForm.value,
+        profilePhoto: this.userForm.value.profilePhoto || this.profileDetails.profilePhoto,
         otherPhotos: [
           'https://picsum.photos/300/200?random=1',
           'https://picsum.photos/300/200?random=2',
@@ -81,7 +86,11 @@ export class EditProfileDialogComponent implements OnInit {
       };
       this._profileService.updateProfile(this.currentUser._id, updatedFormValue).subscribe({
         next: (response: any) => {
-          this.closeDialog();
+          if (response.success) {
+            this.getProfileDetails();
+            this._profileService.updateProfilePicture(this.userForm.value.profilePhoto);
+            this.closeDialog();
+          }
         },
         error: (error: any) => {
           console.error(error);

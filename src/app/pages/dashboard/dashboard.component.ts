@@ -53,11 +53,11 @@ export class DashboardComponent implements OnInit {
   public newUserProfiles: any[] = [];
   public likeUserProfiles: any[] = [];
   public recentVistorUserProfiles: any[] = [];
+  public recentUsers: any[] = [];
 
   constructor() { }
 
   ngOnInit() {
-    // this.getProfiles()
     this.getUsers()
     this.getRecentVisitors()
     this.responsiveOptions = [
@@ -86,9 +86,10 @@ export class DashboardComponent implements OnInit {
 
 
   getRecentVisitors() {
-    this._discoverService.getRecentVisitors().subscribe((response: any) => {
+    this._discoverService.getRecentVisitors(1, 10).subscribe((response: any) => {
       if (response.success) {
-        this.recentVistorUserProfiles = response.data;
+        const transformedData = response?.data?.map((visit: any) => visit.visitor);
+        this.recentVistorUserProfiles = transformedData;
       }
     },
       (error) => {
@@ -97,7 +98,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUsers() {
-    this._discoverService.getAllUsersBySearchingFor().subscribe((response: any) => {
+    this._discoverService.getAllUsersWithProfileMatching(1, 10).subscribe((response: any) => {
       if (response.success) {
         this.newUserProfiles = response.data;
       }
@@ -110,5 +111,11 @@ export class DashboardComponent implements OnInit {
   openVisitors(): void {
     this._router.navigate(['/discover'], { queryParams: { tab: 2 } });
   }
-
+  onClickShowAll(type: string): void {
+    if (type === 'discover') {
+      this._router.navigate(['/discover'], { queryParams: { tab: 0 } });
+    } else if(type === 'visitors') {
+      this._router.navigate(['/discover'], { queryParams: { tab: 2 } });
+    }
+  }
 }

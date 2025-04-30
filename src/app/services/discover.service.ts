@@ -18,8 +18,8 @@ export class DiscoverService {
     return this.httpService.get<any>('api/user/all');
   }
 
-  getAllUsersWithProfileMatching<T>(): Observable<T> {
-    return this.httpService.get<any>('api/user/all-with-profile-matching');
+  getAllUsersWithProfileMatching<T>(page: number, limit: number): Observable<T> {
+    return this.httpService.get<any>(`api/user/all-with-profile-matching?page=${page}&limit=${limit}`);
   }
 
   getAllUsersBySearchingFor<T>(): Observable<T> {
@@ -31,12 +31,12 @@ export class DiscoverService {
     return this.httpService.post<any>('api/visits/post-visit', { visitorId, visitedId });
   }
 
-  getRecentVisitors<T>(): Observable<T> {
-    return this.httpService.get<any>(`api/visits/visitors/${this.currentUser._id}`);
+  getRecentVisitors<T>(page: number, limit: number): Observable<T> {
+    return this.httpService.get<any>(`api/visits/visitors/${this.currentUser._id}?page=${page}&limit=${limit}`);
   }
 
-  getVisitedProfiles<T>(): Observable<T> {
-    return this.httpService.get<any>(`api/visits/visited/${this.currentUser._id}`);
+  getVisitedProfiles<T>(page: number, limit: number): Observable<T> {
+    return this.httpService.get<any>(`api/visits/visited/${this.currentUser._id}?page=${page}&limit=${limit}`);
   }
 
   getFavouritesByUser<T>(): Observable<T> {
@@ -44,10 +44,10 @@ export class DiscoverService {
   }
 
   AddToFavourite<T>(favoriteUserId: string): Observable<T> {
-    return this.httpService.post<any>(`api/favorite/add`, {favoriteUserId});
+    return this.httpService.post<any>(`api/favorite/add`, { favoriteUserId });
   }
 
   removeFavourite<T>(favoriteUserId: string): Observable<T> {
-    return this.httpService.post<any>(`api/favorite/remove`, {favoriteUserId});
+    return this.httpService.post<any>(`api/favorite/remove`, { favoriteUserId });
   }
 }

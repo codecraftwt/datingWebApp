@@ -255,7 +255,6 @@ export class ProfileDetailsPopupComponent implements OnInit {
     try {
       if (this.userDetailsForm.valid) {
         const formData = this.userDetailsForm.value;
-        console.log(formData, 'formData');
         this._profileService.updateUserDetails(this.userDetailsId, formData).subscribe((response: any) => {
           if (response.success) {
             this._getUserDetails()

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-header',
@@ -35,10 +36,17 @@ export class HeaderComponent implements OnInit {
   user = JSON.parse(this.currentUser).user
   isLogin: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private _authService: AuthService, private _profileService: ProfileService) { }
+
   ngOnInit(): void {
     let isLogged: any = localStorage.getItem('isLogin')
     this.isLogin = JSON.parse(isLogged)
+
+    this._profileService.$profile.subscribe((res: any) => {
+      if(res){
+        this.user.profilePhoto = res;
+      }
+    })
   }
 
   logout() {
@@ -52,7 +60,7 @@ export class HeaderComponent implements OnInit {
       confirmButtonText: "Yes, Logout!"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.authService.logout();
+        this._authService.logout();
       }
     });
   }

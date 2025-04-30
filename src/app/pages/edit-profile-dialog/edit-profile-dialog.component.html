@@ -76,7 +76,7 @@
                     class="preview-image">
                 <img *ngIf="!profileDetails?.profilePhoto" src="assets/default-avatar.png" class="preview-image">
             </label>
-            <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control mt-2">
+            <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control mt-2" accept="image/*">
         </div>
 
         <div class="text-center mt-4">

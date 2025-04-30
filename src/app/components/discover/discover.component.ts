@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { DiscoverService } from '../../services/discover.service';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
@@ -8,16 +8,21 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './discover.component.html',
   styleUrl: './discover.component.scss'
 })
-export class DiscoverComponent implements OnInit ,AfterViewInit {
+export class DiscoverComponent implements OnInit, AfterViewInit {
 
   private _discoverService = inject(DiscoverService);
   private _route = inject(ActivatedRoute);
+  private _cdr = inject(ChangeDetectorRef);
   public userProfiles: any[] = [];
   public userProfileswithProfileMatching: any[] = [];
   public userProfilesBySearchingFor: any[] = [];
+  public page = 1;
+  public totalItems = 0;
+  public itemsPerPage = 10;
+  collection: any[] = [];
   @ViewChild('tabGroup') tabGroup!: MatTabGroup;
 
-  
+
   newForYou = [
     {
       id: "new1",
@@ -75,10 +80,14 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
 
   trips = ["Active Trips", "Adventure Trips", "All-Inclusive Trips", "Art & Culture Holidays", "Backpacking", "Beach Trips"]
 
+  constructor() {
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`item ${i}`);
+    }
+  }
+
   ngOnInit(): void {
-    this.getAllUsers();
     this.getUserwithProfileMatch();
-    this.getUserBySearchingFor();
   }
 
   ngAfterViewInit(): void {
@@ -90,37 +99,34 @@ export class DiscoverComponent implements OnInit ,AfterViewInit {
     });
   }
 
-  getAllUsers() {
-    this._discoverService.getUsers().subscribe((response: any) => {
-      if (response.success) {
-        this.userProfiles = response.data;
-      }
-    })
+  onChangeItems() {
+    this.itemsPerPage;
+    this.getUserwithProfileMatch();
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
+    this.getUserwithProfileMatch();
+  }
+
+  get pagedItems(): any[] {
+    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.collection.slice(startIndex, endIndex);
   }
 
   getUserwithProfileMatch() {
-    try{
-      this._discoverService.getAllUsersWithProfileMatching().subscribe((response: any) => {
+    try {
+      this._discoverService.getAllUsersWithProfileMatching(this.page, this.itemsPerPage).subscribe((response: any) => {
         if (response.success) {
-          this.userProfileswithProfileMatching = response.data;
-          
+          this.userProfileswithProfileMatching = response?.data;
+          this.totalItems = response?.pagination?.count;
+          this._cdr.detectChanges();
         }
       })
-    }catch (error){
+    } catch (error) {
       console.error(error)
     }
   }
 
-  getUserBySearchingFor() {
-    try{
-      this._discoverService.getAllUsersBySearchingFor().subscribe((response: any) => {
-        if (response.success) {
-          this.userProfilesBySearchingFor = response.data;
-          
-        }
-      })
-    }catch (error){
-      console.error(error)
-    }
-  }
 }

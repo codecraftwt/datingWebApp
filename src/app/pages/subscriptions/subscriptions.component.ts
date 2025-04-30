@@ -104,7 +104,6 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
 
   proceedToCheckout(plan: any) {
     this.paying.set(true);
-    debugger
     // Step 1: Create a Checkout Session
     this._stripeService.createCheckoutSession({
       amount: plan.price,
@@ -113,15 +112,12 @@ export class SubscriptionsComponent implements OnInit, AfterViewInit {
       planId: plan._id,
     }).subscribe({
       next: (response: any) => {
-        debugger
         const sessionId = response.sessionId;
   
         // Step 2: Redirect to Stripe Checkout
-        debugger
         this.stripe.redirectToCheckout({
           sessionId: sessionId,
         }).subscribe((result: any) => {
-          debugger
           if (result.error) {
             alert('Payment failed: ' + result.error.message);
             this.paying.set(false);

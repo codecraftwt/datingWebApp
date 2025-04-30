@@ -7,7 +7,6 @@ import { HeaderComponent } from '../header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,12 +24,13 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { NgxStripeModule } from 'ngx-stripe';
 import { DaysAgoPipe } from '../../pipes/days-ago.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -57,11 +57,10 @@ export const MY_DATE_FORMATS = {
     IconsModule,
     NgbCarouselModule,
     RouterModule,
-
     CarouselModule,
     ButtonModule,
     NgxStripeModule.forRoot(),
-
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatListModule,
     MatIconModule,
@@ -79,7 +78,8 @@ export const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    
+    NgxPaginationModule
+
   ],
   exports: [
     HeaderComponent,
@@ -89,11 +89,9 @@ export const MY_DATE_FORMATS = {
     IconsModule,
     NgbCarouselModule,
     RouterModule,
-
     CarouselModule,
     ButtonModule,
     NgxStripeModule,
-
     MatButtonModule,
     MatListModule,
     MatIconModule,
@@ -111,7 +109,9 @@ export const MY_DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    DaysAgoPipe
+    DaysAgoPipe,
+    MatProgressSpinnerModule,
+    NgxPaginationModule
   ],
   providers: [
     MatDatepickerModule,
