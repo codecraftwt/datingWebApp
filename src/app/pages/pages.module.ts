@@ -22,7 +22,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { ProfileDetailsPopupComponent } from './profile-details-popup/profile-details-popup.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -49,7 +48,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PagesRoutingModule,
     SharedModule,
     NgxFileDropModule,
-    InfiniteScrollModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
