@@ -18,8 +18,8 @@ export class DiscoverService {
     return this.httpService.get<any>('api/user/all');
   }
 
-  getAllUsersWithProfileMatching<T>(page: number, limit: number): Observable<T> {
-    return this.httpService.get<any>(`api/user/all-with-profile-matching?page=${page}&limit=${limit}`);
+  getAllUsersWithProfileMatching<T>(page: number, limit: number, minAge?: number, maxAge?: number, minHeight?: number, maxHeight?: number, childrens?: string, wishForChildren?: string, smoking?: string, religion?: string, education?: string): Observable<T> {
+    return this.httpService.get<any>(`api/user/all-with-profile-matching?page=${page}&limit=${limit}&minAge=${minAge}&maxAge=${maxAge}&minHeight=${minHeight}&maxHeight=${maxHeight}&childrens=${childrens}&wishForChildren=${wishForChildren}&smoking=${smoking}&religion=${religion}&education=${education}`);
   }
 
   getAllUsersBySearchingFor<T>(): Observable<T> {

@@ -8,8 +8,7 @@
                             <mat-card-header>
                                 <div class="d-flex w-100 justify-content-between mb-4">
                                     <h5 class="text-gradient">Discover | {{totalItems}}</h5>
-                                    <h5 class="mb-0 fw-normal text-preferences">Member preferences<i-feather
-                                            name="activity" class="ms-1"></i-feather></h5>
+                                    <button class="btn-gradient" mat-flat-button (click)="onRefresh()">Refresh</button>
                                 </div>
                             </mat-card-header>
                             <mat-card-content class="text-center">
@@ -127,7 +126,9 @@
                                             </mat-card-content>
                                             <mat-card-footer class="mt-5 p-3">
                                                 <div class="text-center">
-                                                    <button class="btn-gradient w-100" mat-flat-button>Change Member
+                                                    <button class="btn-gradient w-100"
+                                                        (click)="onOpenPreferenceModal(preferenceModal)"
+                                                        mat-flat-button>Change Member
                                                         Preferences</button>
                                                 </div>
                                             </mat-card-footer>
@@ -178,6 +179,115 @@
                                 </div>
                             </mat-card-content>
                         </mat-card>
+                        <ng-template #preferenceModal let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">Search Preferences</h4>
+                                <button type="button" class="btn-close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')"></button>
+                            </div>
+                            <form [formGroup]="filterForm" (ngSubmit)="onApplyFilter(filterForm.value)">
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <!-- Age Range -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Age Range</label>
+                                            <div class="input-group">
+                                                <select type="number" name="minAge" class="form-select" id="minAge"
+                                                    formControlName="minAge">
+                                                    <option value="" selected disabled>Min Age</option>
+                                                    <option *ngFor="let age of minAgeOptions" [value]="age">
+                                                        {{age}}</option>
+                                                </select>
+                                                <span class="input-group-text">-</span>
+                                                <select type="number" name="maxAge" class="form-select" id="maxAge"
+                                                    formControlName="maxAge">
+                                                    <option value="" selected disabled>Max Age</option>
+                                                    <option *ngFor="let age of maxAgeOptions" [value]="age">
+                                                        {{age}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Height Range -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Height (cm)</label>
+                                            <div class="input-group">
+                                                <select name="minHeight" class="form-select" id="minHeight"
+                                                    formControlName="minHeight">
+                                                    <option value="" selected disabled>min Height</option>
+                                                    <option *ngFor="let height of minHeightOptions" [value]="height">
+                                                        {{height}}</option>
+                                                </select>
+                                                <span class="input-group-text">-</span>
+                                                <select name="maxHeight" class="form-select" id="maxHeight"
+                                                    formControlName="maxHeight">
+                                                    <option value="" selected disabled>Max Height</option>
+                                                    <option *ngFor="let height of maxHeightOptions" [value]="height">
+                                                        {{height}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Children -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Childrens</label>
+                                            <select class="form-select" formControlName="childrens" name="childrens">
+                                                <option selected disabled value="">Select one</option>
+                                                <option value="yes">Has Childrens</option>
+                                                <option value="no">No Children</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Wish for Children -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Wish for Children</label>
+                                            <select class="form-select" formControlName="wishForChildren"
+                                                name="wishForChildren">
+                                                <option selected disabled value="">Select one</option>
+                                                <option value="yes">Wants Children</option>
+                                                <option value="no">Does Not Want</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Smoking -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Smoking</label>
+                                            <select class="form-select" formControlName="smoking" name="smoking">
+                                                <option selected disabled value="">Select one</option>
+                                                <option value="non-smoker">Non-smoker</option>
+                                                <option value="smoker">Smoker</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Religion -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Religion</label>
+                                            <select class="form-select" formControlName="religion" name="religion">
+                                                <option selected disabled value="">Select one</option>
+                                                <option *ngFor="let religion of religionOptions" [value]="religion">
+                                                    {{religion}}</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Education -->
+                                        <div class="col-md-6">
+                                            <label class="form-label">Education</label>
+                                            <select class="form-select" formControlName="education" name="education">
+                                                <option selected disabled value="">Select one</option>
+                                                <option *ngFor="let education of educationOptions" [value]="education">
+                                                    {{education}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark"
+                                        (click)="modal.dismiss('Cross click')">Cancel</button>
+                                    <button type="submit" [disabled]="filterForm.invalid"
+                                        class="btn btn-dark">Apply</button>
+                                </div>
+                            </form>
+                        </ng-template>
                     </mat-tab>
                     <mat-tab label="Favorites">
                         <app-favorites />
