@@ -1,49 +1,51 @@
 <section class="login-section">
     <div class="container-fluid px-0 h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-md-8 h-100 px-0">
-            </div>
-            <div class="col-md-4 px-0 h-100">
-                <mat-card class="card p-3 h-100 align-items-center justify-content-center" appearance="outlined">
-                    <mat-card-header>
-                        <h3>Welcome Back..</h3>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div>
-                            <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
-                                <div>
-                                    <mat-label>Email </mat-label><br />
-                                    <mat-form-field appearance="outline">
-                                        <input matInput placeholder="Enter your email" formControlName="email">
-                                        <mat-icon matSuffix> email</mat-icon>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-label>Password</mat-label><br />
-                                    <mat-form-field appearance="outline" class="w-100">
-                                        <input matInput placeholder="Enter your password"
-                                            [type]="hide() ? 'password' : 'text'" formControlName="password" />
-                                        <button mat-icon-button matSuffix (click)="clickEvent($event)"
-                                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
-                                            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </div>
-                                <div class="text-center mb-2">
-                                    <button type="submit" class="px-5" mat-flat-button>Login</button>
-                                </div>
-                                <div class="text-center">
-                                    <a class="text-decoration-none" href="#">Forgot Password</a>
-                                    <p>Don't have an Account? <a class="me-3 text-decoration-none"
-                                            [routerLink]="['/register']">
-                                            Sign Up</a>
-                                    </p>
-                                </div>
-                            </form>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div>
+      <div class="row h-100 align-items-center">
+        <!-- Left column: only visible on medium and larger screens -->
+        <div class="col-md-8 d-none d-md-block h-100 px-0">
+          <!-- Background image is already handled in CSS -->
         </div>
+  
+        <!-- Right column: login form -->
+        <div class="col-12 col-md-4 px-0 h-100 d-flex align-items-center justify-content-center">
+          <mat-card class="card p-3 w-100 mx-3" appearance="outlined">
+            <mat-card-header>
+              <h3 class="text-center w-100">Welcome Back..</h3>
+            </mat-card-header>
+            <mat-card-content>
+              <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+                <div class="mb-3">
+                  <mat-label>Email</mat-label><br />
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Enter your email" formControlName="email" />
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="mb-3">
+                  <mat-label>Password</mat-label><br />
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input matInput placeholder="Enter your password"
+                           [type]="hide() ? 'password' : 'text'"
+                           formControlName="password" />
+                    <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                            [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide()">
+                      <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <div class="text-center mb-2">
+                  <button type="submit" class="px-5 w-100" mat-flat-button>Login</button>
+                </div>
+                <div class="text-center">
+                  <a class="text-decoration-none" href="#">Forgot Password</a>
+                  <p>Don't have an Account? <a class="me-3 text-decoration-none" [routerLink]="['/register']">Sign Up</a></p>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
+  

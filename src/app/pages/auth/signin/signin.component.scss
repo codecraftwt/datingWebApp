@@ -1,59 +1,194 @@
 @import '../../../../styles/theme.scss';
 
-.register-section {
-    height: 100vh;
-    background-image: url('../../../../../public/login-backround.jpg');
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-    }
-
-    .card {
-        background-color: $accent-color;
-        z-index: 2;
-        border-top-left-radius: 100px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 100px;
-        border-top-right-radius: 0px;
-
-        a {
-            color: $primary-color;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        p {
-            font-size: 13px;
-        }
-    }
-
-    mat-card {
-        overflow-y: scroll;
-        mat-label{
-            font-weight: 500;
-        }
-        mat-form-field{
-            margin-top: 5px;
-        }
-    }
+// Breakpoint mixins
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
 }
 
-:host::ng-deep .mat-horizontal-stepper-header-container {
-    display: none !important;
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
 
+.register-section {
+  height: 100vh;
+  background-image: url('../../../../../public/login-backround.jpg');
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+
+  @include mobile {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .card {
+    background-color: $accent-color;
+    z-index: 2;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 100px;
+    border-top-right-radius: 0px;
+    height: 100%;
+    overflow-y: auto;
+
+    @include mobile {
+      border-radius: 0;
+      padding: 20px !important;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    @include tablet {
+      border-top-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    a {
+      color: $primary-color;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  mat-card {
+    overflow-y: auto;
+    max-height: 100vh;
+    
+    @include mobile {
+      max-height: none;
+      padding: 16px !important;
+    }
+    
+    mat-label {
+      font-weight: 500;
+    }
+    
+    mat-form-field {
+      margin-top: 5px;
+    }
+  }
+
+  // Mobile layout adjustments
+  @include mobile {
+    .row.h-100 {
+      flex-direction: column;
+    }
+
+    .col-md-8.h-100 {
+      display: none; // Hide the left column on mobile
+    }
+
+    .col-md-4 {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+      padding: 0 !important;
+    }
+  }
+}
+
+// Form elements responsive styles
+mat-form-field {
+  width: 100%;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+mat-radio-button {
+  margin-right: 15px;
+  
+  @include mobile {
+    margin-bottom: 8px;
+    margin-right: 0;
+  }
+}
+
+mat-chip-listbox {
+  display: flex;
+  flex-wrap: wrap;
+  
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+// Stepper buttons responsive
+[mat-button] {
+  @include mobile {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+// Fix for stepper content
+:host::ng-deep .mat-horizontal-stepper-header-container {
+  display: none !important;
 }
 
 :host::ng-deep .mat-horizontal-content-container {
-    padding-left: 0px;
-    padding-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+// Mobile specific overrides
+@include mobile {
+  :host::ng-deep .mat-step-content {
+    padding: 0;
+  }
+  
+  mat-card-header {
+    padding: 0;
+    
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  // Fix for file drop zone
+  ngx-file-drop {
+    width: 100%;
+    
+    ::ng-deep .ngx-file-drop__drop-zone {
+      height: auto !important;
+      min-height: 100px;
+    }
+  }
+  
+  // Fix button layout
+  div:has(> [mat-button]) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
 }
