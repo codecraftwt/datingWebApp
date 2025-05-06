@@ -30,7 +30,6 @@ export class FavoritesComponent implements OnInit {
       if (response) {
         this.userProfiles = response.favorites;
         this.totalItems = response.favorites.length;
-
       }
     })
   }

@@ -14,6 +14,8 @@
                             <mat-card-content class="text-center">
                                 <div class="row mb-5">
                                     <div class="col-sm-12 mb-3 mb-lg-0">
+                                        @if(userProfileswithProfileMatching && userProfileswithProfileMatching.length >
+                                        0){
                                         <div class="row">
                                             @for (profile of userProfileswithProfileMatching |
                                             paginate:{itemsPerPage:itemsPerPage,currentPage:page,totalItems}; track
@@ -39,11 +41,18 @@
                                                 {{ item.name }}
                                             </div>
                                             <div class="pagination me-4">
-                                                <pagination-controls
+                                                <pagination-controls [responsive]="true" [autoHide]="true"
                                                     (pageChange)="onPageChange(page = $event)"></pagination-controls>
-                                                <!-- <button class="btn-gradient" mat-flat-button>Discover more members</button> -->
                                             </div>
                                         </div>
+                                        } @else {
+                                        <div class="col-12 col-md-12 mx-auto mb-4">
+                                            <div class="mb-4">
+                                                <i-feather name="star" class="big-heart"></i-feather>
+                                            </div>
+                                            <h5>No members found</h5>
+                                        </div>
+                                        }
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -60,20 +69,8 @@
                                                         <mat-icon>cake</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">from 19 to 32 years old</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row align-items-center mb-2">
-                                                    <div class="col-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            fill="currentColor" class="bi bi-person-standing"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="col-10 text-start">
-                                                        <span class="text-preference">from any to any</span>
+                                                        <span class="text-preference">from {{filterParams.minAge || 18}}
+                                                            to {{filterParams.maxAge||32}} years old</span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -81,7 +78,9 @@
                                                         <mat-icon> location_on</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">State: All other countries</span>
+                                                        <span class="text-preference">Height form
+                                                            {{filterParams.minHeight || '5.0'}} ft to
+                                                            {{filterParams.maxHeight || '6.3'}} ft</span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -89,8 +88,7 @@
                                                         <mat-icon>smoke_free</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">Non-smoker, Occasional smoker,
-                                                            Smoker</span>
+                                                        <span class="text-preference">{{filterParams.smoking || "Non smoker"}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -98,7 +96,8 @@
                                                         <mat-icon>child_care</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">Has children? I don’t mind</span>
+                                                        <span class="text-preference">Has children?
+                                                            <span>{{filterParams.childrens || "No"}}</span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -106,8 +105,8 @@
                                                         <mat-icon>child_friendly</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">Do you want children? No
-                                                            preference</span>
+                                                        <span class="text-preference">Do you want children?
+                                                            <span>{{filterParams.wishForChildren || "No"}}</span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -120,11 +119,12 @@
                                                         </svg>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">Ethnicity: Any</span>
+                                                        <span class="text-preference">Religion: {{filterParams.religion
+                                                            || "Any"}}</span>
                                                     </div>
                                                 </div>
                                             </mat-card-content>
-                                            <mat-card-footer class="mt-5 p-3">
+                                            <mat-card-footer class="p-3">
                                                 <div class="text-center">
                                                     <button class="btn-gradient w-100"
                                                         (click)="onOpenPreferenceModal(preferenceModal)"

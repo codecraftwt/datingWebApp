@@ -176,9 +176,21 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     }, { validators: this.atLeastOneFieldRequiredValidator });
   }
 
-  onApplyFilter(formData: any) {    
+  onApplyFilter(formData: any) {
+    debugger
     try {
-      this.filterParams = formData;
+      this.filterParams = {
+        minAge: Number(formData.minAge) || 0,
+        maxAge: Number(formData.maxAge) || 0,
+        minHeight: Number(formData.minHeight) || 0,
+        maxHeight: Number(formData.maxHeight) || 0,
+        childrens: formData.childrens || '',
+        wishForChildren: formData.wishForChildren || '',
+        smoking: formData.smoking || '',
+        religion: formData.religion || '',
+        education: formData.education || ''
+      };
+
       this.getUserwithProfileMatch();
       this._modalService.dismissAll();
       this.filterForm.reset();
