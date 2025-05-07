@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   menus = [
     {
       route: '/dashoard',
-      name: 'Home'
+      name: 'Dashboard'
     },
     {
       route: '/discover',

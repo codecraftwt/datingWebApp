@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { DiscoverService } from '../../services/discover.service';
 import { Router } from '@angular/router';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,17 +50,20 @@ export class DashboardComponent implements OnInit {
   responsiveOptions: any[] | undefined;
 
   private _discoverService = inject(DiscoverService);
+  private _dashboardService = inject(DashboardService);
   private _router = inject(Router);
   public newUserProfiles: any[] = [];
   public likeUserProfiles: any[] = [];
   public recentVistorUserProfiles: any[] = [];
   public recentUsers: any[] = [];
+  public profilePercent: any;
 
   constructor() { }
 
   ngOnInit() {
-    this.getUsers()
-    this.getRecentVisitors()
+    this.getUsers();
+    this.getRecentVisitors();
+    this.getProfilePercent();
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -84,7 +88,6 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-
   getRecentVisitors() {
     this._discoverService.getRecentVisitors(1, 10).subscribe((response: any) => {
       if (response.success) {
@@ -98,7 +101,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUsers() {
-    this._discoverService.getAllUsersWithProfileMatching(1, 10).subscribe((response: any) => {
+    this._discoverService.getAllUsersWithProfileMatching(1, 6, 0, 0, 0, 0, '', '', '', '', '').subscribe((response: any) => {
       if (response.success) {
         this.newUserProfiles = response.data;
       }
@@ -108,13 +111,26 @@ export class DashboardComponent implements OnInit {
       })
   }
 
+  getProfilePercent() {
+    try {
+      this._dashboardService.getProfileCompletepercentage().subscribe((response: any) => {
+        if (response.success) {
+          this.profilePercent = response?.percent
+        }
+      })
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   openVisitors(): void {
     this._router.navigate(['/discover'], { queryParams: { tab: 2 } });
   }
+
   onClickShowAll(type: string): void {
     if (type === 'discover') {
       this._router.navigate(['/discover'], { queryParams: { tab: 0 } });
-    } else if(type === 'visitors') {
+    } else if (type === 'visitors') {
       this._router.navigate(['/discover'], { queryParams: { tab: 2 } });
     }
   }

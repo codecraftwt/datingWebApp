@@ -1,8 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+    <div class="container">
+        <a class="navbar-brand me-0" href="/">
+            <div class="logo-container">
+                <img src="logo-removebg-preview.png" alt="Logo" class="w-100 h-100">
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mx-auto mb-lg-0">
+                @for (menu of menus; track menu;){
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" [routerLink]="[menu.route]">{{menu.name}}</a>
+                </li>
+                }
+            </ul>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            <button class="btn btn-primary rounded-pill" [routerLink]="['/login']">Login</button>
+        </div>
+    </div>
+</nav>
+
 <section class="home">
+    <div class="slideshow-container">
+        @for (image of heroImages; track image) {
+        <div class="slide" [class.active]="heroImages.indexOf(image) === activeSlideIndex"
+            [style.background-image]="'url(' + image + ')'">
+        </div>
+        }
+    </div>
     <div class="row justify-content-end align-items-center h-100 mx-auto">
         <div class="col-md-10 col-lg-7 col-xl-5 user-form">
-            <div class="card p-3 border-0 shadow">
-                <div class="card-body">
+            <div class="card p-3 border-0">
+                <div class="card-body text-center">
+                    <h1>Matrimony.com</h1>
+                    <h2 class="card-title display-4 fw-bold mb-3">Get Who<br class="ms-5">Gets You</h2>
+                    <h5 class="card-subtitle mb-4 text-muted">Start free today</h5>
+
+                    <button class="btn btn-primary btn-lg px-5 rounded-pill" routerLink="/register" mat-flat-button>
+                        Get started
+                    </button>
+                </div>
+                <!-- <div class="card-body">
                     <h4 class="card-title">Your Life Partner</h4>
                     <h6 class="card-subtitle mb-2">Just few click away</h6>
                     <div class="mb-3">
@@ -32,117 +74,6 @@
                         </mat-form-field>
                     </div>
                     <button class="px-5" mat-flat-button>Search</button>
-                </div>
-                <!-- <div class="card-body">
-                    <h4 class="card-title">Create Your Account</h4>
-                    <Form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
-                        <div class="row">
-                            <mat-form-field class="me-3">
-                                <mat-label>Select On Behalf Of</mat-label>
-                                <mat-select formControlName="profileFor" name="onBehalfOf" required>
-                                    @for (item of onBehalfOf; track item) {
-                                    <mat-option [value]="item">{{item}}</mat-option>
-                                    }
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>First Name</mat-label>
-                                    <input matInput placeholder="John" formControlName="firstname" required>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>Last Name</mat-label>
-                                    <input matInput placeholder="Doe" formControlName="lastname" required>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>Gender</mat-label>
-                                    <mat-select formControlName="gender" name="gender" required>
-                                        <mat-option value="Male">Male</mat-option>
-                                        <mat-option value="Female">Female</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>Date of Birth</mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
-                                    <mat-hint>MM/DD/YYYY</mat-hint>
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            @if(isEmail){
-                            <mat-form-field>
-                                <mat-label>Email</mat-label>
-                                <input matInput placeholder="email" formControlName="email" required>
-                            </mat-form-field>
-                            } @else {
-                            <mat-form-field>
-                                <mat-label>Phone Number</mat-label>
-                                <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
-                            </mat-form-field>
-                            }
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>Password</mat-label>
-                                    <input matInput placeholder="*****" type="password" formControlName="password"
-                                        required>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-lg-6">
-                                <mat-form-field>
-                                    <mat-label>Confirm password</mat-label>
-                                    <input matInput placeholder="*****" type="password" formControlName="confirmPassword"
-                                        onchange="onChnageConfirmPassword($event)" required>
-                                        <mat-error *ngIf="isPasswordMismatch()">Passwords do not match</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <mat-form-field class="me-3">
-                                    <mat-label>Country</mat-label>
-                                    <mat-select formControlName="country" name="country" required>
-                                        @for (item of countries; track item) {
-                                        <mat-option [value]="item">{{item}}</mat-option>
-                                        }
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-lg-6">
-                                <mat-form-field class="me-3">
-                                    <mat-label>Religion</mat-label>
-                                    <mat-select formControlName="religion" name="religion" required>
-                                        @for (item of countries; track item) {
-                                        <mat-option [value]="item">{{item}}</mat-option>
-                                        }
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="row">
-                                <mat-form-field class="me-3">
-                                    <mat-label>Mother Tongue</mat-label>
-                                    <input matInput placeholder="Mother Tongue" type="text" formControlName="motherTongue"
-                                        required>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="px-5" mat-flat-button type="submit">Submit</button>
-                        </div>
-                    </Form>
                 </div> -->
             </div>
         </div>
@@ -264,3 +195,82 @@
         </div>
     </div>
 </section>
+
+<section class="py-5">
+    <div class="container main-content">
+        <div class="row justify-content-center mb-4">
+        </div>
+        <div class="row justify-content-center text-center">
+            <h3 class="mb-5">Membership Plans</h3>
+            <div class="col-lg-10">
+                <div class="row align-items-center mb-5">
+                    @for (plan of plans; track $index) {
+                    <div class="col-md-4 mb-5 mb-md-0">
+                        <mat-card appearance="raised" class="subscription-card shadow"
+                            [ngClass]="{ 'most-popular': $index === 1 }">
+                            <mat-card-header class="p-4 justify-content-center">
+                                <h4 class="mb-0 fw-light">{{plan.name}}</h4>
+                            </mat-card-header>
+                            <mat-card-content class="text-start p-3 py-4">
+                                <h6 class="fw-semibold text-center">3 Months Plan</h6>
+                                <mat-list>
+                                    @for (feature of plan.features; track feature) {
+                                    <mat-list-item>
+                                        <mat-icon class="check-circle" matListItemIcon>check_circle</mat-icon>
+                                        <div matListItemTitle>{{feature}}</div>
+                                    </mat-list-item>
+                                    }
+                                </mat-list>
+                                <div class="text-center">
+                                    <h1 class="text-danger mb-3">₹{{plan.price}}<sub>/ 3 months</sub></h1>
+                                    <button
+                                        class="btn btn-success rounded-pill px-4 mb-2 d-flex align-items-center mx-auto"
+                                        (click)="router.navigate(['register'])">Select
+                                        <mat-icon>keyboard_arrow_right</mat-icon></button>
+                                </div>
+                            </mat-card-content>
+                            <div *ngIf="$index === 1" class="most-popular-text">
+                                <span>Most popular</span>
+                            </div>
+                        </mat-card>
+                    </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
+                            <mat-card-content class="text-center">
+                                <mat-icon>lock</mat-icon>
+                                <p class="fw-semibold">The #1 trusted dating site</p>
+                                <p class="text-secondary mb-0">2018 Survey of 1,616 U.S Singles</p>
+
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
+                            <mat-card-content class="text-center">
+                                <mat-icon>lock</mat-icon>
+                                <p class="fw-semibold">Every 14 minutes, someone finds love on dating</p>
+                                <p class="text-secondary mb-0">dating user data</p>
+
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <mat-card appearance="outlined" class="detailed-card border-0 p-2 h-100">
+                            <mat-card-content class="text-center">
+                                <mat-icon>lock</mat-icon>
+                                <p class="fw-semibold">Highest quality dating pool</p>
+                                <p class="text-secondary mb-0">2018 Survey of 1,616 U.S Singles</p>
+
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer />

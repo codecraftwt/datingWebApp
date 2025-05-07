@@ -300,7 +300,7 @@
                                                     formControlName="designation">
                                             </mat-form-field>
                                         </div>
-                                        <div>
+                                        <!-- <div>
                                             <mat-label>Biodata</mat-label><br />
 
                                             <ngx-file-drop [accept]="'.jpg, .jpeg, .png, .pdf, .doc, .docx'"
@@ -310,7 +310,6 @@
                                                   }">
                                             </ngx-file-drop>
 
-                                            <!-- Fallback for file input -->
                                             <input type="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" #fileInput
                                                 (change)="onFileSelect($event)" style="display: none;" />
                                             <button mat-button (click)="fileInput.click()">Choose File</button>
@@ -322,7 +321,7 @@
                                                 personalityProfile2FormGroup.get('biodata')?.errors?.['invalidFileType']
                                                 }}
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </form>
                                     <div>
                                         <button mat-button matStepperPrevious>Back</button>

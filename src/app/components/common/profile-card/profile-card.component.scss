@@ -3,26 +3,19 @@
     overflow: hidden;
 }
 
-.blur-image {
-    filter: blur(8px);
-    transition: filter 0.3s ease;
-}
-
-// .profile-container:hover .blur-image {
-//     filter: blur(0);
+// .blur-image {
+//     filter: blur(8px);
+//     transition: filter 0.3s ease;
 // }
+
 
 .top-overlay-content {
     position: absolute;
     top: 3%;
-    // left: 5%;
     color: white;
     text-align: center;
     z-index: 1;
     padding: 5px 15px;
-    // border-radius: 20px;
-    // background: rgba(0, 0, 0, 0.6);
-
     display: flex;
     justify-content: space-between;
     width: 100%;

@@ -24,16 +24,16 @@
                     </div>
                     <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" matTooltip="New Visitors" (click)="openVisitors()">
-                            <mat-icon class="text-light-blue"> contact_phone</mat-icon>
+                            <mat-icon class="text-light-blue">contact_phone</mat-icon>
                         </div>
-                        <h6 class="text-light-blue text-center">0</h6>
+                        <h6 class="text-light-blue text-center">{{recentVistorUserProfiles.length || 0}}</h6>
                     </div>
                     <div class="col-4 col-md-2">
                         <div class="icon-container mb-2 mx-auto" [routerLink]="['/profile-details']"
-                            matTooltip="Profile">
+                            matTooltip="Complete your profile to get more matches">
                             <mat-icon class="text-light-blue">security</mat-icon>
                         </div>
-                        <h6 class="text-light-blue text-center">50%</h6>
+                        <h6 class="text-light-blue text-center">{{profilePercent || 0 }}%</h6>
                     </div>
                     <div class="col-4 col-md-2 d-none">
                         <div class="icon-container mb-2 mx-auto">
@@ -119,7 +119,8 @@
                             <mat-card-footer class="mt-2 p-3">
                                 <div *ngIf="newUserProfiles && newUserProfiles.length > 0"
                                     class="text-md-end text-center">
-                                    <button class="btn-gradient" (click)="onClickShowAll('discover')" mat-flat-button>Show All</button>
+                                    <button class="btn-gradient" (click)="onClickShowAll('discover')"
+                                        mat-flat-button>Show All</button>
                                 </div>
                             </mat-card-footer>
                         </mat-card>
@@ -156,7 +157,8 @@
                             <mat-card-footer class="mt-2 p-3">
                                 <div *ngIf="recentVistorUserProfiles && recentVistorUserProfiles.length > 0"
                                     class="text-md-end text-center">
-                                    <button class="btn-gradient" (click)="onClickShowAll('visitors')" mat-flat-button>Show All</button>
+                                    <button class="btn-gradient" (click)="onClickShowAll('visitors')"
+                                        mat-flat-button>Show All</button>
                                 </div>
                             </mat-card-footer>
                         </mat-card>
