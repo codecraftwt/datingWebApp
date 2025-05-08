@@ -33,6 +33,11 @@ export class HttpService {
     return this._http.put<T>(`${environment.apiUrl}${url}`, body, { headers: this.getHeaders() });
   }
 
+  // PATCH request
+  patch<T>(url: string, body: any): Observable<T> {
+    return this._http.patch<T>(`${environment.apiUrl}${url}`, body, { headers: this.getHeaders() });
+  }
+
   // DELETE request
   delete<T>(url: string): Observable<T> {
     return this._http.delete<T>(`${environment.apiUrl}${url}`, { headers: this.getHeaders() });

@@ -26,7 +26,7 @@ export class ProfileService {
   }
 
   public updateProfile(id: string, data: any) {
-    return this._httpService.put(`api/user/${id}`, data);
+    return this._httpService.patch(`api/user/${id}`, data);
   }
 
   public getUserDetails(userId: string) {
@@ -38,7 +38,7 @@ export class ProfileService {
   }
 
   public updateUserDetails(userId: string, data: any) {
-    return this._httpService.put(`api/userDetails/${userId}`, data);
+    return this._httpService.patch(`api/userDetails/${userId}`, data);
   }
 
   // Method to update the profile picture

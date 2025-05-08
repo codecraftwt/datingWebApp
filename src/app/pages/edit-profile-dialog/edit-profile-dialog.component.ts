@@ -78,11 +78,7 @@ export class EditProfileDialogComponent implements OnInit {
       const updatedFormValue = {
         ...this.userForm.value,
         profilePhoto: this.userForm.value.profilePhoto || this.profileDetails.profilePhoto,
-        otherPhotos: [
-          'https://picsum.photos/300/200?random=1',
-          'https://picsum.photos/300/200?random=2',
-          'https://picsum.photos/300/200?random=3'
-        ]
+        otherPhotos: []
       };
       this._profileService.updateProfile(this.currentUser._id, updatedFormValue).subscribe({
         next: (response: any) => {

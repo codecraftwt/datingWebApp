@@ -43,7 +43,6 @@
         }
     }
 
-
     .messages-container {
         min-height: 250px;
         max-height: 400px;
@@ -111,6 +110,10 @@
 
     }
 
+    .chatname-room{
+        max-height: 430px;
+        overflow-y: scroll;
+    }
 
     .room-container {
         padding: 10px;

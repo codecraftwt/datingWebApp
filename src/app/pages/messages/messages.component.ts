@@ -20,7 +20,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   currentReceiver: any
   selectedRoom: any = null;
 
-  // @ViewChild('messagesContainer') messagesContainer!: ElementRef;
   @ViewChild('messagesContainer', { static: false }) messagesContainer!: ElementRef;
 
   ngAfterViewChecked(): void {
@@ -35,28 +34,29 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     });
     this.getAllRooms();
   }
-  // new APIs
 
   scrollToBottom(): void {
     try {
-      const container: any = this.messagesContainer?.nativeElement;
-      if (container) {
-        container.scrollTop = container.scrollHeight;
-      } else {
-        console.warn('Messages container not found.');
-      }
+      setTimeout(() => {
+        const container: any = this.messagesContainer?.nativeElement;
+        if (container) {
+          container.scrollTop = container.scrollHeight;
+        } else {
+          console.warn('Messages container not found.');
+        }
+      }, 0);
     } catch (err) {
       console.error('Scroll error', err);
     }
   }
 
-  onSearch(event:any){
+  onSearch(event: any) {
     const searchTerm = event.target.value;
-    
-    if(searchTerm === ""){
+
+    if (searchTerm === "") {
       this.getAllRooms();
     }
-    const filteredRooms = this.rooms.filter(room => 
+    const filteredRooms = this.rooms.filter(room =>
       room.createdWith.firstName.includes(searchTerm) || room.createdWith.lastName.includes(searchTerm)
     );
     this.rooms = filteredRooms;
@@ -72,6 +72,15 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       next: (response) => {
         if (response.status == 200) {
           this.rooms = response.data
+          if (this.rooms.length > 0) {
+            // Auto-select first room if none selected
+            if (!this.selectedRoom) {
+              this.selectRoom(this.rooms[0]);
+            } else {
+              const foundRoom = this.rooms.find(r => r._id === this.selectedRoom._id);
+              if (foundRoom) this.selectedRoom = foundRoom;
+            }
+          }
           this.getRoom(this.rooms[0]._id)
         }
       },
@@ -110,6 +119,10 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
       next: (response) => {
         this.message = '';
+        const roomIndex = this.rooms.findIndex(r => r._id === this.currentRoom._id);
+        if (roomIndex > -1) {
+          this.rooms[roomIndex].chat[0] = payload;
+        }
       },
       error: (error) => {
         console.error(error);

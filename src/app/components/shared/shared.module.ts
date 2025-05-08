@@ -31,6 +31,7 @@ import { MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { NgxStripeModule } from 'ngx-stripe';
 import { DaysAgoPipe } from '../../pipes/days-ago.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { DragDropUploadDirective } from '../../directives/drag-drop-upload.directive';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -48,7 +49,8 @@ export const MY_DATE_FORMATS = {
   declarations: [
     HeaderComponent,
     FooterComponent,
-    DaysAgoPipe
+    DaysAgoPipe,
+    DragDropUploadDirective
   ],
   imports: [
     CommonModule,
@@ -111,7 +113,8 @@ export const MY_DATE_FORMATS = {
     MatMenuModule,
     DaysAgoPipe,
     MatProgressSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DragDropUploadDirective
   ],
   providers: [
     MatDatepickerModule,

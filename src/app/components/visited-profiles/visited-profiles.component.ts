@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { DiscoverService } from '../../services/discover.service';
+import { forkJoin } from 'rxjs';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-visited-profiles',
@@ -11,6 +13,7 @@ export class VisitedProfilesComponent implements OnInit {
   private dataService = inject(DataService);
   public profiles: any[] = [];
   private _discoverService = inject(DiscoverService);
+  private _profileService = inject(ProfileService);
   public userProfiles: any[] = [];
   public page = 1;
   public totalItems = 0;
@@ -35,9 +38,21 @@ export class VisitedProfilesComponent implements OnInit {
   getVisitedProfiles() {
     this._discoverService.getVisitedProfiles(this.page, this.itemsPerPage).subscribe((response: any) => {
       if (response.success) {
-        const transformedData = response?.data?.map((visit: any) => visit.visited);
-        this.userProfiles = transformedData;
-        this.totalItems = response?.pagination?.count;
+        const visitedIds = response?.data?.map((visit: any) => visit.visitedId);
+        const profileRequests = visitedIds.map((id: any) => this._profileService.getProfileById(id));
+
+        forkJoin(profileRequests).subscribe({
+          next: (profileResponses: any[]) => {
+            this.userProfiles = profileResponses
+              .filter(res => res.success)
+              .map(res => res.user);
+
+            this.totalItems = response?.pagination?.count;
+          },
+          error: (err: any) => {
+            console.error('Error fetching user profiles:', err);
+          }
+        } as any);
       }
     },
       (error) => {

@@ -185,14 +185,27 @@
                                                 </mat-chip-set>
                                             </mat-card-content>
                                         </mat-card>
-                                        <div class="row mb-3">
-                                            <div class="col-6"
-                                                *ngFor="let image of profileDetails?.otherPhotos; let i = index">
-                                                <div class="all-image-container mb-2">
-                                                    <img class="h-100 w-100" [src]="image" [alt]="'Image ' + (i + 1)">
-                                                </div>
+                                        <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
+                                            <div class="d-flex justify-content-between align-items-center my-2">
+                                                <h6 class="text-uppercase text-secondary ms-3">
+                                                    Other Photos
+                                                </h6>
+                                                <button type="button" mat-flat-button=""
+                                                    class="btn-gradient border-0 rounded-5 me-3"
+                                                    (click)="onClickAddPhoto(addPhotoModal)">Add</button>
                                             </div>
-                                        </div>
+                                            <mat-card-content>
+                                                <div class="row mb-3">
+                                                    <div class="col-6"
+                                                        *ngFor="let image of profileDetails?.otherPhotos; let i = index">
+                                                        <div class="all-image-container mb-2">
+                                                            <img class="h-100 w-100" [src]="image"
+                                                                [alt]="'Image ' + (i + 1)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
                                         <mat-card appearance="outlined" class="w-100 inner-card p-1 mb-3">
                                             <mat-card-header>
                                                 <h6 class="text-uppercase text-secondary">
@@ -279,7 +292,8 @@
                                         </mat-card>
                                     </div>
                                     <div class="col-sm-12 col-lg-5 col-xl-4">
-                                        <mat-card appearance="outlined" class="w-100 mb-3 inner-card bg-dark p-3 d-none">
+                                        <mat-card appearance="outlined"
+                                            class="w-100 mb-3 inner-card bg-dark p-3 d-none">
                                             <mat-card-header>
                                                 <h4 class="mb-4 text-primary text-center">
                                                     What makes you compatible?
@@ -353,9 +367,9 @@
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Languages</p>
-                                                            @for (item of otherDetails?.languages; track $index) {
-                                                                <h6 class="mb-0">{{item}}</h6>
-                                                            }
+                                                        @for (item of otherDetails?.languages; track $index) {
+                                                        <h6 class="mb-0">{{item}}</h6>
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
@@ -369,8 +383,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <i-feather name="heart"
-                                                            class="feather-icon me-2"></i-feather>
+                                                        <i-feather name="heart" class="feather-icon me-2"></i-feather>
                                                     </div>
                                                     <div class="col-8 mb-0 ps-0">
                                                         <p class="mb-0 text-secondary">Alcohol habits</p>
@@ -388,8 +401,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box">
                                                     <div class="col-4">
-                                                        <i-feather name="heart"
-                                                            class="feather-icon me-2"></i-feather>
+                                                        <i-feather name="heart" class="feather-icon me-2"></i-feather>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Marital status</p>
@@ -416,8 +428,7 @@
                                                 </div>
                                                 <div class="row d-flex align-items-center mb-2 detail-box ">
                                                     <div class="col-4">
-                                                        <i-feather name="star"
-                                                            class="feather-icon me-2"></i-feather>
+                                                        <i-feather name="star" class="feather-icon me-2"></i-feather>
                                                     </div>
                                                     <div class="col-8 ps-0">
                                                         <p class="mb-0 text-secondary">Religion</p>
@@ -428,6 +439,38 @@
                                         </mat-card>
                                     </div>
                                 </div>
+                                <ng-template #addPhotoModal let-modal>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Upload Photos</h4>
+                                        <button type="button" class="btn-close" aria-label="Close"
+                                            (click)="modal.dismiss('Cross click')"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="upload-area" appDragDropUpload (filesDropped)="handleFiles($event)"
+                                            (dragOver)="isDragging = $event" [class.dragging]="isDragging">
+                                            <p>Drop your files here, or <span (click)="fileInput.click()"
+                                                    class="browse">click to browse</span></p>
+                                            <input type="file" #fileInput hidden multiple
+                                                (change)="onFileSelected($event)" />
+                                            <small>Supported: .png, .jpg, .webp, .txt | Max: 10MB</small>
+
+                                            <div class="preview" *ngIf="previewFiles.length">
+                                                <div class="file" *ngFor="let file of previewFiles">
+                                                    <img *ngIf="file.url" [src]="file.url" alt="{{ file.name }}" />
+                                                    <p class="small-text">{{ file.name }}</p>
+                                                </div>
+                                            </div>
+
+                                            <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            (click)="modal.close('Close click')">Cancel</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="onUploadPhotos()">Apply</button>
+                                    </div>
+                                </ng-template>
                             </div>
                         </div>
                     </mat-card-content>
