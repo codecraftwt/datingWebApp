@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { DiscoverService } from '../../services/discover.service';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
+import { subscriptionEnum } from '../../enums/subscription.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,6 +58,8 @@ export class DashboardComponent implements OnInit {
   public recentVistorUserProfiles: any[] = [];
   public recentUsers: any[] = [];
   public profilePercent: any;
+  public isSubscriptionError: boolean = false;
+  public subEnums = subscriptionEnum
 
   constructor() { }
 
@@ -89,26 +92,34 @@ export class DashboardComponent implements OnInit {
   }
 
   getRecentVisitors() {
-    this._discoverService.getRecentVisitors(1, 10).subscribe((response: any) => {
-      if (response.success) {
-        const transformedData = response?.data?.map((visit: any) => visit.visitor);
-        this.recentVistorUserProfiles = transformedData;
-      }
-    },
-      (error) => {
-        console.error('Error fetching users:', error);
-      })
+    try {
+      this._discoverService.getRecentVisitors(1, 10).subscribe({
+        next: (response: any) => {
+          if (response.success) {
+            const transformedData = response?.data?.map((visit: any) => visit.visitor);
+            this.recentVistorUserProfiles = transformedData;
+          }
+        },
+        error: (error) => {
+          console.error('Error:', error); // Log the entire error to see its structure
+          this.isSubscriptionError = error?.error?.isSubscriptionError || false;
+        } 
+      });
+    } catch (error) {
+      console.error('Error fetching recent visitors:', error);
+    }
   }
 
   getUsers() {
-    this._discoverService.getAllUsersWithProfileMatching(1, 6, 0, 0, 0, 0, '', '', '', '', '').subscribe((response: any) => {
-      if (response.success) {
-        this.newUserProfiles = response.data;
-      }
-    },
-      (error) => {
-        console.error('Error fetching users:', error);
+    try {
+      this._discoverService.getAllUsersWithProfileMatching(1, 6, 0, 0, 0, 0, '', '', '', '', '').subscribe((response: any) => {
+        if (response.success) {
+          this.newUserProfiles = response.data;
+        }
       })
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
   }
 
   getProfilePercent() {

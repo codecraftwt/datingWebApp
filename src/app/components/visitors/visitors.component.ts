@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { DiscoverService } from '../../services/discover.service';
 import { ProfileService } from '../../services/profile.service';
 import { forkJoin } from 'rxjs';
+import { subscriptionEnum } from '../../enums/subscription.enum';
 
 @Component({
   selector: 'app-visitors',
@@ -16,6 +17,8 @@ export class VisitorsComponent implements OnInit {
   public totalItems = 0;
   public itemsPerPage = 10;
   collection: any[] = [];
+  public isSubscriptionError: boolean = false;
+  public subEnums = subscriptionEnum
 
   constructor() {
     for (let i = 1; i <= 100; i++) {
@@ -42,13 +45,14 @@ export class VisitorsComponent implements OnInit {
 
               this.totalItems = response?.pagination?.count;
             },
-            error: (err:any) => {
+            error: (err: any) => {
               console.error('Error fetching user profiles:', err);
             }
           } as any);
         }
       },
       error: (err) => {
+        this.isSubscriptionError = true;
         console.error('Error fetching visitors:', err);
       }
     });

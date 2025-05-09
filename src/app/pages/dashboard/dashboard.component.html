@@ -134,7 +134,7 @@
                                 </h5>
                             </mat-card-header>
                             <mat-card-content class="text-center">
-                                @if (recentVistorUserProfiles && recentVistorUserProfiles.length > 0) {
+                                <!-- @if (recentVistorUserProfiles && recentVistorUserProfiles.length > 0) {
                                 <div class="row">
                                     @for (profile of recentVistorUserProfiles; track profile) {
                                     <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mx-md-auto">
@@ -142,7 +142,7 @@
                                     </div>
                                     }
                                 </div>
-                                } @else {
+                                } @else if (!isSubscriptionError && recentVistorUserProfiles.length == 0) {
                                 <div class="mb-4">
                                     <i-feather name="image" style="fill: none !important;"
                                         class="big-heart"></i-feather>
@@ -151,8 +151,45 @@
                                     If you have had no visitors to your profile, consider adding
                                     some more photos.
                                 </p>
-                                }
+                                } @if(isSubscriptionError && recentVistorUserProfiles.length == 0){
+                                <p class="text-gradient">
+                                    This feature is for Premium Users only.
+                                </p>
+                                <a routerLink="/subscriptions" class="btn btn-gradient border-0 rounded-pill mt-3">
+                                    Upgrade the Plan
+                                </a>
+                                } -->
+                                <ng-container *ngIf="recentVistorUserProfiles.length > 0; else noVisitors">
+                                    <div class="row">
+                                        @for (profile of recentVistorUserProfiles; track profile) {
+                                        <div class="col-md-6 col-lg-6 col-xl-6 mb-4 mx-md-auto">
+                                            <app-profile-card [profile]="profile" />
+                                        </div>
+                                        }
+                                    </div>
+                                </ng-container>
 
+                                <ng-template #noVisitors>
+                                    <ng-container *ngIf="!isSubscriptionError && recentVistorUserProfiles.length == 0; else subscriptionError">
+                                        <div class="mb-4">
+                                            <i-feather name="image" style="fill: none !important;"
+                                                class="big-heart"></i-feather>
+                                        </div>
+                                        <p class="text-gradient">
+                                            If you have had no visitors to your profile, consider adding some more
+                                            photos.
+                                        </p>
+                                    </ng-container>
+                                </ng-template>
+
+                                <ng-template #subscriptionError>
+                                    <p class="text-gradient">
+                                        This feature is for Premium Users only.
+                                    </p>
+                                    <a routerLink="/subscriptions" class="btn btn-gradient border-0 rounded-pill mt-3">
+                                        Upgrade the Plan
+                                    </a>
+                                </ng-template>
                             </mat-card-content>
                             <mat-card-footer class="mt-2 p-3">
                                 <div *ngIf="recentVistorUserProfiles && recentVistorUserProfiles.length > 0"
