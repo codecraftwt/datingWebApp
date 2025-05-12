@@ -51,12 +51,15 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   handleEditProfile() {
-    this._dialog.open(EditProfileDialogComponent, {
+    const dialogRef = this._dialog.open(EditProfileDialogComponent, {
       width: '800px',
       maxWidth: '90vw',
       height: '90vh',
       disableClose: false // Prevent closing by clicking outside
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getProfileDetails();
+    })
   }
 
   getProfileDetails(): void {
@@ -124,6 +127,7 @@ export class ProfileDetailsComponent implements OnInit {
       let otherPhotos = this.profileDetails.otherPhotos;
       this._profileService.updateProfile(this.currentUser._id, { otherPhotos: [...otherPhotos, ...this.uploadedPhotoBase64Strings] }).subscribe({
         next: (response) => {
+          this.getProfileDetails();
           this._modalService.dismissAll();
         },
         error: (error) => {

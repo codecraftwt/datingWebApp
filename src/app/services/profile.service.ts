@@ -44,6 +44,18 @@ export class ProfileService {
   // Method to update the profile picture
   public updateProfilePicture(profileData: any): void {
     this.profileSubject.next(profileData);
+    const user = localStorage.getItem('user');
+    if (user) {
+      try {
+        const parsed = JSON.parse(user);
+        if (parsed && parsed.user) {
+          parsed.user.profilePhoto = profileData;
+          localStorage.setItem('user', JSON.stringify(parsed));
+        }
+      } catch (e) {
+        console.error('Failed to parse or update localStorage user:', e);
+      }
+    }
   }
 
 }
