@@ -89,10 +89,15 @@
 
 .profile-container {
     height: 175px;
-    // width: 155px;
-
     img {
         border-radius: 10px;
+    }
+     &.isNotPremium img {
+        filter: blur(6px);
+    }
+
+    &.isPremium img {
+        filter: none;
     }
 }
 
@@ -114,5 +119,12 @@
         object-fit: cover;
         border-radius: 15px;
         border: 7px solid #d7e3ff !important;
+    }
+    &.isNotPremium img {
+        filter: blur(6px);
+    }
+
+    &.isPremium img {
+        filter: none;
     }
 }

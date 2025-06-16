@@ -19,6 +19,7 @@ export class VisitedProfilesComponent implements OnInit {
   public totalItems = 0;
   public itemsPerPage = 10;
   public collection: any[] = [];
+  public isSubscriptionError: boolean = false;
 
   constructor() {
     for (let i = 1; i <= 100; i++) {
@@ -56,6 +57,7 @@ export class VisitedProfilesComponent implements OnInit {
       }
     },
       (error) => {
+        this.isSubscriptionError = true;
         console.error('Error fetching users:', error);
       })
   }

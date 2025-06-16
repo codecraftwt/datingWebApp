@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content class="text-center">
         <div class="row mb-5">
-            @if (userProfiles && userProfiles.length > 0) {
+            <!-- @if (userProfiles && userProfiles.length > 0) {
             <div class="col-sm-12 mb-3 mb-lg-0">
                 <div class="row">
                     @for (profile of userProfiles |
@@ -30,7 +30,8 @@
                         {{ item.name }}
                     </div>
                     <div class="pagination me-4">
-                        <pagination-controls [responsive]="true" [autoHide]="true" (pageChange)="onPageChange(page = $event)"></pagination-controls>
+                        <pagination-controls [responsive]="true" [autoHide]="true"
+                            (pageChange)="onPageChange(page = $event)"></pagination-controls>
                     </div>
                 </div>
             </div>
@@ -45,7 +46,59 @@
                     A complete profile will be of particular interest to other members.
                 </p>
             </div>
-            }
+            } -->
+            <ng-container *ngIf="userProfiles.length > 0; else noProfiles">
+                <div class="col-sm-12 mb-3 mb-lg-0">
+                    <div class="row">
+                        @for (profile of userProfiles |
+                        paginate:{itemsPerPage:itemsPerPage,currentPage:page,totalItems}; track profile) {
+                        <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',profile.visitedId]">
+                            <app-profile-card [profile]="profile" />
+                        </div>
+                        }
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="ms-4"> Select Items per Page :
+                            <select class="custom-select" [(ngModel)]="itemsPerPage" (change)="onChangeItems()">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div *ngFor="let item of pagedItems">
+                            {{ item.name }}
+                        </div>
+                        <div class="pagination me-4">
+                            <pagination-controls [responsive]="true" [autoHide]="true"
+                                (pageChange)="onPageChange(page = $event)"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noProfiles>
+                <ng-container *ngIf="!isSubscriptionError && userProfiles.length == 0; else subscriptionOnly">
+                    <div class="col-12 col-md-12 mx-auto mb-4">
+                        <div class="mb-4">
+                            <i-feather name="users" class="big-heart"></i-feather>
+                        </div>
+                        <p class="text-start">
+                            When you visit other members profile you can find out here.
+                            <a href="#" class="link-text"> Visit profiles now.</a>
+                            A complete profile will be of particular interest to other members.
+                        </p>
+                    </div>
+                </ng-container>
+            </ng-template>
+            <ng-template #subscriptionOnly>
+                <div class="col-12 col-md-12 mx-auto mb-4">
+                    <p class="text-gradient">This feature is for Premium Users only.</p>
+                    <a routerLink="/subscriptions" class="btn btn-gradient border-0 rounded-pill mt-3">
+                        Upgrade the Plan
+                    </a>
+                </div>
+            </ng-template>
         </div>
     </mat-card-content>
 </mat-card>

@@ -20,16 +20,21 @@ export class ProfileInfoComponent implements OnInit {
   selectedUserId = ''
   profileDetails: any;
   isProfileLiked: boolean = false;
+  isPremium: boolean = true;
 
   ngOnInit(): void {
+    let userData: any = localStorage.getItem('user')
+    const user = JSON.parse(userData)
+    if (user.user.subscriptionPlan === "free" || user.user.subscription.status === "inactive") {
+      this.isPremium = false
+    }
     this._activatedRouter.params.subscribe((params: any) => {
-      this.selectedUserId = params.id
+      this.selectedUserId = params.id;
       this.getProfileDetails();
       this.handleVisit();
       this.checkIsLiked();
     })
   }
-
   getProfileDetails(): void {
     this._profileService.getProfileById(this.selectedUserId).subscribe({
       next: (response: any) => {
@@ -43,7 +48,7 @@ export class ProfileInfoComponent implements OnInit {
 
   checkIsLiked() {
     this._profileService.checkLike(this.user._id, this.selectedUserId).subscribe((response: any) => {
-      if(response.success){
+      if (response.success) {
         this.isProfileLiked = response.like.isLike;
       }
     }, (error) => {
@@ -81,7 +86,7 @@ export class ProfileInfoComponent implements OnInit {
       userId: this.user._id,
       likedProfileId: this.selectedUserId
     };
-  
+
     this._profileService.likeProfile(payload).subscribe({
       next: (response) => {
         if (response) {
@@ -97,7 +102,7 @@ export class ProfileInfoComponent implements OnInit {
 
   handleVisit() {
     let visitorsId = this.user._id;
-    let visitedId = this.selectedUserId;    
+    let visitedId = this.selectedUserId;
     try {
       this._discoverService.postVisit(visitorsId, visitedId).subscribe((response: any) => {
       })

@@ -3,7 +3,8 @@
         alt="">
     <div class="top-overlay-content">
         <div class="d-flex justify-content-between align-items-center">
-            <mat-icon class="me-1" [color]="profile.isLiked || profile?.isFavorited ? 'warn' : 'default'">favorite</mat-icon>
+            <mat-icon class="me-1"
+                [color]="profile.isLiked || profile?.isFavorited ? 'warn' : 'default'">favorite</mat-icon>
             <span>{{profile?.likes || 0}}</span>
         </div>
         <i-feather [name]="isBookmarked ? 'bookmark' : 'bookmark'" class="new-likes me-2"
@@ -15,6 +16,8 @@
             <h4 class="mb-0 fw-light">{{profile?.age}}</h4>
         </div>
         <h6 class="fw-normal mb-3">{{profile?.designation || ''}}</h6>
+        @if(isPremium){
         <span class="">Profile Match : {{profile.profileMatch}} %</span>
+        }
     </div>
 </div>

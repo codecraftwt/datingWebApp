@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit {
       name: 'Messages'
     }
   ]
-
+  userName: string = '';
+  userEmail: string = '';
   currentUser: any = localStorage.getItem('user')
   user = JSON.parse(this.currentUser).user
   isLogin: boolean = false;
@@ -39,11 +40,13 @@ export class HeaderComponent implements OnInit {
   constructor(private _authService: AuthService, private _profileService: ProfileService) { }
 
   ngOnInit(): void {
+    this.userName = this.user?.firstName + ' ' + this.user?.lastName;
+    this.userEmail = this.user?.email;
     let isLogged: any = localStorage.getItem('isLogin')
     this.isLogin = JSON.parse(isLogged)
 
     this._profileService.$profile.subscribe((res: any) => {
-      if(res){
+      if (res) {
         this.user.profilePhoto = res;
       }
     })

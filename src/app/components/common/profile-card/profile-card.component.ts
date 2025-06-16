@@ -10,6 +10,8 @@ import { SnackbarService } from '../../../services/snackbar.service';
 export class ProfileCardComponent implements OnInit {
   @Input({ required: true }) profile: any;
   isBookmarked: boolean = false;
+  isPremium: boolean = true;
+
   private readonly _snackbar = inject(SnackbarService);
 
   constructor(
@@ -17,6 +19,11 @@ export class ProfileCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let userData: any = localStorage.getItem('user')
+    const user = JSON.parse(userData)
+    if (user.user.subscriptionPlan === "free" || user.user.subscription.status === "inactive") {
+      this.isPremium = false
+    }
     this.isBookmarked = this.profile.isFavorited;
   }
 
@@ -37,7 +44,7 @@ export class ProfileCardComponent implements OnInit {
           }
         })
       }
-    } catch (error){
+    } catch (error) {
       console.error(error)
     }
   }

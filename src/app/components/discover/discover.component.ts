@@ -4,13 +4,11 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
   styleUrl: './discover.component.scss',
-  encapsulation: ViewEncapsulation.None,
 })
 export class DiscoverComponent implements OnInit, AfterViewInit {
 
@@ -199,7 +197,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onRefresh(){
+  onRefresh() {
     window.location.reload();
   }
 

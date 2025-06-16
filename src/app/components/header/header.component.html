@@ -24,6 +24,13 @@
 
             <mat-menu #menu="matMenu">
                 <ul class="custom-menu">
+                    <li mat-menu-item>
+                        <div>
+                            <img class="avatar" [src]="user.profilePhoto || 'avtar.avif'" alt="Profile">
+                            <span class="ms-2">{{userName}}</span>
+                        </div>
+                    </li>
+                    <hr class="my-1">
                     <li mat-menu-item [routerLink]="['/profile-details']">
                         View Profile
                     </li>

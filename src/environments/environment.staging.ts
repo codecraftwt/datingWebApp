@@ -1,6 +1,6 @@
 export const environment = {
-  apiUrl: 'http://localhost:5000/',
-  development: true,
+  apiUrl: 'https://backend-dating.onrender.com/',
+  stagging: true,
   stripePublicKey: "pk_test_51P0emDSIGHCYyfmyO11rmy1ydw7yVCfk2o9ffLgVCLQw1ufJ9UF08jgL6PTe5Y0BWadbmoWG31JAPBqWvesWKgYg00wLYUEoAS",
   stripeSecreteKey: "sk_test_51P0emDSIGHCYyfmyZBJ3xLu7qiDPsYAfCHujhZ2pP5XhZmmxv3mO5tPWvXJxUf24mKLMpgstNpRnaUcvpFy5SmwE00c6g7IGW7",
   firebaseConfig: {
@@ -11,5 +11,4 @@ export const environment = {
     messagingSenderId: "637328265007",
     appId: "1:637328265007:web:d530e31a32b0ed00011bda"
   }
-
 };
