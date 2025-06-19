@@ -175,7 +175,6 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   }
 
   onApplyFilter(formData: any) {
-    debugger
     try {
       this.filterParams = {
         minAge: Number(formData.minAge) || 0,

@@ -127,3 +127,18 @@
         </div>
     </div>
 </section>
+@if(isSubscriptionError){
+<ng-template #subscriptionModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Subscription</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        You’ve reached the daily message limit on your Free plan.
+        <div class="d-flex flex-column align-items-center">
+            <button class="btn-gradient rounded border-0 my-4" (click)="modal.dismiss('Cross click')"
+                [routerLink]="['/subscriptions']">Upgrade</button>
+        </div>
+    </div>
+</ng-template>
+}

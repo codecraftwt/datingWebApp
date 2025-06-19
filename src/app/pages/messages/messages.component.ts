@@ -1,6 +1,8 @@
-import { AfterViewChecked, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 import { Socket } from 'socket.io-client';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-messages',
@@ -8,7 +10,9 @@ import { Socket } from 'socket.io-client';
   styleUrl: './messages.component.scss'
 })
 export class MessagesComponent implements OnInit, AfterViewChecked {
+  @ViewChild('subscriptionModal') subscriptionModalRef!: TemplateRef<any>;
   _socketService = inject(SocketService)
+  private _modalService = inject(NgbModal);
   messages: any[] = [];
   rooms: any[] = [];
   message: string = '';
@@ -19,6 +23,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   currentRoom: any
   currentReceiver: any
   selectedRoom: any = null;
+  isSubscriptionError: boolean = false;
 
   @ViewChild('messagesContainer', { static: false }) messagesContainer!: ElementRef;
 
@@ -124,12 +129,21 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           this.rooms[roomIndex].chat[0] = payload;
         }
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
+        if (error && error.message == "Free plan daily limit of 5 reached.") {
+          this.isSubscriptionError = true;
+          this.openSunscriptionModal();
+          return;
+        }
         console.error(error);
       }
     });
   }
 
+  openSunscriptionModal() {
+    this._modalService.open(this.subscriptionModalRef, { centered: true, size: 'md' });
+  }
+  
   createRoom(): void {
     const payload = {
       createdBy: this.user._id,
