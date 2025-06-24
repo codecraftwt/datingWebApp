@@ -9,29 +9,11 @@
             @if (userProfiles && userProfiles.length > 0) {
             <div class="col-sm-12 mb-3 mb-lg-0">
                 <div class="row">
-                    @for (profile of userProfiles | paginate:{itemsPerPage:itemsPerPage,currentPage:page,totalItems};
-                    track profile) {
+                    @for (profile of userProfiles;track profile) {
                     <div class="col-lg-4 col-12 col-md-6 mb-4" [routerLink]="['/profile',profile._id]">
                         <app-profile-card [profile]="profile" />
                     </div>
                     }
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="ms-4"> Select Items per Page :
-                        <select class="custom-select" [(ngModel)]="itemsPerPage" (change)="onChangeItems()">
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                    <div *ngFor="let item of pagedItems">
-                        {{ item.name }}
-                    </div>
-                    <div class="pagination me-4">
-                        <pagination-controls [responsive]="true" [autoHide]="true" (pageChange)="onPageChange(page = $event)"></pagination-controls>
-                    </div>
                 </div>
             </div>
             } @else{

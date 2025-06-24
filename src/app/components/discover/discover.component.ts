@@ -111,7 +111,8 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getUserwithProfileMatch();
+    // this.getUserwithProfileMatch();
+    setTimeout(() => this.getUserwithProfileMatch(), 0);
     this._initializeForm();
   }
 
@@ -148,7 +149,6 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
           this.totalItems = response?.pagination?.count;
           let educationOptions: string[] = response?.data.map((item: any) => item.education);
           this.educationOptions = [...new Set(educationOptions)];
-          this._cdr.detectChanges();
         }
       })
     } catch (error) {
