@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { HttpService } from './http.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,7 @@ export class SocketService {
   currentUser = JSON.parse(this.user).user;
 
   constructor() {
-    this.socket = io('http://localhost:5000');
-    // this.socket = io('https://backend-dating.onrender.com');
+    this.socket = io(`${environment.apiUrl}`);
     this.socketInitialization()
   }
 

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject, OnInit, signal, ViewChild } from '@an
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { injectStripe, StripePaymentElementComponent } from 'ngx-stripe';
 import { StripePaymentElementOptions } from '@stripe/stripe-js';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { StripeService } from '../../services/stripe.service';
 import { SubscriptionService } from '../../services/subscription.service';
 

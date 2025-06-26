@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../environments/environment.staging';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  title = 'DatingWebApp';
-  ngOnInit(): void {
-    console.log('Running environment:', environment.apiUrl);
-  }
+  title = 'Dating Web App';
 }

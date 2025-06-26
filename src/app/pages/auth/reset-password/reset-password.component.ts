@@ -79,7 +79,6 @@ export class ResetPasswordComponent implements OnInit {
           newPassword: data.password,
           confirmPassword: data.confirmPassword
         };
-        console.log(payload,"payload");
         
         this.authService.resetPassword(payload).subscribe((res) => {
           if (res.success === true) {
