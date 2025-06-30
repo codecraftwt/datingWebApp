@@ -73,9 +73,22 @@
                                             <p>{{ msg?.message }}</p>
                                             <small class="mb-0">{{msg.timestamp | daysAgo}}</small>
                                         </div>
-                                        <button mat-icon-button class="mx-2">
+                                        @if(user._id === msg.senderId) {
+                                        <button type="button" mat-icon-button class="mx-2"
+                                            [matMenuTriggerFor]="messageMenu">
                                             <mat-icon>more_vert</mat-icon>
                                         </button>
+                                        <mat-menu #messageMenu="matMenu">
+                                            <button type="button" mat-menu-item (click)="editMessage(msg)">
+                                                <mat-icon>edit</mat-icon>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button type="button" mat-menu-item (click)="deleteMessage(msg)">
+                                                <mat-icon>delete</mat-icon>
+                                                <span>Delete</span>
+                                            </button>
+                                        </mat-menu>
+                                        }
                                     </div>
                                     }
                                 </div>
@@ -98,15 +111,29 @@
                     <mat-card-footer>
                         @if(messages.length>=0) {
                         <div class="row justify-content-end">
-                            <div class="col-12 col-md-7 px-3">
+                            <div class="col-12 col-md-7 px-3 p-relative">
                                 <mat-form-field appearance="outline" class="example-full-width w-100"
                                     style="border-color: #005cbb !important;">
+                                    <button mat-icon-button matPrefix class="ms-2" (click)="toggleEmojiPicker()">
+                                        <mat-icon>sentiment_very_satisfied</mat-icon>
+                                    </button>
                                     <input matInput maxlength="256" [(ngModel)]="message" placeholder="Message"
                                         (keyup.enter)="sendNewMessage()">
-                                    <button class="me-2" mat-icon-button matSuffix (click)="sendNewMessage()">
+                                    <input type="file" #fileInput hidden (change)="onFileSelected($event)" multiple />
+                                    <button class="me-2" mat-icon-button matSuffix (click)="fileInput.click()">
+                                        <mat-icon>attachment</mat-icon>
+                                    </button>
+                                    <button [disabled]="message.length === 0" class="me-2" mat-icon-button matSuffix
+                                        (click)="sendNewMessage()">
                                         <mat-icon>send</mat-icon>
                                     </button>
                                 </mat-form-field>
+                                @if(showEmojiPicker){
+                                <div class="emoji-container" #emojiPicker>
+                                    <emoji-mart class="emoji-mart w-100" (emojiSelect)="addEmoji($event)"
+                                        set="apple"></emoji-mart>
+                                </div>
+                                }
                             </div>
                         </div>
                         }

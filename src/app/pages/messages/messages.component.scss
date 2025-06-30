@@ -164,6 +164,21 @@
         color: $white;
         margin-bottom: 10px;
     }
+    .emoji-btn{
+        border: none;
+    }
+    .p-relative{
+        position: relative;
+    }
+    .emoji-container{
+    width: 97%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: absolute;
+    top: -290px;
+    background: white;
+    padding: 5px;
+    }
 }
 
 :host::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece {
@@ -180,4 +195,38 @@
 }
 :host::ng-deep.mdc-notched-outline__trailing {
     border: none !important;
+}
+
+:host::ng-deep .mat-form-field-infix {
+  display: flex !important;
+  align-items: center;
+}
+
+:host::ng-deep .emoji-mart-bar{
+    display: none ;
+}
+:host::ng-deep emoji-mart-anchors{
+   width: 100%;
+}
+:host::ng-deep .emoji-mart-search{
+   label{
+    display: none;
+   }
+   button{
+    display: none;
+   }
+}
+:host::ng-deep .emoji-mart-anchors{
+    display: flex;
+    justify-content: space-evenly;
+}
+:host::ng-deep emoji-search{
+    margin: 0 10px;
+}
+:host::ng-deep .emoji-mart-scroll{
+    height: 200px;
+    overflow-x: scroll;
+}
+:host ::ng-deep .emoji-mart{
+    width: unset !important;
 }
