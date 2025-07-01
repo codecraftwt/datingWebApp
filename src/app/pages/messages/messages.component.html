@@ -70,9 +70,29 @@
                                     <div class="inner-message-container d-flex"
                                         [ngClass]="user._id === msg.senderId?'justify-content-end right-message':'justify-content-start left-message'">
                                         <div class="message-container">
+                                            <!-- message -->
                                             <p>{{ msg?.message }}</p>
+                                            <!-- file or image -->
+                                            <ng-container>
+                                                @if(msg.file){
+                                                <!-- Image Preview -->
+                                                <img *ngIf="msg.file.type.startsWith('image')" [src]="msg.file.url"
+                                                    alt="Image"
+                                                    style="max-width: 200px; border-radius: 8px; margin-top: 6px;" />
+
+                                                <!-- PDF/DOCX or other file -->
+                                                <div *ngIf="!msg.file.type.startsWith('image')" class="mt-2">
+                                                    <a [href]="msg.file.url" target="_blank"
+                                                        class="text-primary text-decoration-underline">
+                                                        📎 {{ msg.file.name }}
+                                                    </a>
+                                                </div>
+                                                }
+                                            </ng-container>
+                                            <!-- time stamp -->
                                             <small class="mb-0">{{msg.timestamp | daysAgo}}</small>
                                         </div>
+                                        <!-- three dots and menu -->
                                         @if(user._id === msg.senderId) {
                                         <button type="button" mat-icon-button class="mx-2"
                                             [matMenuTriggerFor]="messageMenu">
@@ -119,12 +139,15 @@
                                     </button>
                                     <input matInput maxlength="256" [(ngModel)]="message" placeholder="Message"
                                         (keyup.enter)="sendNewMessage()">
+                                    @if(selectedFileName){
+                                    <mat-hint>📎 {{ selectedFileName }}</mat-hint>
+                                    }
                                     <input type="file" #fileInput hidden (change)="onFileSelected($event)" multiple />
                                     <button class="me-2" mat-icon-button matSuffix (click)="fileInput.click()">
                                         <mat-icon>attachment</mat-icon>
                                     </button>
-                                    <button [disabled]="message.length === 0" class="me-2" mat-icon-button matSuffix
-                                        (click)="sendNewMessage()">
+                                    <button [disabled]="!message && selectedFiles.length === 0" class="me-2"
+                                        mat-icon-button matSuffix (click)="sendNewMessage()">
                                         <mat-icon>send</mat-icon>
                                     </button>
                                 </mat-form-field>

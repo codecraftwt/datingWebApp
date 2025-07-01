@@ -32,6 +32,7 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   public maxHeightOptions: number[] = [];
   public religionOptions = ['Hindu', 'Christian', 'Islam', 'Buddhist', 'Jewish', 'Other'];
   public educationOptions: string[] = [];
+  public isLoading: boolean = false;
   public filterParams = {
     minAge: 0,
     maxAge: 0,
@@ -143,15 +144,18 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
 
   getUserwithProfileMatch() {
     try {
+      this.isLoading = true;
       this._discoverService.getAllUsersWithProfileMatching(this.page, this.itemsPerPage, this.filterParams.minAge, this.filterParams.maxAge, this.filterParams.minHeight, this.filterParams.maxHeight, this.filterParams.childrens, this.filterParams.wishForChildren, this.filterParams.smoking, this.filterParams.religion, this.filterParams.education).subscribe((response: any) => {
         if (response.success) {
           this.userProfileswithProfileMatching = response?.data;
           this.totalItems = response?.pagination?.count;
           let educationOptions: string[] = response?.data.map((item: any) => item.education);
           this.educationOptions = [...new Set(educationOptions)];
+          this.isLoading = false;
         }
       })
     } catch (error) {
+      this.isLoading = false;
       console.error(error)
     }
   }

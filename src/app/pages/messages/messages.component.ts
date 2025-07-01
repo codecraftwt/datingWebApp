@@ -26,6 +26,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   selectedRoom: any = null;
   isSubscriptionError: boolean = false;
   selectedFiles: File[] = [];
+  selectedFileName: string = '';
   @ViewChild('messagesContainer', { static: false }) messagesContainer!: ElementRef;
   @ViewChild('emojiPicker') emojiPickerRef!: ElementRef;
 
@@ -73,17 +74,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFiles = Array.from(input.files);
-      console.log('Files selected:', this.selectedFiles);
-
-      // Example: Upload or attach files to your message
-      this.uploadFiles(this.selectedFiles);
+      this.selectedFileName = this.selectedFiles[0].name;
     }
-  }
-
-  uploadFiles(files: File[]) {
-    const formData = new FormData();
-    files.forEach(file => formData.append('files', file));
-    console.log('Uploading files...', formData);
   }
 
   scrollToBottom(): void {
@@ -92,8 +84,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
         const container: any = this.messagesContainer?.nativeElement;
         if (container) {
           container.scrollTop = container.scrollHeight;
-        } else {
-          console.warn('Messages container not found.');
         }
       }, 0);
     } catch (err) {
@@ -161,11 +151,12 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   }
 
-  sendNewMessage(roomId?: string): void {
+  sendNewMessageOld(roomId?: string): void {
     const payload = {
       senderId: this.user._id,
       receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
-      message: this.message
+      message: this.message,
+      file: this.selectedFiles
     }
     this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
       next: (response) => {
@@ -178,6 +169,52 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       },
       error: (error: HttpErrorResponse) => {
         if (error && error.message == "Free plan daily limit of 5 reached.") {
+          this.isSubscriptionError = true;
+          this.showEmojiPicker = false;
+          this.openSunscriptionModal();
+          return;
+        }
+        console.error(error);
+      }
+    });
+  }
+
+  sendNewMessage(roomId?: string): void {
+    const formData = new FormData();
+
+    formData.append('senderId', this.user._id);
+    formData.append('receiverId', this.user._id === this.currentRoom.createdWith._id
+      ? this.currentRoom.createdBy._id
+      : this.currentRoom.createdWith._id
+    );
+
+    formData.append('message', this.message || '');
+
+    if (this.selectedFiles && this.selectedFiles.length > 0) {
+      formData.append('file', this.selectedFiles[0]);
+    }
+
+    const payload = {
+      senderId: this.user._id,
+      receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
+      message: this.message,
+      file: this.selectedFiles[0]
+    }
+    console.log(payload, 'payload');
+    console.log(formData, 'formData');
+
+    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
+      next: (response) => {
+        this.message = '';
+        this.selectedFiles = [];
+        this.showEmojiPicker = false;
+        const roomIndex = this.rooms.findIndex(r => r._id === this.currentRoom._id);
+        if (roomIndex > -1) {
+          this.rooms[roomIndex].chat.push(response.newMessage);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error && error.message === "Free plan daily limit of 5 reached.") {
           this.isSubscriptionError = true;
           this.showEmojiPicker = false;
           this.openSunscriptionModal();

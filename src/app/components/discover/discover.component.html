@@ -45,6 +45,12 @@
                                                     (pageChange)="onPageChange(page = $event)"></pagination-controls>
                                             </div>
                                         </div>
+                                        } @else if(isLoading) {
+                                        <div class="col-12 col-md-12 mx-auto mb-4">
+                                            <div class="mb-4">
+                                                <h5>Loading...</h5>
+                                            </div>
+                                        </div>
                                         } @else {
                                         <div class="col-12 col-md-12 mx-auto mb-4">
                                             <div class="mb-4">

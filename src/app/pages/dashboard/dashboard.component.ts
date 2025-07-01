@@ -4,6 +4,8 @@ import { DiscoverService } from '../../services/discover.service';
 import { Router } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 import { subscriptionEnum } from '../../enums/subscription.enum';
+import { forkJoin } from 'rxjs';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,6 +54,7 @@ export class DashboardComponent implements OnInit {
 
   private _discoverService = inject(DiscoverService);
   private _dashboardService = inject(DashboardService);
+  private _profileService = inject(ProfileService);
   private _router = inject(Router);
   public newUserProfiles: any[] = [];
   public likeUserProfiles: any[] = [];
@@ -92,22 +95,30 @@ export class DashboardComponent implements OnInit {
   }
 
   getRecentVisitors() {
-    try {
-      this._discoverService.getRecentVisitors(1, 10).subscribe({
-        next: (response: any) => {
-          if (response.success) {
-            const transformedData = response?.data?.map((visit: any) => visit.visitor);
-            this.recentVistorUserProfiles = transformedData;
-          }
-        },
-        error: (error) => {
-          console.error('Error:', error); // Log the entire error to see its structure
-          this.isSubscriptionError = error?.error?.isSubscriptionError || false;
-        } 
-      });
-    } catch (error) {
-      console.error('Error fetching recent visitors:', error);
-    }
+    this._discoverService.getRecentVisitors(1, 10).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          const visitorIds = response?.data?.map((visit: any) => visit.visitorId);
+          const profileRequests = visitorIds.map((id: any) => this._profileService.getProfileById(id));
+
+          forkJoin(profileRequests).subscribe({
+            next: (profileResponses: any[]) => {
+              let transformedData = profileResponses
+                .filter(res => res.success)
+                .map(res => res.user);
+              this.recentVistorUserProfiles = transformedData;
+            },
+            error: (err: any) => {
+              console.error('Error fetching user profiles:', err);
+            }
+          } as any);
+        }
+      },
+      error: (err) => {
+        this.isSubscriptionError = true;
+        console.error('Error fetching visitors:', err);
+      }
+    });
   }
 
   getUsers() {

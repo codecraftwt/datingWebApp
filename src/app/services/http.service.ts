@@ -13,6 +13,7 @@ export class HttpService {
   private getHeaders(): HttpHeaders {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
+      // 'Content-Type': 'multipart/form-data'
     });
     return headers;
   }
