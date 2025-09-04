@@ -3,6 +3,7 @@ import { SocketService } from '../../services/socket.service';
 import { Socket } from 'socket.io-client';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-messages',
@@ -12,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class MessagesComponent implements OnInit, AfterViewChecked {
   @ViewChild('subscriptionModal') subscriptionModalRef!: TemplateRef<any>;
   _socketService = inject(SocketService)
+  _fileUploadService = inject(FileUploadService)
   private _modalService = inject(NgbModal);
   messages: any[] = [];
   showEmojiPicker: boolean = false;
@@ -74,7 +76,9 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFiles = Array.from(input.files);
-      this.selectedFileName = this.selectedFiles[0].name;
+      let fileCount = this.selectedFiles.length;
+      this.selectedFileName = fileCount > 1 ? `${this.selectedFiles[0].name} + ${fileCount - 1} more files` : this.selectedFiles[0].name;
+      console.log(this.selectedFiles, 'selectedFiles');
     }
   }
 
@@ -151,14 +155,15 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   }
 
-  sendNewMessageOld(roomId?: string): void {
+  sendNewMessage(roomId?: string): void {
     const payload = {
       senderId: this.user._id,
-      receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
-      message: this.message,
-      file: this.selectedFiles
-    }
-    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
+      receiverId: this.user._id === this.currentRoom.createdWith._id
+        ? this.currentRoom.createdBy._id
+        : this.currentRoom.createdWith._id,
+      message: this.message
+    };
+    this._socketService.sendNewMessage(this.currentRoom._id, payload, this.selectedFiles).subscribe({
       next: (response) => {
         this.message = '';
         this.showEmojiPicker = false;
@@ -179,51 +184,44 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  sendNewMessage(roomId?: string): void {
-    const formData = new FormData();
+  // sendNewMessageNew(roomId?: string): void {
+  //   const formData = new FormData();
 
-    formData.append('senderId', this.user._id);
-    formData.append('receiverId', this.user._id === this.currentRoom.createdWith._id
-      ? this.currentRoom.createdBy._id
-      : this.currentRoom.createdWith._id
-    );
+  //   formData.append('senderId', this.user._id);
+  //   formData.append('receiverId',
+  //     this.user._id === this.currentRoom.createdWith._id
+  //       ? this.currentRoom.createdBy._id
+  //       : this.currentRoom.createdWith._id
+  //   );
+  //   formData.append('message', this.message || '');
+  //   if (this.selectedFiles.length > 0) {
+  //     for (const file of this.selectedFiles) {
+  //       formData.append('files', file);
+  //     }
+  //   }
 
-    formData.append('message', this.message || '');
-
-    if (this.selectedFiles && this.selectedFiles.length > 0) {
-      formData.append('file', this.selectedFiles[0]);
-    }
-
-    const payload = {
-      senderId: this.user._id,
-      receiverId: this.user._id === this.currentRoom.createdWith._id ? this.currentRoom.createdBy._id : this.currentRoom.createdWith._id,
-      message: this.message,
-      file: this.selectedFiles[0]
-    }
-    console.log(payload, 'payload');
-    console.log(formData, 'formData');
-
-    this._socketService.sendNewMessage(this.currentRoom._id, payload).subscribe({
-      next: (response) => {
-        this.message = '';
-        this.selectedFiles = [];
-        this.showEmojiPicker = false;
-        const roomIndex = this.rooms.findIndex(r => r._id === this.currentRoom._id);
-        if (roomIndex > -1) {
-          this.rooms[roomIndex].chat.push(response.newMessage);
-        }
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error && error.message === "Free plan daily limit of 5 reached.") {
-          this.isSubscriptionError = true;
-          this.showEmojiPicker = false;
-          this.openSunscriptionModal();
-          return;
-        }
-        console.error(error);
-      }
-    });
-  }
+  //   console.log(formData, 'formData');
+  //   this._socketService.sendNewMessage(this.currentRoom._id, formData).subscribe({
+  //     next: (response) => {
+  //       this.message = '';
+  //       this.selectedFiles = [];
+  //       this.showEmojiPicker = false;
+  //       const roomIndex = this.rooms.findIndex(r => r._id === this.currentRoom._id);
+  //       if (roomIndex > -1) {
+  //         this.rooms[roomIndex].chat.push(response.newMessage);
+  //       }
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       if (error && error.message === "Free plan daily limit of 5 reached.") {
+  //         this.isSubscriptionError = true;
+  //         this.showEmojiPicker = false;
+  //         this.openSunscriptionModal();
+  //         return;
+  //       }
+  //       console.error(error);
+  //     }
+  //   });
+  // }
 
   editMessage(msg: any) {
     console.log(msg, 'edit msg');

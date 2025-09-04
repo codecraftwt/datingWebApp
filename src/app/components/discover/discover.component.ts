@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DiscoverService } from '../../services/discover.service';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +17,6 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   private _modalService = inject(NgbModal);
   private _fb = inject(FormBuilder);
   private _route = inject(ActivatedRoute);
-  private _cdr = inject(ChangeDetectorRef);
   public userProfiles: any[] = [];
   public userProfileswithProfileMatching: any[] = [];
   public userProfilesBySearchingFor: any[] = [];
@@ -33,6 +32,8 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   public religionOptions = ['Hindu', 'Christian', 'Islam', 'Buddhist', 'Jewish', 'Other'];
   public educationOptions: string[] = [];
   public isLoading: boolean = false;
+  public hasMore: boolean = true;
+  public isLoadingMore: boolean = false;
   public filterParams = {
     minAge: 0,
     maxAge: 0,
@@ -103,16 +104,11 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
   trips = ["Active Trips", "Adventure Trips", "All-Inclusive Trips", "Art & Culture Holidays", "Backpacking", "Beach Trips"]
 
   constructor() {
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
-
     this.minHeightOptions = this.generateHeightOptions(5.0, 6.2);
     this.maxHeightOptions = [...this.minHeightOptions];
   }
 
   ngOnInit(): void {
-    // this.getUserwithProfileMatch();
     setTimeout(() => this.getUserwithProfileMatch(), 0);
     this._initializeForm();
   }
@@ -126,36 +122,49 @@ export class DiscoverComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onChangeItems() {
-    this.itemsPerPage;
-    this.getUserwithProfileMatch();
-  }
-
-  onPageChange(page: number) {
-    this.page = page;
-    this.getUserwithProfileMatch();
-  }
-
-  get pagedItems(): any[] {
-    const startIndex = (this.page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.collection.slice(startIndex, endIndex);
+  onScroll() {
+    if (this.hasMore && !this.isLoading && !this.isLoadingMore) {
+      this.getUserwithProfileMatch();
+    }
   }
 
   getUserwithProfileMatch() {
     try {
+      if (!this.hasMore) return;
       this.isLoading = true;
-      this._discoverService.getAllUsersWithProfileMatching(this.page, this.itemsPerPage, this.filterParams.minAge, this.filterParams.maxAge, this.filterParams.minHeight, this.filterParams.maxHeight, this.filterParams.childrens, this.filterParams.wishForChildren, this.filterParams.smoking, this.filterParams.religion, this.filterParams.education).subscribe((response: any) => {
-        if (response.success) {
-          this.userProfileswithProfileMatching = response?.data;
-          this.totalItems = response?.pagination?.count;
-          let educationOptions: string[] = response?.data.map((item: any) => item.education);
-          this.educationOptions = [...new Set(educationOptions)];
-          this.isLoading = false;
-        }
-      })
+      this.isLoadingMore = true;
+      this._discoverService.getAllUsersWithProfileMatching(this.page, this.itemsPerPage, this.filterParams.minAge, this.filterParams.maxAge, this.filterParams.minHeight, this.filterParams.maxHeight, this.filterParams.childrens, this.filterParams.wishForChildren, this.filterParams.smoking, this.filterParams.religion, this.filterParams.education).
+        subscribe({
+          next: (response: any) => {
+            if (response.success) {
+              const newProfiles = response?.data || [];
+
+              // Append or replace based on page
+              if (this.page === 1) {
+                this.userProfileswithProfileMatching = newProfiles;
+              } else {
+                this.userProfileswithProfileMatching = [
+                  ...this.userProfileswithProfileMatching,
+                  ...newProfiles
+                ];
+              }
+
+              this.totalItems = response?.pagination?.count;
+              // Check if there are more profiles
+              if (response.data.length === 0) {
+                this.hasMore = false;
+              }
+              // Update page for next load
+              this.page++;
+            }
+            this.isLoading = false;
+            this.isLoadingMore = false;
+          },
+        })
     } catch (error) {
       this.isLoading = false;
+      this.hasMore = false;
+      this.isLoadingMore = false;
       console.error(error)
     }
   }

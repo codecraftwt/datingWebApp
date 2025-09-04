@@ -17,39 +17,32 @@
                                         @if(userProfileswithProfileMatching && userProfileswithProfileMatching.length >
                                         0){
                                         <div class="row">
-                                            @for (profile of userProfileswithProfileMatching |
-                                            paginate:{itemsPerPage:itemsPerPage,currentPage:page,totalItems}; track
-                                            profile) {
-                                            <div class="col-lg-4 col-12 col-md-6 mb-4"
-                                                [routerLink]="['/profile',profile._id]">
-                                                <app-profile-card [profile]="profile" />
-                                            </div>
-                                            }
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="ms-4"> Select Items per Page :
-                                                <select class="custom-select" [(ngModel)]="itemsPerPage"
-                                                    (change)="onChangeItems()">
-                                                    <option value="10">10</option>
-                                                    <option value="15">15</option>
-                                                    <option value="30">30</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                            </div>
-                                            <div *ngFor="let item of pagedItems">
-                                                {{ item.name }}
-                                            </div>
-                                            <div class="pagination me-4">
-                                                <pagination-controls [responsive]="true" [autoHide]="true"
-                                                    (pageChange)="onPageChange(page = $event)"></pagination-controls>
+                                            <div class="row infinite-scroll-container" infiniteScroll
+                                                [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                                                (scrolled)="onScroll()">
+                                                @for (profile of userProfileswithProfileMatching; track profile) {
+                                                <div class="col-lg-4 col-12 col-md-6 mb-4"
+                                                    [routerLink]="['/profile',profile._id]">
+                                                    <app-profile-card [profile]="profile" />
+                                                </div>
+                                                }
                                             </div>
                                         </div>
+                                        <!-- infinite loader -->
+                                        @if(isLoadingMore) {
+                                        <div class="d-flex justify-content-center align-items-center my-4">
+                                            <mat-spinner diameter="40"></mat-spinner>
+                                        </div>
+                                        }
+                                        <!-- Infinite end message -->
+                                        @if(!hasMore && !isLoadingMore) {
+                                        <div class="text-center my-4">
+                                            <p>No more profiles to load</p>
+                                        </div>
+                                        }
                                         } @else if(isLoading) {
-                                        <div class="col-12 col-md-12 mx-auto mb-4">
-                                            <div class="mb-4">
-                                                <h5>Loading...</h5>
-                                            </div>
+                                        <div class="d-flex justify-content-center align-items-centery mb-4">
+                                            <mat-spinner diameter="40"></mat-spinner>
                                         </div>
                                         } @else {
                                         <div class="col-12 col-md-12 mx-auto mb-4">
@@ -75,7 +68,8 @@
                                                         <mat-icon>cake</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">from {{filterParams.minAge || 18}}
+                                                        <span class="text-preference">from {{filterParams.minAge ||
+                                                            18}}
                                                             to {{filterParams.maxAge||32}} years old</span>
                                                     </div>
                                                 </div>
@@ -94,7 +88,7 @@
                                                         <mat-icon>smoke_free</mat-icon>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">{{filterParams.smoking || "Non smoker"}}</span>
+                                                        <span class="text-preference">{{filterParams.smoking}}</span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -112,7 +106,8 @@
                                                     </div>
                                                     <div class="col-10 text-start">
                                                         <span class="text-preference">Do you want children?
-                                                            <span>{{filterParams.wishForChildren || "No"}}</span></span>
+                                                            <span>{{filterParams.wishForChildren ||
+                                                                "No"}}</span></span>
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center mb-2">
@@ -125,7 +120,8 @@
                                                         </svg>
                                                     </div>
                                                     <div class="col-10 text-start">
-                                                        <span class="text-preference">Religion: {{filterParams.religion
+                                                        <span class="text-preference">Religion:
+                                                            {{filterParams.religion
                                                             || "Any"}}</span>
                                                     </div>
                                                 </div>

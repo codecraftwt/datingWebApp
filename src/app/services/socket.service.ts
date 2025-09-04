@@ -54,8 +54,16 @@ export class SocketService {
     return this._httpService.get<any>(`api/chat/room/${roomId}`)
   }
 
-  public sendNewMessage(roomId: string, data: any) {
-    return this._httpService.post<any>(`api/chat/${roomId}/messages`, data)
+  public sendNewMessage(roomId: string, data: any, files: File[]) {
+    const formData = new FormData();
+    formData.append('senderId', data.senderId);
+    formData.append('receiverId', data.receiverId);
+    formData.append('message', data.message || '');
+
+    files.forEach(file => {
+      formData.append('files', file, file.name);
+    });
+    return this._httpService.post<any>(`api/chat/${roomId}/messages`, formData)
   }
 
   public createRoom(data: any) {

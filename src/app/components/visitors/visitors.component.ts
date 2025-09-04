@@ -12,19 +12,14 @@ import { subscriptionEnum } from '../../enums/subscription.enum';
 export class VisitorsComponent implements OnInit {
   private _discoverService = inject(DiscoverService);
   private _profileService = inject(ProfileService);
+
   public userProfiles: any[] = [];
   public page = 1;
-  public totalItems = 0;
   public itemsPerPage = 10;
-  collection: any[] = [];
+  public totalItems = 0;
+  public totalPages = 0;
   public isSubscriptionError: boolean = false;
-  public subEnums = subscriptionEnum
-
-  constructor() {
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
-  }
+  public subEnums = subscriptionEnum;
 
   ngOnInit(): void {
     this.getProfiles();
@@ -35,20 +30,28 @@ export class VisitorsComponent implements OnInit {
       next: (response: any) => {
         if (response.success) {
           const visitorIds = response?.data?.map((visit: any) => visit.visitorId);
-          const profileRequests = visitorIds.map((id: any) => this._profileService.getProfileById(id));
 
-          forkJoin(profileRequests).subscribe({
-            next: (profileResponses: any[]) => {
-              this.userProfiles = profileResponses
-                .filter(res => res.success)
+          // Create an array of observables
+          const profileRequests = visitorIds.map((id: any) =>
+            this._profileService.getProfileById(id)
+          );
+
+          // Use forkJoin with proper typing
+          forkJoin(profileRequests).subscribe(
+            (responses) => {
+              const responsesArray = responses as any[];
+              this.userProfiles = responsesArray
+                .filter(res => res && res.success)
                 .map(res => res.user);
 
-              this.totalItems = response?.pagination?.count;
+              // Update pagination data
+              this.totalItems = response?.pagination?.count || 0;
+              this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
             },
-            error: (err: any) => {
+            (err: any) => {
               console.error('Error fetching user profiles:', err);
             }
-          } as any);
+          );
         }
       },
       error: (err) => {
@@ -59,18 +62,12 @@ export class VisitorsComponent implements OnInit {
   }
 
   onChangeItems() {
-    this.itemsPerPage;
+    this.page = 1;
     this.getProfiles();
   }
 
-  onPageChange(page: number) {
-    this.page = page;
+  onPageChange(newPage: number) {
+    this.page = newPage;
     this.getProfiles();
-  }
-
-  get pagedItems(): any[] {
-    const startIndex = (this.page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.collection.slice(startIndex, endIndex);
   }
 }

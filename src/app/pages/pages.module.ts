@@ -24,6 +24,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { ProfileDetailsPopupComponent } from './profile-details-popup/profile-details-popup.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     SharedModule,
     NgxFileDropModule,
     PickerModule,
+    InfiniteScrollModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
